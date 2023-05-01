@@ -1,0 +1,17 @@
+.input_animation-enter {
+  transform: translateX(100%);
+}
+  
+.input_animation-enter-active {
+  transform: translateX(0%);
+  transition: transform 700ms ease-in;
+}
+
+.input_animation-exit {
+  transform: translateX(0%);
+}
+  
+.input_animation-exit-active {
+  transform: translateX(100%);
+  transition: transform 700ms ease;
+}

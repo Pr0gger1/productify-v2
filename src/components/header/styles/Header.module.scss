@@ -1,0 +1,31 @@
+.header__app {
+    padding: 0.5rem 1.25rem 0.5rem 0.625rem;
+    background-color: var(--bgColorSecond);
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    outline: none;
+    border: 0;
+
+    .settings__buttons {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        outline: none;
+
+        img {
+            width: 1.5rem;
+            height: 1.5rem;
+
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+    }
+}

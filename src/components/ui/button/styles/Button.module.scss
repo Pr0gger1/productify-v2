@@ -1,0 +1,14 @@
+.button {
+    border-radius: 0.625rem;
+    padding: 0.625rem 1.875rem;
+    outline: none;
+
+    .white {
+        border: 1px solid #f5f5f5;
+        background-color: #fbfbfb;
+    }
+    .long {
+        border: none;
+        width: 100%;
+    }
+}

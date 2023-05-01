@@ -1,0 +1,21 @@
+.confirmation__button {
+  cursor: pointer;
+  padding: 0.75rem;
+  background-color: var(--bgColorInput);
+  border-radius: 0.25rem;
+
+  &.ok {
+    color: #67e339;
+  }
+
+  &.cancel {
+    color: #fd5649;
+  }
+
+  transition: background-color .5s ease-in;
+
+  &:hover {
+      background-color: var(--bgButtonColorHover);
+      transition: background-color .5s ease-out;
+    }
+}

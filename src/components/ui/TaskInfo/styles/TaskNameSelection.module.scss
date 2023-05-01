@@ -1,0 +1,42 @@
+.task_name__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .main_taskName__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+
+    div {
+      flex-grow: 1;
+    }
+  }
+
+  .add_subtask__btn {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    div {
+      flex-grow: 1;
+    }
+
+    button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        width: 100%;
+
+        color: var(--fontColor);
+        background-color: var(--bgColorFirst);
+
+        padding: 0.5rem;
+
+        border: none;
+        border-radius: 5px;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+.settings__container {
+    .settings__btn {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+
+        color: var(--fontColor);
+        border: 1px solid transparent;
+        border-radius: 5px;
+
+        width: 100%;
+        padding: 0.5rem;
+
+        background-color: var(--bgColorThird);
+
+        &:hover {
+            background-color: var(--bgButtonColorHover);
+        }
+
+        &.logout {
+            svg {
+                color: #FD5649;
+            }
+        }
+
+        &.delete_account {
+            &:hover {
+                transition: background-color .5s ease;
+                border: 1px solid #d57a7a;
+            }
+        }
+    }
+
+}
+

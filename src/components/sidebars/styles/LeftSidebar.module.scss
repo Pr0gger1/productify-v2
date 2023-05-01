@@ -1,0 +1,37 @@
+.sidebar__left {
+    transition: all .5s ease-in-out;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-shrink: 0;
+
+    padding: 1rem 1.25rem 1rem 0.5rem;
+    max-width: 30%;
+    min-width: 2.5rem;
+    overflow: hidden;
+
+    // отнимаем высоту хедера
+    max-height: calc(100% - 30px);
+
+    background-color: var(--bgColorThird);
+    white-space: nowrap;
+
+    &.closed {
+        max-width: 2.5rem;
+        transition: all .5s ease-in-out 0s;
+        padding: 1rem 0.5rem;
+
+
+        input::placeholder {
+            color: transparent;
+        }
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 42%;
+    }
+}

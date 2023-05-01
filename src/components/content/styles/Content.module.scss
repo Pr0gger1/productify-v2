@@ -1,0 +1,23 @@
+.content {
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    color: var(--fontColor);
+    background-color: var(--bgColorFirst);
+
+    direction: ltr;
+    padding: 1.5rem 2.5rem;
+
+    @media (min-width: 1180px) {
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0.25rem 1rem 1rem;
+    }
+
+    .task_list__container {
+        direction: ltr;
+        padding: 1.5rem 2.5rem;
+    }
+}

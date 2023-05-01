@@ -1,0 +1,30 @@
+.input_field__with_icon {
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+
+    background-color: var(--bgColorFirst);
+
+    .icon__input {
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    input {
+        background-color: var(--bgColorFirst);
+        color: var(--fontColor);
+        border: none;
+        outline: none;
+        padding: 0 0 0 0.5rem;
+    }
+    input:hover {
+        border: none;
+        outline: none;
+    }
+    input:focus {
+        border: none;
+        outline: none;
+    }
+}

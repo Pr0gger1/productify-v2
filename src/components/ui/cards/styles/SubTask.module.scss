@@ -1,0 +1,10 @@
+.subtask {
+    display: flex;
+    align-items: center;
+
+
+    // растягивание поля ввода
+    div {
+      flex-grow: 1;
+    }
+  }

@@ -1,0 +1,50 @@
+.user__card {
+  width: 100%;
+  min-height: 40px;
+  white-space: nowrap;
+
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 1rem;
+  transition: all 0.5s ease;
+
+  .loading {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  &__name {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  &__email {
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
+
+  &__avatar {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+@keyframes shrink {
+  0% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}

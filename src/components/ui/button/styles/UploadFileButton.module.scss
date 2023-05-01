@@ -1,0 +1,18 @@
+
+//#upload_file {
+//  display: none;
+//}
+
+.upload_file__btn {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #c44a2b;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: #a93313;
+  }
+}
