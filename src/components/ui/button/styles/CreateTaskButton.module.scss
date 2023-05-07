@@ -1,4 +1,4 @@
-@import '../../../../index';
+@import "../../../../index";
 
 .create_task__btn {
     background-size: 1.5rem 1.5rem !important;
@@ -40,7 +40,7 @@
 
         border-radius: 0.25rem;
         border: none;
-        padding: 0.9rem;
+        //padding: 0.9rem;
         background-color: var(--bgColorInput);
 
         input {
