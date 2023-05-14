@@ -1,4 +1,4 @@
-import React, {useState, KeyboardEvent, ChangeEvent, useEffect} from "react";
+import React, { useState, KeyboardEvent, ChangeEvent } from "react";
 import { addTaskAsync } from "../../../store/reducers/TaskSlice";
 
 import Button from "./Button";
@@ -26,10 +26,6 @@ const CreateTaskButton = () => {
 
     const selectedTaskGroup: ITaskGroup = useAppSelector(selectors.selectedTaskGroupSelector);
     const userData: User | null = useAppSelector(selectors.userDataSelector);
-
-    useEffect(() => {
-        console.log(taskName)
-    }, [taskName])
 
     const addTaskHandler = (): void => {
         if (userData && userData.uid) {

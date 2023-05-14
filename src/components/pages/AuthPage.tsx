@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {FC, useEffect, useState} from "react";
 import {loginWithGoogle} from "../../store/reducers/AuthSlice";
 
 import AuthForm from "../forms/AuthForm";
@@ -9,7 +9,9 @@ import {useAppDispatch} from "../../store/store";
 import google_icon from "../../assets/img/icons/google.svg";
 import logo  from"../../assets/img/logo/logo_vector_white.svg";
 
-const AuthPage = ({ register = false }) => {
+interface AuthPageProps {register?: boolean}
+
+const AuthPage: FC<AuthPageProps> = ({ register = false }): JSX.Element => {
     const [authData, setAuthData] = useState<IAuthUserData>({
         email: "", password: "", repeatPassword: "", username: ""
     });

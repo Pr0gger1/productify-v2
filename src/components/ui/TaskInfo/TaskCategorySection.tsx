@@ -1,4 +1,4 @@
-import React, {ReactNode} from "react";
+import React, {FC, ReactNode} from "react";
 import { updateTaskAsync } from "../../../store/reducers/TaskSlice";
 
 import {FormControl, InputLabel, MenuItem, SelectChangeEvent} from "@mui/material";
@@ -10,7 +10,7 @@ import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {ITask, ITaskGroup, ITaskGroups} from "../../../interfaces/TaskData";
 
 
-const TaskCategorySection = () => {
+const TaskCategorySection: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const selectedTask: ITask | null = useAppSelector(selectors.selectedTaskSelector);
     const taskGroups: ITaskGroups = useAppSelector(

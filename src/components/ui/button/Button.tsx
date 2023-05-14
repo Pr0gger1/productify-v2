@@ -11,7 +11,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
 const Button: FC<ButtonProps> = ({
      children, variant = "white",
      customClass = "", cs = {}, ...props
-}) => {
+}): JSX.Element => {
     return (
         <button
             className={[styles.button, styles[variant], customClass].join(" ")}

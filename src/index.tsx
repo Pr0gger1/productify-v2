@@ -6,9 +6,9 @@ import App from "./App";
 
 import store from "./store/store";
 import { Provider } from "react-redux";
-import { themes } from "./store/reducers/ThemeSlice";
 
 import "./index.scss";
+import {ThemeType} from "./interfaces/slices/SliceStates";
 
 
 const root = ReactDOM.createRoot(
@@ -16,8 +16,8 @@ const root = ReactDOM.createRoot(
 );
 document.title = "Productify ToDo App";
 
-const currentTheme = localStorage.getItem("theme");
-if (!currentTheme) localStorage.setItem("theme", themes.light);
+const currentTheme: ThemeType = localStorage.getItem("theme") as ThemeType;
+if (!currentTheme) localStorage.setItem("theme", "light");
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -26,9 +26,9 @@ if ("serviceWorker" in navigator) {
         console.log("sw.js loaded");
       })
       navigator.serviceWorker.register("/firebase-messaging-sw.js")
-      .then(function(registration) {
+      .then((registration: ServiceWorkerRegistration) => {
         console.log("Registration successful, scope is:", registration.scope);
-      }).catch(function(err) {
+      }).catch((err) => {
         console.log("Service worker registration failed, error:", err);
       });
     } catch (error) {

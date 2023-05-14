@@ -30,22 +30,25 @@ const EditAvatarDialog: FC<EditAvatarDialogProps> = ({ dialogOpen, setDialogOpen
         setUploadButtonText("Загрузить");
     }
 
-    const onChangeAvatarSubmit = (): void => {
+    const onChangeAvatarSubmit = async (): Promise<void> => {
         if (newAvatar) {
             const userParams: UpdateUserProfileParams = {avatar: newAvatar};
+            await StorageService.uploadAvatar(newAvatar)
             dispatch(updateUserProfile(userParams));
             setDialogOpen(false);
         }
     }
 
-    const onChangeFile = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
-        if (event.target.files) {
-            const file: File = event.target.files[0];
-            console.log(URL.createObjectURL(file))
+    const onChangeFile = (event: ChangeEvent<HTMLInputElement>): void => {
+        if (event.currentTarget.files) {
+            const file: File = event.currentTarget.files[0];
             setNewAvatar(file);
-            setUploadButtonText(file.name);
 
-            await StorageService.uploadAvatar(file)
+            let filename: string = file.name;
+            if (filename.length > 20)
+                filename = filename.substring(0, 20) + "...";
+
+            setUploadButtonText(filename);
         }
         else setUploadButtonText("Загрузить");
     }

@@ -1,10 +1,9 @@
-import React from "react";
+import React, {FC} from "react";
 import Popover from "@mui/material/Popover";
 import SettingsContainer from "../../../ui/containers/SettingsContainer";
 import IWindowAnchor from "../../../../interfaces/Window";
 
-
-const SettingsWindow = ({ anchor, setAnchor }: IWindowAnchor): JSX.Element => {
+const SettingsWindow: FC<IWindowAnchor> = ({ anchor, setAnchor }): JSX.Element => {
     const settingsHandleClose = (): void => {
         setAnchor(null);
     }

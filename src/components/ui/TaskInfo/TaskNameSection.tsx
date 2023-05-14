@@ -22,16 +22,15 @@ export const TaskNameSection: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const selectedTask: ITask | null = useAppSelector(selectedTaskSelector);
 
-    const [taskName, setTaskName] = useState<string>(selectedTask?.taskName ?? "");
+    const [taskName, setTaskName] = useState<string>(selectedTask?.taskName || "");
 
     const [subTaskNameInput, setSubTaskNameInput] = useState<string>("");
 
     const [showButton, setShowButton] = useState<boolean>(true);
     const [showInput, setShowInput] = useState<boolean>(false);
 
-
-    const onTaskNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setTaskName(event.target.value)
+    const onTaskNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
+        setTaskName(event.currentTarget.value)
         if (selectedTask) {
             const taskData: ITask = {
                 ...selectedTask,
@@ -41,8 +40,8 @@ export const TaskNameSection: FC = (): JSX.Element => {
         }
     }
 
-    const onTaskCompletedChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const completed: boolean = event.target.checked;
+    const onTaskCompletedChange = (event: ChangeEvent<HTMLInputElement>): void => {
+        const completed: boolean = event.currentTarget.checked;
         if (selectedTask) {
             const taskData: ITask = {
                 ...selectedTask, completed
@@ -85,9 +84,13 @@ export const TaskNameSection: FC = (): JSX.Element => {
 
     }
 
-    const onSubTaskInputEnterPressed = (event: KeyboardEvent) => {
+    const onSubTaskInputEnterPressed = (event: KeyboardEvent): void => {
         if (event.key === "Enter" && subTaskNameInput.length)
             saveSubTaskHandler();
+    }
+
+    const onSubTaskNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setSubTaskNameInput(event.currentTarget.value);
     }
 
     return (
@@ -95,8 +98,7 @@ export const TaskNameSection: FC = (): JSX.Element => {
             <div className={styles.main_taskName__container}>
                 <CheckboxInputField
                     inputStyle={{
-                        textDecoration:
-                            selectedTask?.completed ? "line-through" : "none"
+                        textDecoration: selectedTask?.completed ? "line-through" : "none"
                     }}
                     inputValue={taskName || selectedTask?.taskName || ""}
                     onChangeInput={onTaskNameChange}
@@ -144,7 +146,7 @@ export const TaskNameSection: FC = (): JSX.Element => {
                         <CheckboxInputField
                             checkboxDisabled
                             inputValue={subTaskNameInput}
-                            onChangeInput={(e: ChangeEvent<HTMLInputElement>) => setSubTaskNameInput(e.target.value)}
+                            onChangeInput={onSubTaskNameChange}
                             onInputKeyDown={onSubTaskInputEnterPressed}
                         />
                         {

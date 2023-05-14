@@ -1,8 +1,18 @@
+import { FC } from "react";
+import { SxProps, Theme } from "@mui/material";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import styles from "./styles/ConfirmationButton.module.scss";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
-const ConfirmationButton = ({ variant = "ok", backgroundColor="", ...props }) => {
+import styles from "./styles/ConfirmationButton.module.scss";
+
+interface ConfirmationButtonProps {
+    variant: "ok" | "cancel",
+    backgroundColor?: string,
+    sx?: SxProps<Theme>,
+    onClick?: any
+}
+
+const ConfirmationButton: FC<ConfirmationButtonProps> = ({ variant = "ok", backgroundColor="", sx, onClick }) => {
     return (
         <>
         {
@@ -13,7 +23,8 @@ const ConfirmationButton = ({ variant = "ok", backgroundColor="", ...props }) =>
                 className={
                 [styles.confirmation__button, styles.ok].join(" ")
             }
-                {...props}
+                sx={sx}
+                onClick={onClick}
             />
             :
             <CloseRoundedIcon
@@ -21,7 +32,8 @@ const ConfirmationButton = ({ variant = "ok", backgroundColor="", ...props }) =>
                 className={
                 [styles.confirmation__button, styles.cancel].join(" ")
             }
-                {...props}
+                sx={sx}
+                onClick={onClick}
             />
         }
         </>

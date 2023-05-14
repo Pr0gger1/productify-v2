@@ -1,7 +1,7 @@
 // Scripts for firebase and firebase messaging
 // import firebase from "firebase";
 
-import firebase from "firebase/compat";
+// import firebase from "firebase/compat";
 
 // eslint-disable-next-line no-undef
 importScripts("https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js");
@@ -21,12 +21,14 @@ const firebaseConfig = {
   measurementId: "G-MRNR8GK61S"
 };
 
+// eslint-disable-next-line no-undef
 firebase.initializeApp(firebaseConfig);
 
 // Retrieve firebase messaging
+// eslint-disable-next-line no-undef
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage(function(payload) {
+messaging.onBackgroundMessage((payload) => {
   console.log("Received background message ", payload);
 
   const notificationTitle = payload.notification.title;
@@ -36,5 +38,6 @@ messaging.onBackgroundMessage(function(payload) {
 
   // eslint-disable-next-line no-restricted-globals
   self.registration.showNotification(notificationTitle,
-    notificationOptions);
+    notificationOptions
+  );
 });

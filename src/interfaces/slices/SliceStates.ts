@@ -26,7 +26,14 @@ interface ISidebarStates {
     isRightSidebarOpened: boolean
 }
 
+export type ThemeType = "light" | "dark";
+
+interface IThemeState {
+    theme: ThemeType
+}
+
 export type {
     IAuthStates, ITaskStates,
-    ITaskGroupStates, ISidebarStates
+    ITaskGroupStates, ISidebarStates,
+    IThemeState
 }

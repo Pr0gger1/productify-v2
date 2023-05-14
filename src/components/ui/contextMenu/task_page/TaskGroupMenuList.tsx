@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, MouseEvent, useState} from "react";
+import React, {FC, KeyboardEvent, MouseEvent, useState} from "react";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import useToggleIconTheme from "../../../../hooks/useToggleIconTheme";
 
@@ -27,7 +27,7 @@ import upArrowFilterDark from "../../../../assets/img/icons/filter/up_arrow_ligh
 import downArrowFilterDark from "../../../../assets/img/icons/filter/down_arrow_light.svg";
 import editIcon from "../../../../assets/img/icons/edit_icon.svg";
 
-const TaskGroupMenuList = () => {
+const TaskGroupMenuList: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const navigate: NavigateFunction = useNavigate();
 
@@ -46,11 +46,11 @@ const TaskGroupMenuList = () => {
     );
 
     const onFilterChange = (event: SelectChangeEvent<unknown>): void => {
-       const target = event.currentTarget as HTMLInputElement;
-      dispatch(setTaskFilter({
-        type: target.value,
-        desc: true
-      }));
+        const target = event.target;
+        dispatch(setTaskFilter({
+            type: target?.value,
+            desc: true
+        }));
     }
 
     const onEditGroupTitleClick = (): void => {
@@ -70,7 +70,7 @@ const TaskGroupMenuList = () => {
             onEditGroupTitleClick();
     }
 
-    const onConfirmEditClick = (event: MouseEvent<HTMLElement>) => {
+    const onConfirmEditClick = (event: MouseEvent<HTMLElement>): void => {
         event.stopPropagation();
         setShowEditInput(false)
     }

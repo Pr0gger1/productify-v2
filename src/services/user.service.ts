@@ -10,7 +10,7 @@ interface INewData {
 }
 
 export class UserService {
-    static async updateUser(userInstance: User, newUsername: string | null = null, newAvatar: File | null = null) {
+    static async updateUser(userInstance: User, newUsername: string | null = null, newAvatar: File | null = null): Promise<User | null> {
         const newData: INewData = {displayName: "", photoURL: ""};
         if (newUsername) newData.displayName = newUsername;
         if (newAvatar && auth.currentUser) {

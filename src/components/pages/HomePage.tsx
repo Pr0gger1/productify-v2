@@ -1,16 +1,17 @@
-import React from "react";
+import React, {FC} from "react";
+import {useAppSelector} from "../../store/store";
 import { useMediaQuery } from "react-responsive";
+import { mobileSelector } from "../../store";
 
 import LeftSidebar from "../sidebars/LeftSidebar";
 import Header from "../header/Header";
 import Content from "../content/Content";
 import RightSidebar from "../sidebars/RightSidebar";
 import MobileHomePage from "./mobile/MobileHomePage";
-import styles from "./styles/HomePage.module.scss";
-import {mobileSelector} from "../../store";
-import {useAppSelector} from "../../store/store";
 
-const HomePage = () => {
+import styles from "./styles/HomePage.module.scss";
+
+const HomePage: FC = (): JSX.Element => {
     const mobileScreen: boolean = useMediaQuery({maxWidth: 768});
     const isMobile: boolean = useAppSelector(mobileSelector) || mobileScreen;
 

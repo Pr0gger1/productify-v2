@@ -7,7 +7,7 @@ import IWindowAnchor from "../../../../interfaces/Window";
 import {useAppSelector} from "../../../../store/store";
 
 
-const NotificationWindow: FC<IWindowAnchor> = ({ anchor, setAnchor }) => {
+const NotificationWindow: FC<IWindowAnchor> = ({ anchor, setAnchor }): JSX.Element => {
     const isMobile: boolean = useAppSelector(mobileSelector);
 
     const handleClose = (): void => {

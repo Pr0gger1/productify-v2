@@ -1,4 +1,4 @@
-import React, {MouseEvent} from "react";
+import React, {FC, MouseEvent} from "react";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import useToggleIconTheme from "../../hooks/useToggleIconTheme";
@@ -30,7 +30,7 @@ import notificationIconLight from "../../assets/img/icons/bell_light.svg";
 import settingsIconDark  from "../../assets/img/icons/settings_dark.svg";
 import settingsIconLight from "../../assets/img/icons/settings_light.svg";
 
-const Header = () => {
+const Header: FC = (): JSX.Element => {
     const mobileScreen: boolean =  useMediaQuery({maxWidth: 768});
     const navigate: NavigateFunction = useNavigate();
     const params: Readonly<Params> = useParams();

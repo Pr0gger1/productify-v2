@@ -1,19 +1,19 @@
 import React, {ChangeEvent, FC, useEffect} from "react";
+import {RootState, useAppDispatch, useAppSelector} from "../../../store/store";
 import {setCurrentGroupTasks} from "../../../store/reducers/TaskSlice";
 import { setSearchFilter } from "../../../store/reducers/FilterSlice";
 
 import Task from "../../ui/cards/Task";
 import SearchInput from "../../ui/input/SearchInput";
+import BackButton from "../../ui/button/BackButton";
 
+import {ITask} from "../../../interfaces/TaskData";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import * as selectors from "../../../store";
 
 import styles from "./FilteredContent.module.scss";
-import BackButton from "../../ui/button/BackButton";
-import {RootState, useAppDispatch, useAppSelector} from "../../../store/store";
-import {ITask} from "../../../interfaces/TaskData";
 
-const FilteredContent: FC = () => {
+const FilteredContent: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
 
     const currentGroupTasks: ITask[] = useAppSelector(selectors.currentGroupTasksSelector);
@@ -34,7 +34,7 @@ const FilteredContent: FC = () => {
 
     }, [dispatch, searchFilter, tasks]);
 
-    const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
         dispatch(setSearchFilter({searchFilter: event.target.value}));
     }
     

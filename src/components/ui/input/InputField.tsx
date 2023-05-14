@@ -2,14 +2,13 @@ import React, {CSSProperties, FC, InputHTMLAttributes} from "react";
 import styles from "./styles/InputField.module.scss";
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-    type?: string,
     customStyles?: CSSProperties,
     customClasses?: string[],
 }
 
 const InputField: FC<InputFieldProps> = ({
     type = "text", customStyles,
-    customClasses = []}, ...props
+    customClasses = [], ...props}
 ) => {
 
     const customClassesVar: string = [styles.input__field, ...customClasses].join(" ");

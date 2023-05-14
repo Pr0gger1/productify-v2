@@ -1,4 +1,5 @@
-import React, {FC, MouseEvent, useContext, useEffect, useState} from "react";
+import React, { CSSProperties, FC, MouseEvent, useContext, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
 import { setRSidebarOpen } from "../../../store/reducers/SidebarSlice";
@@ -15,13 +16,11 @@ import { DateFormatter } from "../../../utils/DateFormatter";
 import { repeatTaskData } from "../../../store/defaultData/repeatTaskData";
 import { SnackbarContext } from "../../../context/SnackbarContext";
 
+import { ThemeType } from "../../../interfaces/slices/SliceStates";
+import {ITask, ITaskGroup} from "../../../interfaces/TaskData";
 import * as selectors from "../../../store";
-import { themes } from "../../../store/reducers/ThemeSlice";
 
 import styles from "./styles/Task.module.scss";
-import {ITask, ITaskGroup} from "../../../interfaces/TaskData";
-import {useAppDispatch, useAppSelector} from "../../../store/store";
-
 
 interface TaskProps {
     taskDataProps: ITask
@@ -37,14 +36,14 @@ const Task: FC<TaskProps> = ({ taskDataProps }): JSX.Element => {
     const dispatch = useAppDispatch();
     const navigate: NavigateFunction = useNavigate();
 
-    const currentTheme: string = useAppSelector(selectors.themeSelector);
+    const currentTheme: ThemeType = useAppSelector(selectors.themeSelector);
     const isMobile: boolean = useAppSelector(selectors.mobileSelector);
 
     const isRSidebarOpen: boolean = useAppSelector(selectors.rightSidebarSelector);
     const selectedGroup: ITaskGroup | null = useAppSelector(selectors.selectedTaskGroupSelector);
     const selectedTask: ITask | null = useAppSelector(selectors.selectedTaskSelector);
 
-    const taskStyle = {
+    const taskStyle: CSSProperties = {
         textDecoration: taskDataProps.completed ? "line-through" : "none",
     };
 
@@ -71,17 +70,15 @@ const Task: FC<TaskProps> = ({ taskDataProps }): JSX.Element => {
     const favoriteToggleHandler = (event: MouseEvent): void => {
         event.stopPropagation();
         const favorite: boolean = !isFavorite;
-
         const taskData: ITask = {...taskDataProps, favorite};
 
         dispatch(updateTaskAsync(taskData));
-
         setIsFavorite(prev => !prev);
     }
 
     const onTaskCheckboxClick = (event: MouseEvent): void => {
         event.stopPropagation();
-        const completed = !isTaskCompleted;
+        const completed: boolean = !isTaskCompleted;
 
         dispatch(updateTaskAsync({
             ...taskDataProps, completed
@@ -115,7 +112,7 @@ const Task: FC<TaskProps> = ({ taskDataProps }): JSX.Element => {
             onClick={onTaskClick}
              style={
                 isTaskCompleted &&
-                 currentTheme === themes.light 
+                 currentTheme === "light"
                  ? {backgroundColor: "#dcfce3"} 
                  : {}
                 }

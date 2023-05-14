@@ -22,7 +22,7 @@ module.exports = {
         use: [
           "style-loader",
           {
-            loader: "css-loader",
+            loader: "sass-loader",
             options: {
               esModule: true,
               modules: {
@@ -30,7 +30,6 @@ module.exports = {
               },
             },
           },
-          "sass-loader",
         ],
       },
       {

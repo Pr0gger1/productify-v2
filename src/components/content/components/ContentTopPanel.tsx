@@ -12,7 +12,7 @@ import styles from "../styles/ContentTopPanel.module.scss";
 import {ITaskGroup} from "../../../interfaces/TaskData";
 import {useAppSelector} from "../../../store/store";
 
-const ContentTopPanel: FC = () => {
+const ContentTopPanel: FC = (): JSX.Element => {
     const mobileScreen: boolean =  useMediaQuery({maxWidth: 768});
     const isMobile: boolean = useAppSelector(selectors.mobileSelector) || mobileScreen;
 

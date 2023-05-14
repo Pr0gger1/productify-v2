@@ -1,10 +1,10 @@
 import React, {FC, KeyboardEventHandler} from "react";
 import InputField from "./InputField";
 import Checkbox from "@mui/material/Checkbox";
+import {CSSProperties} from "react";
+import {ChangeEvent} from "react";
 
 import styles from "./styles/CheckboxInput.module.scss";
-import {ChangeEvent} from "react";
-import {CSSProperties} from "react";
 
 interface ICheckboxInputProps {
     placeholder?: string,
@@ -40,7 +40,7 @@ const CheckboxInputField: FC<ICheckboxInputProps> = ({
                     }
                 }}
             />
-            
+
             <InputField customClasses={[styles.checkbox__input]}
                 style={inputStyle}
                 placeholder={placeholder}

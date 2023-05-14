@@ -78,13 +78,14 @@ const authSlice = createSlice({
         },
 
         logoutHandler(state) {
-             signOut(auth)
+            signOut(auth)
                 .then(() => {
                     state.userData = null;
-                    localStorage.removeItem("userData");
-                    window.location.pathname = "/login";
-            })
-                .catch(error => state.authError = error);
+                })
+            .catch(error => {state.authError = error; return null});
+
+            localStorage.removeItem("userData");
+            window.location.pathname = "/login";
         }
     },
     extraReducers: (builder) => {

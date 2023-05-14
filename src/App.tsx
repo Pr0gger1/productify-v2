@@ -13,10 +13,15 @@ import {MessagePayload} from "firebase/messaging"
 import {useAppDispatch, useAppSelector} from "./store/store";
 import {IBrowserNotification} from "./interfaces/Notification";
 
+const getUserFromLocalStorage = (): User | null => {
+    const user: string | null = localStorage.getItem("userData");
+    return user ? JSON.parse(user) as User : null;
+}
+
 function App(): JSX.Element {
     const dispatch = useAppDispatch();
-    const userData = useAppSelector(userDataSelector)
-        || localStorage.getItem("userData");
+    const userData: User | null = useAppSelector(userDataSelector)
+        || getUserFromLocalStorage();
 
     const currentTheme: string = useAppSelector(themeSelector);
     const isAuth: boolean = !!userData;
@@ -28,6 +33,7 @@ function App(): JSX.Element {
     // useEffect(() => {
     //     console.log(messagingToken)
     // }, [messagingToken]);
+
 
     onMessageListener()
         .then((payload: MessagePayload) : void => {

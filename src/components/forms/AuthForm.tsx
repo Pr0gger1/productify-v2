@@ -27,7 +27,7 @@ interface AuthFormProps {
     data: IAuthUserData
 }
 
-const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}) => {
+const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}): JSX.Element => {
     const { setMessage, setType, setOpen, setHideDuration } = useContext(SnackbarContext);
 
     const emailValidation: boolean = !/\S+@\S+\.\S+/.test(data.email)
@@ -44,8 +44,7 @@ const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}) => {
     );
 
     useAuthError(authError);
-
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     useEffect(() => {
         setHideDuration(3000);
@@ -58,11 +57,11 @@ const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}) => {
     };
 
 
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
         setData({...data, [event.target.id]: event.target.value})
     }
 
-    const onSubmitHandler = async (event: MouseEvent) => {
+    const onSubmitHandler = async (event: MouseEvent): Promise<void> => {
         event.preventDefault();
         if (!data.email || !data.password || (register && !data.repeatPassword)) {
             setMessage("Остались пустые поля!");

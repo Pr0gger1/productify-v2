@@ -1,10 +1,10 @@
-import React from "react";
-import styles from "./styles/ErrorPage.module.scss";
+import React, {FC} from "react";
 import {Button, styled} from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import {NavigateFunction, useNavigate} from "react-router-dom";
+import styles from "./styles/ErrorPage.module.scss";
 
-const ErrorPage = () => {
-    const navigate = useNavigate();
+const ErrorPage: FC = (): JSX.Element => {
+    const navigate: NavigateFunction = useNavigate();
 
     const ColorButton = styled(Button)(() => ({
         backgroundColor: "#5359ff",

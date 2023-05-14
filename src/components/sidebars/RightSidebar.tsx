@@ -1,4 +1,5 @@
 import React, {FC, useEffect} from "react";
+import {useAppDispatch, useAppSelector} from "../../store/store";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import { setRSidebarOpen } from "../../store/reducers/SidebarSlice";
 import { setSelectedTask } from "../../store/reducers/TaskSlice";
@@ -10,12 +11,11 @@ import TaskNotesSection from "../ui/TaskInfo/TaskNotesSection";
 import TaskDatesSection from "../ui/TaskInfo/TaskDatesSection";
 import DeleteTaskButton from "../ui/button/DeleteTaskButton";
 
+import {ITask, ITaskGroup} from "../../interfaces/TaskData";
 import * as selectors from "../../store";
 
 import "../ui/animations/Button/createListBtnAnimation.css"
 import styles from "./styles/RightSidebar.module.scss";
-import {useAppDispatch, useAppSelector} from "../../store/store";
-import {ITask, ITaskGroup} from "../../interfaces/TaskData";
 
 const RightSidebar: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ const RightSidebar: FC = (): JSX.Element => {
     const sidebarStyles: string = `${styles.sidebar__right}${!isRSidebarOpened ? " " + styles["closed"] : ""}`;
 
 
-    useEffect((): void => {
+    useEffect(() => {
         if (!isRSidebarOpened) {
             navigate(`/tasks/${selectedTaskGroup.id}`)
             dispatch(setSelectedTask(null))
@@ -45,11 +45,6 @@ const RightSidebar: FC = (): JSX.Element => {
         <aside className={sidebarStyles}>
             <div className={styles.sidebar_container}>
                 <div className={styles.sidebar_close__btn}>
-                    {selectedTask &&
-                        <DeleteTaskButton
-                            selectedTask={selectedTask}
-                        />
-                    }
                     <CloseIcon
                         onClick={() => dispatch(setRSidebarOpen())}
                     />
@@ -58,6 +53,13 @@ const RightSidebar: FC = (): JSX.Element => {
                 <TaskCategorySection/>
                 <TaskDatesSection/>
                 <TaskNotesSection/>
+                {selectedTask &&
+                    <div>
+                        <DeleteTaskButton
+                            selectedTask={selectedTask}
+                        />
+                    </div>
+                }
             </div>
         </aside>
     );
