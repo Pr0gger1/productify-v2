@@ -1,6 +1,8 @@
 import React, {FC, ReactElement} from "react";
 import { useMediaQuery } from "react-responsive";
-import {Navigate, RouteObject, useRoutes} from "react-router-dom";
+import { useAppSelector } from "../store/store";
+import { Navigate, RouteObject, useRoutes } from "react-router-dom";
+import { User } from "firebase/auth";
 
 import { mobileSelector, userDataSelector } from "../store";
 import AuthPage from "../components/pages/AuthPage";
@@ -10,12 +12,8 @@ import HomePage from "../components/pages/HomePage";
 import TaskPage from "../components/pages/mobile/TaskPage";
 import TaskInfoPage from "../components/pages/mobile/TaskInfoPage";
 import FilteredContent from "../components/content/components/FilteredContent";
-import {User} from "firebase/auth";
-import {useAppSelector} from "../store/store";
 
-interface AppRouterProps {
-    isAuth: boolean
-}
+interface AppRouterProps { isAuth: boolean }
 
 const AppRouter: FC<AppRouterProps> = ({ isAuth = false }): ReactElement | null => {
     const mobileScreen: boolean =  useMediaQuery({maxWidth: 768});

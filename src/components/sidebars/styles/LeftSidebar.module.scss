@@ -17,6 +17,17 @@
     background-color: var(--bgColorThird);
     white-space: nowrap;
 
+    &[data-lsidebar-active="false"] {
+        max-width: 2.5rem;
+        transition: all .5s ease-in-out 0s;
+        padding: 1rem 0.5rem;
+
+
+        input::placeholder {
+            color: transparent;
+        }
+    }
+
     &.closed {
         max-width: 2.5rem;
         transition: all .5s ease-in-out 0s;

@@ -16,10 +16,12 @@ import EmailTwoToneIcon from "@mui/icons-material/EmailTwoTone";
 import BadgeTwoToneIcon from "@mui/icons-material/BadgeTwoTone";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-import styles from "./AuthForm.module.scss";
 import {RootState, useAppDispatch, useAppSelector} from "../../store/store";
 import {IAuthUserData} from "../../interfaces/User";
 import {SerializedError} from "@reduxjs/toolkit";
+import LoginIcon from '@mui/icons-material/Login';
+
+import styles from "./AuthForm.module.scss";
 
 interface AuthFormProps {
     register: boolean,
@@ -209,7 +211,7 @@ const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}): JSX.El
                 variant="long"
                 onClick={onSubmitHandler}>
                 {register ? "Зарегистрироваться" : "Войти"}
-                <i className="fa-solid fa-arrow-right-to-bracket"></i>
+                <LoginIcon/>
             </Button>
 
             {

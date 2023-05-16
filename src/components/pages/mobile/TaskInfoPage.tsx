@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
-import TaskNameSection from "../../ui/TaskInfo/TaskNameSection";
-import TaskDatesSection from "../../ui/TaskInfo/TaskDatesSection";
-import TaskNotesSection from "../../ui/TaskInfo/TaskNotesSection";
-import TaskCategorySection from "../../ui/TaskInfo/TaskCategorySection";
+import TaskNameSection from "../../ui/rightSidebarComponents/TaskNameSection";
+import TaskDatesSection from "../../ui/rightSidebarComponents/TaskDatesSection";
+import TaskNotesSection from "../../ui/rightSidebarComponents/TaskNotesSection";
+import TaskCategorySection from "../../ui/rightSidebarComponents/TaskCategorySection";
 import BackButton from "../../ui/button/BackButton";
 import Header from "../../header/Header";
 

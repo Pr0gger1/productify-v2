@@ -28,9 +28,16 @@ const notificationSlice = createSlice({
             );
 
             localStorage.setItem("notifications", JSON.stringify(state.notifications))
+        },
+
+        clearNotifications(state) {
+            state.notifications = [];
+            localStorage.removeItem("notifications");
         }
     }
 });
 
-export const { updateNotifications, deleteNotification } = notificationSlice.actions;
+export const { updateNotifications,
+    deleteNotification,
+    clearNotifications } = notificationSlice.actions;
 export default notificationSlice.reducer;

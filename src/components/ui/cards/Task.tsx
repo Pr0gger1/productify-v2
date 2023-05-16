@@ -1,6 +1,6 @@
 import React, { CSSProperties, FC, MouseEvent, useContext, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import {NavigateFunction, useNavigate} from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 import { setRSidebarOpen } from "../../../store/reducers/SidebarSlice";
 import { deleteTaskAsync, setSelectedTask, updateTaskAsync } from "../../../store/reducers/TaskSlice";
@@ -22,9 +22,7 @@ import * as selectors from "../../../store";
 
 import styles from "./styles/Task.module.scss";
 
-interface TaskProps {
-    taskDataProps: ITask
-}
+interface TaskProps { taskDataProps: ITask }
 
 const Task: FC<TaskProps> = ({ taskDataProps }): JSX.Element => {
     const { setMessage, setType, setOpen, setHideDuration } = useContext(SnackbarContext);
@@ -143,10 +141,7 @@ const Task: FC<TaskProps> = ({ taskDataProps }): JSX.Element => {
                     
 
                     <div className={styles.task__tags}>
-                        <span>
-                            {taskDataProps.category}
-                        </span>
-
+                        <span>{taskDataProps.category}</span>
                         {
                             !isMobile &&
                             <>

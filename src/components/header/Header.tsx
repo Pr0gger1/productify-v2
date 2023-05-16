@@ -45,7 +45,6 @@ const Header: FC = (): JSX.Element => {
     const notificationIcon: string = useToggleIconTheme(notificationIconDark, notificationIconLight);
     const settingsIcon: string = useToggleIconTheme(settingsIconDark, settingsIconLight);
 
-
     const [settingsAnchor, setSettingsAnchor] = useState<HTMLElement | null>(null);
     const [notificationAnchor, setNotificationAnchor] = useState<HTMLElement | null>(null);
 

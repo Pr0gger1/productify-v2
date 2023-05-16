@@ -6,7 +6,7 @@ function getLeftSidebarOpen(): boolean {
     return leftSidebar ? JSON.parse(leftSidebar) : true;
 }
 
-export const sidebarsSlice = createSlice({
+export const sidebarSlice = createSlice({
     name: "sidebarStates",
     initialState: {
         isLeftSidebarOpen: getLeftSidebarOpen(),
@@ -17,11 +17,12 @@ export const sidebarsSlice = createSlice({
             state.isLeftSidebarOpen = !state.isLeftSidebarOpen;
             localStorage.setItem("LSidebarOpened", JSON.stringify(state.isLeftSidebarOpen));
         },
+
         setRSidebarOpen(state): void {
             state.isRightSidebarOpen = !state.isRightSidebarOpen
         }
     }
 })
 
-export const { setLSidebarOpen, setRSidebarOpen } = sidebarsSlice.actions;
-export default sidebarsSlice.reducer;
+export const { setLSidebarOpen, setRSidebarOpen } = sidebarSlice.actions;
+export default sidebarSlice.reducer;

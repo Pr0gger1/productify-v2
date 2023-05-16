@@ -16,7 +16,7 @@
  
         npm i
 
-2. Установите _firebase-tools_ глобально на свой компьютер.
+2. Установите _firebase-tools_.
 
         npm i -g firebase-tools
 
@@ -36,6 +36,20 @@
 
 
 5. После установки всех зависимостей и настройки firebase необходимо прописать в файле конфигурации `.env` свои данные firebase и т. д.
+6. Файл /public/firebase-messaging-sw.example.js переименуйте в firebase-messaging-sw.js и вставьте в переменную firebaseConfig свои данные от проекта firebase.
+
+```javascript
+   const firebaseConfig = {
+     apiKey: "yourApiKey",
+     authDomain: "yourAuthDomain",
+     databaseURL: "yourDatabaseURL",
+     projectId: "yourProjectId",
+     storageBucket: "yourStorageBucket",
+     messagingSenderId: "yourMessagingSenderId",
+     appId: "yourAppId",
+     measurementId: "yourMeasurementId"
+   };
+```
 
 ## Запуск проекта на dev сервере
 Запуск проекта осуществляется из корневого каталога проекта командой:

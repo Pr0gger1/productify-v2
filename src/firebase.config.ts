@@ -19,7 +19,7 @@ const appId = process.env.REACT_APP_APP_ID_FIREBASE;
 const measurementId = process.env.REACT_APP_MEASUREMENT_ID_FIREBASE;
 const vapidKey = process.env.REACT_APP_VAPID_KEY;
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey, authDomain,
   databaseURL, projectId,
   storageBucket, messagingSenderId,
@@ -35,13 +35,14 @@ export const db = initializeFirestore(app, {
   cacheSizeBytes: CACHE_SIZE_UNLIMITED
 });
 
-enableIndexedDbPersistence(db);
+enableIndexedDbPersistence(db)
+    .then(() => console.log("indexing data enabled"))
+    .catch(error => console.log(error));
 
 export const getMessagingToken = (setMessagingToken: React.Dispatch<React.SetStateAction<boolean>>) => {
   return getToken(messaging, {vapidKey}).then(currentToken => {
     if (currentToken) {
       setMessagingToken(true);
-      console.log(currentToken)
     }
     else {
       setMessagingToken(false);
@@ -55,6 +56,5 @@ export const onMessageListener = (): Promise<MessagePayload> => {
       onMessage(messaging,  payload => {
         resolve(payload);
       })
-    })
-
+    });
 }

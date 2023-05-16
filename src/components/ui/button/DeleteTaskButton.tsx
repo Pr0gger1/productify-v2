@@ -6,6 +6,7 @@ import DeleteSweepTwoToneIcon from "@mui/icons-material/DeleteSweepTwoTone";
 import {SnackbarContext} from "../../../context/SnackbarContext";
 import {ITask} from "../../../interfaces/TaskData";
 import {useAppDispatch} from "../../../store/store";
+import {setRSidebarOpen} from "../../../store/reducers/SidebarSlice";
 
 interface DeleteTaskButtonProps {
     selectedTask: ITask
@@ -21,6 +22,7 @@ const DeleteTaskButton: FC<DeleteTaskButtonProps> = ({ selectedTask }): JSX.Elem
         setType("success");
         setHideDuration(2000)
         setOpen(true);
+        dispatch(setRSidebarOpen());
     }
 
     return (
@@ -32,7 +34,8 @@ const DeleteTaskButton: FC<DeleteTaskButtonProps> = ({ selectedTask }): JSX.Elem
                     color: "#ff554b",
                     backgroundColor: "var(--bgColorFirst)",
                     borderRadius: "0.5rem",
-                    padding: 1
+                    padding: 1,
+                    cursor: "pointer"
                 }}
             />
         </Tooltip>

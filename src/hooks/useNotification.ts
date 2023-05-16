@@ -1,4 +1,4 @@
-import { repeatType } from "../components/ui/TaskInfo/components/RepeatComponent";
+import { repeatType } from "../components/ui/rightSidebarComponents/components/RepeatComponent";
 import { DateFormatter } from "../utils/DateFormatter";
 
 import { updateTaskAsync } from "../store/reducers/TaskSlice";

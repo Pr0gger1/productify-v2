@@ -17,6 +17,7 @@ import { StyledTab, StyledTabs } from "../Tab/Tab";
 
 import styles from "./styles/SettingsContainer.module.scss";
 import {useAppDispatch} from "../../../store/store";
+import UserDataCard from "../cards/UserDataCard";
 
 
 const settingsTabValues = {
@@ -67,6 +68,7 @@ const SettingsContainer: FC = () => {
                 index={0}
                 value={tabValue}
             >
+                <UserDataCard/>
                 <button
                     className={[styles.settings__btn, styles.logout].join(" ")}
                     onClick={() => dispatch(logoutHandler())}

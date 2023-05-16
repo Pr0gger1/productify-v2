@@ -1,6 +1,4 @@
- interface CSS {
-    [className: string]: string;
-}
+ interface CSS { [className: string]: string; }
 
 declare module "*.css" {
     const css: CSS;

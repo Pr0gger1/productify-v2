@@ -8,7 +8,7 @@ import {User} from "firebase/auth";
 import {useAppSelector} from "../../../store/store";
 
 interface UserDataCardProps {
-    userAvatar: string
+    userAvatar?: string
 }
 
 const UserDataCard: FC<UserDataCardProps> = ({userAvatar}): JSX.Element => {
@@ -31,7 +31,7 @@ const UserDataCard: FC<UserDataCardProps> = ({userAvatar}): JSX.Element => {
             <Avatar
                 sx={{width: 40, height: 40}}
                 alt="avatar"
-                src={userAvatar}
+                src={userData?.photoURL ?? ""}
             />
             :
             <Skeleton

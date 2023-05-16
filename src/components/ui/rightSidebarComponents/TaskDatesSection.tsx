@@ -1,4 +1,6 @@
-import React, {FC, useEffect, useState} from "react";
+import React, { FC, useEffect, useState } from "react";
+import { useAppSelector } from "../../../store/store";
+import {ITask} from "../../../interfaces/TaskData";
 
 import DeadlinePicker from "./components/DeadlinePicker";
 import ReminderPicker from "./components/ReminderPicker";
@@ -6,8 +8,6 @@ import RepeatComponent from "./components/RepeatComponent";
 import { selectedTaskSelector } from "../../../store";
 
 import styles from "./styles/TaskDatesSection.module.scss";
-import {ITask} from "../../../interfaces/TaskData";
-import {useAppSelector} from "../../../store/store";
 
 const TaskDatesSection: FC = (): JSX.Element => {
     const selectedTask: ITask | null = useAppSelector(selectedTaskSelector);

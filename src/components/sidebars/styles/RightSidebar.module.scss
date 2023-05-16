@@ -1,4 +1,5 @@
 .sidebar__right {
+
     transition: width .6s;
 
     overflow-y: auto;
@@ -10,12 +11,11 @@
 
     max-width: 35%;
     width: 35%;
-    //height: 100vh;
     overflow-x: hidden;
 
     background-color: var(--bgColorThird);
 
-    &.closed {
+    &[data-rsidebar-active="false"] {
         width: 0;
         transition: width .6s ease-in;
     }
@@ -25,22 +25,9 @@
         flex-direction: column;
         flex-shrink: 0;
         gap: 1.2rem;
-        flex-wrap: wrap;
-
-        height: 100%;
 
         padding: 2rem;
         box-sizing: border-box;
-    }
-
-    .sidebar_close__btn {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        svg {
-            cursor: pointer;
-        }
     }
 
     .add_task__section {

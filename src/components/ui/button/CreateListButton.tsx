@@ -30,13 +30,11 @@ const CreateListButton: FC = (): JSX.Element => {
     const isLSidebarOpened: boolean = useAppSelector(selectors.leftSidebarSelector);
     const isMobile: boolean = useAppSelector(selectors.mobileSelector);
 
-    const adaptiveSpan: CSSProperties = !isLSidebarOpened && !isMobile ? {
-        display: "none",
-        } : {};
+    const adaptiveCreateListCaption: CSSProperties = !isLSidebarOpened &&
+    !isMobile ? { display: "none" } : {};
 
-    const adaptiveBtn: CSSProperties = !isLSidebarOpened && !isMobile ? {
-        padding: "0.25rem"
-        } : {}
+    const adaptiveBtn: CSSProperties = !isLSidebarOpened &&
+    !isMobile ? { padding: "0.25rem" } : {}
 
     
     useEffect((): void => {
@@ -50,9 +48,8 @@ const CreateListButton: FC = (): JSX.Element => {
     }
 
     const onInputEnterPressed = (event: KeyboardEvent): void => {
-        if (event.key === "Enter" && inputValue.length) {
+        if (event.key === "Enter" && inputValue.length)
             handleInputSubmit();
-        }
     }
 
     const onClickCloseInput = (): void => {
@@ -66,6 +63,10 @@ const CreateListButton: FC = (): JSX.Element => {
         if (!isLSidebarOpened) dispatch(setLSidebarOpen());
     }
 
+    const onTaskListChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.currentTarget.value)
+    }
+
   return (
     <div className={styles.create__list}
         style={showInput ? {backgroundColor: "transparent"} : {}}
@@ -76,6 +77,7 @@ const CreateListButton: FC = (): JSX.Element => {
                 onClick={onCreateListBtnClick}
                 sx={{
                     ...adaptiveBtn,
+                    minWidth: "0",
                     color: "var(--fontColor)",
                     textTransform: "math-auto",
                     backgroundColor: "var(--bgColorSecond)",
@@ -85,7 +87,7 @@ const CreateListButton: FC = (): JSX.Element => {
                 }}
             >
                 <AddBoxIcon/>
-                <span style={adaptiveSpan}>
+                <span style={adaptiveCreateListCaption}>
                     Создать список
                 </span>
             </Button>
@@ -110,8 +112,7 @@ const CreateListButton: FC = (): JSX.Element => {
                     onKeyDown={onInputEnterPressed}
                     onSubmit={handleInputSubmit}
                     value={inputValue}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => setInputValue(e.currentTarget.value)}
-                    // onClose={() => setShowInput(false)}
+                    onChange={onTaskListChangeInput}
                 />
 
                 <ConfirmationButton

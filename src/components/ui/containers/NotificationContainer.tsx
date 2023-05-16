@@ -1,16 +1,21 @@
 import React, { useState } from "react";
+import {useAppDispatch, useAppSelector} from "../../../store/store";
 import { notificationSelector } from "../../../store";
+import { clearNotifications } from "../../../store/reducers/NotificationSlice";
 
 import Notification from "../cards/Notification";
-
 import { CSSTransition } from "react-transition-group";
+
+import Button from "@mui/material/Button";
+
+import {ITaskNotification} from "../../../interfaces/Notification";
 import { TransitionGroup } from "react-transition-group";
+
 import "../animations/Notifications/notificationAnimation.css";
 import styles from "./styles/NotificationContainer.module.scss";
-import {useAppSelector} from "../../../store/store";
-import {ITaskNotification} from "../../../interfaces/Notification";
 
 const NotificationContainer = () => {
+    const dispatch = useAppDispatch();
     const notifications: ITaskNotification[] = useAppSelector(notificationSelector);
     const [show, setShow] = useState<boolean>(true);
 
@@ -38,6 +43,15 @@ const NotificationContainer = () => {
                         )
                     }
                 </TransitionGroup>
+            {
+                notifications.length !== 0 &&
+                <Button
+                    variant={"contained"}
+                    onClick={() => dispatch(clearNotifications())}
+                >
+                    Очистить все
+                </Button>
+            }
         </div>
     );
 };

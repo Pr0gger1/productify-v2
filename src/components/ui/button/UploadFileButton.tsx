@@ -1,5 +1,6 @@
-import React, {FC, ChangeEvent, CSSProperties, ReactNode} from "react";
+import React, { ChangeEvent, CSSProperties, ReactNode } from "react";
 import UploadRoundedIcon from "@mui/icons-material/UploadRounded";
+
 import styles from "./styles/UploadFileButton.module.scss";
 
 interface UploadFileButtonProps {
@@ -9,7 +10,14 @@ interface UploadFileButtonProps {
     style?: CSSProperties
 }
 
-const UploadFileButton: FC<UploadFileButtonProps> = ({ children, onChange, fileFilter, style = {} }) => {
+const UploadFileButton = (props: UploadFileButtonProps): JSX.Element => {
+    const {
+        children,
+        onChange,
+        fileFilter,
+        style
+    } = props;
+
     return (
         <label
             htmlFor="upload_file"
