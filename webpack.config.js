@@ -1,7 +1,9 @@
 const Dotenv = require("dotenv-webpack");
+const OptimizePlugin = require("optimize-plugin");
 
 module.exports = {
-  plugins: [new Dotenv()],
+  target: ['web', 'es2017'],
+  plugins: [new Dotenv(), new OptimizePlugin()],
   module: {
     strictExportPresence: true,
     rules: [
