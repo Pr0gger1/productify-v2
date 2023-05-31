@@ -1,5 +1,6 @@
-import React, {FC, ReactNode, SyntheticEvent} from "react";
-import {Alert, AlertColor, Snackbar, SnackbarCloseReason, SnackbarOrigin} from "@mui/material";
+import React, { ReactNode, SyntheticEvent } from "react";
+import { Alert, AlertColor, Snackbar,
+    SnackbarCloseReason, SnackbarOrigin } from "@mui/material";
 
 interface SnackbarNotificationProps {
     open: boolean,
@@ -10,10 +11,10 @@ interface SnackbarNotificationProps {
     onClose: (event: Event | SyntheticEvent<any, Event>, reason: SnackbarCloseReason) => void
 }
 
-const SnackbarNotification: FC<SnackbarNotificationProps> = ({
-         open, onClose, type, hideDuration,
-         position, children
-}): JSX.Element => {
+const SnackbarNotification = (props: SnackbarNotificationProps): JSX.Element => {
+    const { open, position, type,
+        onClose, hideDuration, children } = props;
+
     return (
         <Snackbar
             open={open}
@@ -25,7 +26,6 @@ const SnackbarNotification: FC<SnackbarNotificationProps> = ({
             onClose={onClose}
         >
           <Alert
-              // onClose={onClose}
               severity={type}
               sx={{ width: "100%" }}
           >

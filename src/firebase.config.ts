@@ -7,17 +7,16 @@ import { initializeFirestore,
 
 import { getToken, onMessage } from "firebase/messaging";
 import { getStorage } from "firebase/storage";
-import React from "react";
 
-const apiKey = process.env.REACT_APP_API_KEY_FIREBASE;
-const authDomain = process.env.REACT_APP_AUTH_DOMAIN_FIREBASE;
-const databaseURL = process.env.REACT_APP_DATABASE_URL_FIREBASE;
-const projectId = process.env.REACT_APP_PROJECT_ID_FIREBASE;
-const storageBucket = process.env.REACT_APP_STORAGE_BUCKET_FIREBASE;
-const messagingSenderId = process.env.REACT_APP_MESSAGING_SENDER_ID_FIREBASE;
-const appId = process.env.REACT_APP_APP_ID_FIREBASE;
-const measurementId = process.env.REACT_APP_MEASUREMENT_ID_FIREBASE;
-const vapidKey = process.env.REACT_APP_VAPID_KEY;
+const appId: string | undefined = process.env.REACT_APP_APP_ID_FIREBASE;
+const apiKey: string | undefined = process.env.REACT_APP_API_KEY_FIREBASE;
+const vapidKey: string | undefined = process.env.REACT_APP_VAPID_KEY;
+const projectId: string | undefined = process.env.REACT_APP_PROJECT_ID_FIREBASE;
+const authDomain: string | undefined = process.env.REACT_APP_AUTH_DOMAIN_FIREBASE;
+const databaseURL: string | undefined = process.env.REACT_APP_DATABASE_URL_FIREBASE;
+const storageBucket: string | undefined = process.env.REACT_APP_STORAGE_BUCKET_FIREBASE;
+const measurementId: string | undefined = process.env.REACT_APP_MEASUREMENT_ID_FIREBASE;
+const messagingSenderId: string | undefined = process.env.REACT_APP_MESSAGING_SENDER_ID_FIREBASE;
 
 export const firebaseConfig = {
   apiKey, authDomain,
@@ -39,21 +38,17 @@ enableIndexedDbPersistence(db)
     .then(() => console.log("indexing data enabled"))
     .catch(error => console.log(error));
 
-export const getMessagingToken = (setMessagingToken: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const getMessagingToken = () => {
   return getToken(messaging, {vapidKey}).then(currentToken => {
-    if (currentToken) {
-      setMessagingToken(true);
-    }
-    else {
-      setMessagingToken(false);
-      console.log("No registration token");
-    }
+    if (currentToken) return currentToken
+    else return null;
   })
 }
 
 export const onMessageListener = (): Promise<MessagePayload> => {
     return new Promise(resolve => {
       onMessage(messaging,  payload => {
+        console.log(payload)
         resolve(payload);
       })
     });

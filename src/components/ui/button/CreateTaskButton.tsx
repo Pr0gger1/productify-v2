@@ -1,22 +1,22 @@
 import React, { useState, KeyboardEvent, ChangeEvent } from "react";
 import { addTaskAsync } from "../../../store/reducers/TaskSlice";
+import { User } from "firebase/auth";
 
 import Button from "./Button";
 import ConfirmationButton from "./ConfirmationButton";
+import { TextField } from "@mui/material";
 
 import { baseGroupIds } from "../../../store/defaultData/baseGroups";
-import { CSSTransition } from "react-transition-group";
+import { ITask, ITaskGroup } from "../../../interfaces/TaskData";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
 
+import { generateUniqueId } from "../../../utils/generateUniqueId";
 import * as selectors from "../../../store";
 
+import { CSSTransition } from "react-transition-group";
 import styles from "./styles/CreateTaskButton.module.scss";
 import "../animations/Button/createTaskBtnAnimation.css";
 import "../animations/Input/InputAnimation.css";
-import {ITask, ITaskGroup} from "../../../interfaces/TaskData";
-import {generateUniqueId} from "../../../utils/generateUniqueId";
-import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {User} from "firebase/auth";
-import {TextField} from "@mui/material";
 
 const CreateTaskButton = () => {
     const dispatch = useAppDispatch();

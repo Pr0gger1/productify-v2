@@ -9,6 +9,7 @@ import {tasksSelector} from "../store";
 import {ITask} from "../interfaces/TaskData";
 import {RootState, TypedDispatch, useAppDispatch, useAppSelector} from "../store/store";
 import {ITaskNotification} from "../interfaces/Notification";
+// import {onMessageListener} from "../firebase.config";
 
 const reminderObserver = async (tasks: ITask[], dispatch: TypedDispatch<RootState>) => {
     tasks.forEach((task: ITask): void => {
@@ -17,6 +18,12 @@ const reminderObserver = async (tasks: ITask[], dispatch: TypedDispatch<RootStat
             const message: string = "Напоминание";
 
             if (!task.completed && isReminderExpired && !task.isRemindNotified) {
+                // onMessageListener().then(payload => {
+                //     const notification = new Notification(payload?.notification?.title ?? "test",
+                //         {body: payload?.notification?.body}
+                //     );
+                //     setTimeout(notification.close.bind(notification), 8000);
+                // })
                 const notification = new Notification(message, {
                     body: `${task.taskName}`,
                     }
@@ -52,6 +59,12 @@ const deadlineObserver = async (tasks: ITask[], dispatch: TypedDispatch<RootStat
             const message: string = "Завтра срок выполнения задачи";
 
             if (timeDiff < 2 && !task.completed && !task.isDeadlineNotified) {
+                // onMessageListener().then(payload => {
+                //     const notification = new Notification(payload?.notification?.title ?? "test",
+                //         {body: payload?.notification?.body}
+                //     );
+                //     setTimeout(notification.close.bind(notification), 8000);
+                // })
                 const notification: Notification = new Notification(message, {
                     body: `${task.taskName}`,
                     }

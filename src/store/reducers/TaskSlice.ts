@@ -1,12 +1,20 @@
-import {AsyncThunk, createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {TaskService, TasksWithSelected} from "../../services/task.service";
-import {UpdateSubTaskParams} from "../../interfaces/slices/UpdateSubTaskParams";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../store";
+
+import {TaskService, TasksWithSelected} from "../../services/task.service";
+
+import {UpdateSubTaskParams} from "../../interfaces/slices/UpdateSubTaskParams";
 import {ITask, IUserTaskData} from "../../interfaces/TaskData";
 import {ITaskStates} from "../../interfaces/slices/SliceStates";
 import {DeleteSubTaskParams} from "../../interfaces/slices/DeleteSubTaskParams";
 
-export const addTaskAsync = createAsyncThunk<ITask[], ITask>(
+interface ITasksWithUser {
+    tasks: ITask[],
+    userId: string
+}
+
+
+export const addTaskAsync = createAsyncThunk<ITasksWithUser, ITask>(
     "task/add",
     async (taskData: ITask, { getState }) => {
         try {
@@ -15,15 +23,13 @@ export const addTaskAsync = createAsyncThunk<ITask[], ITask>(
             const userId: string = state.authStates.userData?.uid!;
 
             const newTasks: ITask[] = TaskService.addTask(tasks, taskData);
-
-            await TaskService.updateUserTasks(newTasks, userId);
-            return newTasks;
+            return {tasks: newTasks, userId};
         }
         catch (error) { throw error }
     }
 );
 
-export const deleteTaskAsync = createAsyncThunk(
+export const deleteTaskAsync = createAsyncThunk<ITasksWithUser, string>(
     "task/delete",
     async (taskId: string, { getState }) => {
         try {
@@ -32,15 +38,13 @@ export const deleteTaskAsync = createAsyncThunk(
             const userId: string = state.authStates.userData?.uid!;
 
             const newTasks: ITask[] = TaskService.deleteTask(tasks, taskId);
-            await TaskService.updateUserTasks(newTasks, userId);
-
-            return newTasks;
+            return {tasks: newTasks, userId};
         }
         catch (error) { throw error }
     }
 );
 
-export const deleteSubTaskAsync = createAsyncThunk(
+export const deleteSubTaskAsync = createAsyncThunk<{tasks: TasksWithSelected, userId: string}, DeleteSubTaskParams>(
     "subtask/delete",
     async (params: DeleteSubTaskParams, { getState }) => {
         try {
@@ -48,16 +52,14 @@ export const deleteSubTaskAsync = createAsyncThunk(
             const { tasks } = state.taskStates;
             const userId: string = state.authStates.userData?.uid!;
 
-            const newTasks = TaskService.deleteSubTask(tasks, params.taskId, params.subTaskId);
-            await TaskService.updateUserTasks(newTasks.tasks, userId);
-
-            return newTasks;
+            const newTasks: TasksWithSelected = TaskService.deleteSubTask(tasks, params.taskId, params.subTaskId);
+            return {tasks: newTasks, userId};
         }
         catch (error) { throw error }
     }
 );
 
-export const updateTaskAsync: AsyncThunk<TasksWithSelected, ITask, any> = createAsyncThunk<TasksWithSelected, ITask>(
+export const updateTaskAsync = createAsyncThunk<{tasks: TasksWithSelected, userId: string}, ITask>(
     "task/update",
     async (taskData: ITask, { getState }) => {
         try {
@@ -66,15 +68,13 @@ export const updateTaskAsync: AsyncThunk<TasksWithSelected, ITask, any> = create
             const userId: string = state.authStates.userData?.uid!;
 
             const newTasks: TasksWithSelected = TaskService.updateTask(tasks, taskData);
-            await TaskService.updateUserTasks(newTasks.tasks, userId);
-
-            return newTasks;
+            return {tasks: newTasks, userId};
         }
         catch (error: any) { throw error }
     }
 )
 
-export const updateSubTaskAsync = createAsyncThunk(
+export const updateSubTaskAsync = createAsyncThunk<{tasks: TasksWithSelected, userId: string}, UpdateSubTaskParams>(
     "subtask/update",
     async (params: UpdateSubTaskParams, { getState }) => {
         try {
@@ -85,8 +85,8 @@ export const updateSubTaskAsync = createAsyncThunk(
             const newTasks = TaskService.updateSubTask(
                 tasks, params.taskId, params.subTaskId, params.subTaskData
             );
-            await TaskService.updateUserTasks(newTasks.tasks, userId)
-            return newTasks;
+
+            return {tasks: newTasks, userId};
         }
         catch (error) { throw error }
     }
@@ -124,17 +124,33 @@ const taskSlice = createSlice({
 
     extraReducers: (builder) => {
         builder
-            .addCase(addTaskAsync.fulfilled, (state , action: PayloadAction<ITask[]>): void => {
-                state.tasks = action.payload;
-            })
+            .addCase(addTaskAsync.fulfilled,  (state , action: PayloadAction<ITasksWithUser>): void => {
+                const oldTaskState = state.tasks;
+                state.tasks = action.payload.tasks;
 
+                TaskService.updateUserTasks(state.tasks, action.payload.userId)
+                    .catch(error => {
+                        console.log(error);
+                        state.tasks = oldTaskState;
+                    });
+            })
             .addCase(addTaskAsync.rejected, (state, action): void => {
                 state.fetchError = action.error;
             })
 
-            .addCase(deleteTaskAsync.fulfilled, (state, action: PayloadAction<ITask[]>): void => {
-                state.tasks = action.payload;
+            .addCase(deleteTaskAsync.fulfilled, (state, action: PayloadAction<ITasksWithUser>): void => {
+                const oldSelectedTaskState = state.selectedTask;
+                const oldTaskState = state.tasks;
+
+                state.tasks = action.payload.tasks;
                 state.selectedTask = null;
+
+                TaskService.updateUserTasks(state.tasks, action.payload.userId)
+                    .catch(error => {
+                        console.log(error);
+                        state.selectedTask = oldSelectedTaskState;
+                        state.tasks = oldTaskState;
+                    });
             })
 
             .addCase(deleteTaskAsync.rejected, (state, action): void => {
@@ -142,18 +158,38 @@ const taskSlice = createSlice({
                 state.fetchError = action.error;
             })
 
-            .addCase(deleteSubTaskAsync.fulfilled, (state, action: PayloadAction<TasksWithSelected>): void => {
-                state.tasks = action.payload.tasks;
-                state.selectedTask = action.payload.selectedTask;
+            .addCase(deleteSubTaskAsync.fulfilled, (state, action: PayloadAction<{tasks: TasksWithSelected, userId: string}>): void => {
+                const oldTaskState = state.tasks;
+                const oldSelectedTaskState = state.selectedTask;
+
+                state.tasks = action.payload.tasks.tasks;
+                state.selectedTask = action.payload.tasks.selectedTask;
+
+                TaskService.updateUserTasks(state.tasks, action.payload.userId)
+                    .catch(error => {
+                        console.log(error);
+                        state.tasks = oldTaskState;
+                        state.selectedTask = oldSelectedTaskState;
+                    });
             })
 
             .addCase(deleteSubTaskAsync.rejected, (state, action): void => {
                 state.fetchError = action.error;
             })
 
-            .addCase(updateTaskAsync.fulfilled, (state, action: PayloadAction<TasksWithSelected>): void => {
-                state.tasks = action.payload.tasks;
-                state.selectedTask = action.payload.selectedTask;
+            .addCase(updateTaskAsync.fulfilled, (state, action: PayloadAction<{tasks: TasksWithSelected, userId: string}>): void => {
+                const oldTaskState = state.tasks;
+                const oldSelectedTask = state.selectedTask;
+
+                state.tasks = action.payload.tasks.tasks;
+                state.selectedTask = action.payload.tasks.selectedTask;
+
+                TaskService.updateUserTasks(state.tasks, action.payload.userId)
+                    .catch(error => {
+                        console.log(error);
+                        state.tasks = oldTaskState;
+                        state.selectedTask = oldSelectedTask;
+                    });
             })
 
             .addCase(updateTaskAsync.rejected, (state, action): void => {
@@ -161,9 +197,20 @@ const taskSlice = createSlice({
                     state.fetchError = action.error;
             })
 
-            .addCase(updateSubTaskAsync.fulfilled, (state, action: PayloadAction<TasksWithSelected>): void => {
-                state.tasks = action.payload.tasks;
-                state.selectedTask = action.payload.selectedTask;
+            .addCase(updateSubTaskAsync.fulfilled, (state, action: PayloadAction<{tasks: TasksWithSelected, userId: string}>): void => {
+                const oldTaskState = state.tasks;
+                const oldSelectedTaskState = state.selectedTask;
+
+                state.tasks = action.payload.tasks.tasks;
+                state.selectedTask = action.payload.tasks.selectedTask;
+
+                TaskService.updateUserTasks(state.tasks, action.payload.userId)
+                    .catch(error => {
+                        console.log(error);
+                        state.tasks = oldTaskState;
+                        state.selectedTask = oldSelectedTaskState;
+                    })
+
             })
 
             .addCase(updateSubTaskAsync.rejected, (state, action): void => {

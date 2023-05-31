@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { getUserTasks } from "./store/reducers/TaskSlice";
-import { setUser } from "./store/reducers/AuthSlice";
-import { auth, getMessagingToken, onMessageListener } from "./firebase.config";
+import React, {useEffect, useMemo} from "react";
+import {getUserTasks} from "./store/reducers/TaskSlice";
+import {setUser} from "./store/reducers/AuthSlice";
+import {auth, getMessagingToken, onMessageListener} from "./firebase.config";
 import {onAuthStateChanged, User} from "firebase/auth";
 
 import AppRouter from "./router/AppRouter";
-import { getCustomTaskGroups } from "./store/reducers/TaskGroupSlice";
+import {getCustomTaskGroups} from "./store/reducers/TaskGroupSlice";
 
-import { userDataSelector, themeSelector } from "./store";
+import {themeSelector, userDataSelector} from "./store";
 import {MessagePayload} from "firebase/messaging"
 import {useAppDispatch, useAppSelector} from "./store/store";
 import {IBrowserNotification} from "./interfaces/Notification";
@@ -28,12 +28,16 @@ function App(): JSX.Element {
     const isAuth: boolean = !!userData;
 
 
-    const [messagingToken, setMessagingToken] = useState<boolean>(false);
-    getMessagingToken(setMessagingToken);
-
+    getMessagingToken().then(r => {
+        if (r === null)
+            console.log("No registration token");
+        else
+            console.log("Messaging token was received")
+    });
     onMessageListener()
         .then((payload: MessagePayload) : void => {
             if (payload?.notification) {
+                console.log(payload)
                 const options: IBrowserNotification = {
                     title: payload.notification?.title,
                     body: payload.notification?.body,
@@ -45,15 +49,13 @@ function App(): JSX.Element {
 
     // функция отслеживания изменения состояния авторизации
     useEffect(() => {
-        const authStateChange = onAuthStateChanged(auth, (user: User | null) => {
-        if (user) {
-            dispatch(setUser(user));
-            dispatch(getUserTasks(user.uid));
-            dispatch(getCustomTaskGroups(user.uid));
-        }
-      });
-
-        return authStateChange;
+        return onAuthStateChanged(auth, (user: User | null) => {
+            if (user) {
+                dispatch(setUser(user));
+                dispatch(getUserTasks(user.uid));
+                dispatch(getCustomTaskGroups(user.uid));
+            }
+        });
     }, [dispatch]);
 
 
