@@ -111,12 +111,14 @@ const Header: FC = (): JSX.Element => {
                 <IconButton
                     onClick={() => dispatch(setTheme())}
                     imgIcon={themeIcon}
+                    name="theme_button"
                 />
 
                 <StyledBadge badgeContent={notifications.length}>
                     <IconButton
                         imgIcon={notificationIcon}
                         onClick={onNotificationClick}
+                        name="notification_button"
                     />
 
                     <NotificationWindow
@@ -128,6 +130,7 @@ const Header: FC = (): JSX.Element => {
                 <IconButton
                     imgIcon={settingsIcon}
                     onClick={onSettingsClick}
+                    name="settings_button"
                 />
                 <SettingsWindow
                     anchor={settingsAnchor}
