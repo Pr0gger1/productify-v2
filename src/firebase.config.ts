@@ -1,12 +1,12 @@
-import firebase from "firebase/compat/app";
-import { getAuth } from "firebase/auth";
-import {getMessaging, MessagePayload} from "firebase/messaging";
+import firebase from 'firebase/compat/app';
+import { getAuth } from 'firebase/auth';
+import {getMessaging, MessagePayload} from 'firebase/messaging';
 import { initializeFirestore,
-  CACHE_SIZE_UNLIMITED,
-  enableIndexedDbPersistence } from "firebase/firestore";
+	CACHE_SIZE_UNLIMITED,
+	enableIndexedDbPersistence } from 'firebase/firestore';
 
-import { getToken, onMessage } from "firebase/messaging";
-import { getStorage } from "firebase/storage";
+import { getToken, onMessage } from 'firebase/messaging';
+import { getStorage } from 'firebase/storage';
 
 const appId: string | undefined = process.env.REACT_APP_APP_ID_FIREBASE;
 const apiKey: string | undefined = process.env.REACT_APP_API_KEY_FIREBASE;
@@ -19,10 +19,10 @@ const measurementId: string | undefined = process.env.REACT_APP_MEASUREMENT_ID_F
 const messagingSenderId: string | undefined = process.env.REACT_APP_MESSAGING_SENDER_ID_FIREBASE;
 
 export const firebaseConfig = {
-  apiKey, authDomain,
-  databaseURL, projectId,
-  storageBucket, messagingSenderId,
-  appId, measurementId
+	apiKey, authDomain,
+	databaseURL, projectId,
+	storageBucket, messagingSenderId,
+	appId, measurementId
 };
 
 // Initialize Firebase
@@ -31,25 +31,25 @@ export const auth = getAuth(app);
 export const storage = getStorage(app);
 export const messaging = getMessaging(app);
 export const db = initializeFirestore(app, {
-  cacheSizeBytes: CACHE_SIZE_UNLIMITED
+	cacheSizeBytes: CACHE_SIZE_UNLIMITED
 });
 
 enableIndexedDbPersistence(db)
-    .then(() => console.log("indexing data enabled"))
-    .catch(error => console.log(error));
+	.then(() => console.log('indexing data enabled'))
+	.catch(error => console.log(error));
 
 export const getMessagingToken = () => {
-  return getToken(messaging, {vapidKey}).then(currentToken => {
-    if (currentToken) return currentToken
-    else return null;
-  })
-}
+	return getToken(messaging, {vapidKey}).then(currentToken => {
+		if (currentToken) return currentToken;
+		else return null;
+	});
+};
 
 export const onMessageListener = (): Promise<MessagePayload> => {
-    return new Promise(resolve => {
-      onMessage(messaging,  payload => {
-        console.log(payload)
-        resolve(payload);
-      })
-    });
-}
+	return new Promise(resolve => {
+		onMessage(messaging,  payload => {
+			console.log(payload);
+			resolve(payload);
+		});
+	});
+};

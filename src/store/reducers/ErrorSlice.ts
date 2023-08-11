@@ -1,18 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-// !неиспользуемый код, необхл
+// !неиспользуемый код, необходимо исправить
 
 const errorSlice = createSlice({
-    name: "errorState",
-    initialState: {
-        error: null
-    },
-    reducers: {
-        setError(state, action) {
-            state.error = action.payload.error;
-            console.log(state.error);
-        }
-    }
+	name: 'errorState',
+	initialState: {
+		error: null
+	},
+	reducers: {
+		setError(state, action) {
+			state.error = action.payload.error;
+			console.log(state.error);
+		}
+	}
 });
 
 export const { setError } = errorSlice.actions;

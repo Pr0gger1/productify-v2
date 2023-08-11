@@ -1,14 +1,5 @@
-import { Context, createContext, Dispatch, SetStateAction } from "react";
-import {AlertColor, SnackbarOrigin} from "@mui/material";
-
-
-// export const snackbarPosition = {
-//   top: "top" as const,
-//   bottom: "bottom" as const,
-//   left: "left" as const,
-//   center: "center" as const,
-//   right: "right" as const,
-// };
+import { Context, createContext, Dispatch, SetStateAction } from 'react';
+import {AlertColor, SnackbarOrigin} from '@mui/material';
 
 export interface ISnackbarContext {
   open: boolean;
@@ -25,21 +16,21 @@ export interface ISnackbarContext {
 
 export const SnackbarContext: Context<ISnackbarContext> =
   createContext<ISnackbarContext>({
-    open: false,
-    setOpen: (): void => {},
+  	open: false,
+  	setOpen: (): void => {},
 
-    hideDuration: 5000,
-    setHideDuration: (): void => {},
+  	hideDuration: 5000,
+  	setHideDuration: (): void => {},
 
-    type: "success",
-    setType: (): void => {},
+  	type: 'success',
+  	setType: (): void => {},
 
-    message: "",
-    setMessage: (): void => {},
+  	message: '',
+  	setMessage: (): void => {},
 
-    position: {
-      horizontal: "center",
-      vertical: "top",
-    },
-    setPosition: (): void => {},
+  	position: {
+  		horizontal: 'center',
+  		vertical: 'top',
+  	},
+  	setPosition: (): void => {},
   });

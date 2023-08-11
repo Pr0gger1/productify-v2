@@ -1,21 +1,21 @@
 // Scripts for firebase and firebase messaging
 
 // eslint-disable-next-line no-undef
-importScripts("https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js");
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
 // eslint-disable-next-line no-undef
-importScripts("https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js");
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
 // Initialize the Firebase app in the service worker by passing the generated config
 
 const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: "",
-  measurementId: ""
+	apiKey: '',
+	authDomain: '',
+	databaseURL: '',
+	projectId: '',
+	storageBucket: '',
+	messagingSenderId: '',
+	appId: '',
+	measurementId: ''
 };
 
 // eslint-disable-next-line no-undef
@@ -26,15 +26,15 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  console.log("Received background message ", payload);
+	console.log('Received background message ', payload);
 
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-  };
+	const notificationTitle = payload.notification.title;
+	const notificationOptions = {
+		body: payload.notification.body,
+	};
 
-  // eslint-disable-next-line no-restricted-globals
-  self.registration.showNotification(notificationTitle,
-    notificationOptions
-  );
+	// eslint-disable-next-line no-restricted-globals
+	self.registration.showNotification(notificationTitle,
+		notificationOptions
+	);
 });

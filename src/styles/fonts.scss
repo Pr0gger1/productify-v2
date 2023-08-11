@@ -1,0 +1,101 @@
+@mixin srcFont($url) {
+  src: local("Montserrat"), url("~assets/fonts/" + $url);
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  @include srcFont("Montserrat-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  @include srcFont("Montserrat-BoldItalic.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  @include srcFont("Montserrat-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: italic;
+  font-weight: 600;
+  @include srcFont("Montserrat-SemiBoldItalic.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  @include srcFont("Montserrat-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: italic;
+  font-weight: 500;
+  @include srcFont("Montserrat-MediumItalic.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  @include srcFont("Montserrat-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  @include srcFont("Montserrat-Italic.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  @include srcFont("Montserrat-Light.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  @include srcFont("Montserrat-LightItalic.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 200;
+  @include srcFont("Montserrat-ExtraLight.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: italic;
+  font-weight: 200;
+  @include srcFont("Montserrat-ExtraLightItalic.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 100;
+  @include srcFont("Montserrat-Thin.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  font-style: italic;
+  font-weight: 100;
+  @include srcFont("Montserrat-ThinItalic.ttf");
+}
