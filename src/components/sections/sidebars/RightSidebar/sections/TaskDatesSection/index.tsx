@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useAppSelector } from 'store/index';
+import { useAppSelector } from 'store';
 import {ITask} from 'types/TaskData';
 
-import DeadlinePicker from '../../DeadlinePicker';
-import ReminderPicker from '../../RemiderPicker';
-import RepeatComponent from '../../RepeatComponent';
+import DeadlinePicker from 'components/sections/sidebars/RightSidebar/DeadlinePicker';
+import ReminderPicker from 'components/sections/sidebars/RightSidebar/RemiderPicker';
+import RepeatComponent from 'components/sections/sidebars/RightSidebar/RepeatComponent';
 import { selectedTaskSelector } from 'store/selectors';
 
 import styles from './styles.module.scss';

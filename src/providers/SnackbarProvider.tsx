@@ -1,11 +1,11 @@
-import React, {SyntheticEvent, useState} from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import {
-	ISnackbarContext,
+	IToastOptions,
 	SnackbarContext,
 } from 'context/SnackbarContext';
 import SnackbarNotification from 'components/ui/windows/SnackbarNotifications';
-import {Children} from 'types/Children';
-import {AlertColor, SnackbarCloseReason, SnackbarOrigin} from '@mui/material';
+import { Children } from 'types/Children';
+import { AlertColor, SnackbarCloseReason, SnackbarOrigin } from '@mui/material';
 
 const SnackbarProvider: React.FC<Children> = ({ children }) => {
 	const [open, setOpen] = useState<boolean>(false);
@@ -25,16 +25,23 @@ const SnackbarProvider: React.FC<Children> = ({ children }) => {
 		setOpen(false);
 	};
 
-	const contextValue: ISnackbarContext = {
-		hideDuration, setHideDuration,
-		position, setPosition,
-		message, setMessage,
-		open, setOpen,
-		type, setType,
+	const setToast = (options: IToastOptions) => {
+		if (options.hideDuration)
+			setHideDuration(options.hideDuration);
+		if (options.position)
+			setPosition({
+				vertical: options.position.vertical,
+				horizontal: options.position.horizontal
+			});
+
+		if (options.type) setType(options.type);
+		setOpen(true);
+		setMessage(options.message);
 	};
 
+
 	return (
-		<SnackbarContext.Provider value={contextValue}>
+		<SnackbarContext.Provider value={{ setToast }}>
 			<SnackbarNotification
 				open={open}
 				hideDuration={hideDuration}

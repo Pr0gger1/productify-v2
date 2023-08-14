@@ -4,7 +4,7 @@ import {SerializedError} from '@reduxjs/toolkit';
 
 export const useAuthError = (authError: SerializedError | null): void => {
 	const [errorMessage, setErrorMessage] = useState<string>('');
-	const { setMessage, setType, setOpen } = useContext(SnackbarContext);
+	const { setToast } = useContext(SnackbarContext);
 
 	useEffect((): void => {
 		if (authError) {
@@ -33,9 +33,10 @@ export const useAuthError = (authError: SerializedError | null): void => {
 					setErrorMessage(authError.code);
 				break;
 			}
-			setMessage(errorMessage);
-			setType('error');
-			setOpen(true);
+			setToast({
+				message: errorMessage,
+				type: 'error'
+			});
 		}
-	}, [authError, errorMessage, setMessage, setOpen, setType]);
+	}, [authError, errorMessage]);
 };

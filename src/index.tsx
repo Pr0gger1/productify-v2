@@ -10,7 +10,7 @@ import {ThemeType} from 'types/slices/SliceStates';
 
 import './styles/index.scss';
 import SnackbarProvider from './providers/SnackbarProvider';
-import AppLayout from 'components/ui/Layout';
+import AppLayout from 'components/layout/AppLayout';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

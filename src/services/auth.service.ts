@@ -24,8 +24,7 @@ export class AuthService {
 	static async login(email: string, password: string): Promise<User | null> {
 		return signInWithEmailAndPassword(auth, email, password)
 			.then((creds: UserCredential): User | null => {
-				if (creds.user) return creds.user;
-				return null;
+				return creds.user ?? null;
 			})
 			.catch(error => { throw error; });
 	}

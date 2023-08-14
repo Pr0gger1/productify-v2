@@ -1,14 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
-    "paths": {
-      "store/*": ["store/*"],
-      "components/*": ["components/*"],
-      "types/*": ["types/*"],
-      "utils/*": ["utils/*"],
-      "hooks/*": ["hooks/*"],
-      "assets/*": ["assets/*"],
-    },
     "plugins": [
       {
         "name": "typescript-plugin-css-modules"

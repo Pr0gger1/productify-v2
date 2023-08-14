@@ -1,37 +1,23 @@
-import React, {FC, useContext, useEffect, useState} from 'react';
-import {loginWithGoogle} from 'store/reducers/AuthSlice';
+import React, { FC, useContext, useEffect } from 'react';
+import { loginWithGoogle } from 'store/reducers/AuthSlice';
 
 import AuthForm from 'components/forms/AuthForm';
-import {IAuthUserData} from 'types/User';
-import {useAppDispatch} from 'store/index';
+import {useAppDispatch } from 'store/index';
 
 import google_icon from 'assets/img/icons/google.svg';
 import logo  from 'assets/img/logo/logo_vector_white.svg';
 
-import {HeaderContext} from 'context/HeaderContext';
+import { HeaderContext } from 'context/HeaderContext';
 import styles from './styles.module.scss';
 
-interface AuthPageProps {register?: boolean}
+interface AuthPageProps { register?: boolean }
 
 const AuthPage: FC<AuthPageProps> = ({ register = false }): JSX.Element => {
 	const { setShowHeader } = useContext(HeaderContext);
-	const [authData, setAuthData] = useState<IAuthUserData>({
-		email: '', password: '', repeatPassword: '', username: ''
-	});
 
 	useEffect(() => {
 		setShowHeader(false);
 	}, []);
-
-	useEffect(() => {
-		if (register)
-			setAuthData({
-				email: '',
-				password: '',
-				repeatPassword: '',
-				username: ''
-			});
-	}, [register]);
 
 	const dispatch = useAppDispatch();
 
@@ -42,11 +28,7 @@ const AuthPage: FC<AuthPageProps> = ({ register = false }): JSX.Element => {
 					{register ? 'Регистрация' : 'Авторизация'}
 				</h1>
 
-				<AuthForm
-					register={register}
-					data={authData}
-					setData={setAuthData}
-				/>
+				<AuthForm register={register} />
 
 				<button
 					className={styles.google_auth__button}

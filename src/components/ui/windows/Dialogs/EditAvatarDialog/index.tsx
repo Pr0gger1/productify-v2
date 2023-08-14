@@ -8,7 +8,7 @@ import {
 
 import { ThemedDialog } from '../ThemedDialog';
 import { updateUserProfile } from 'store/reducers/AuthSlice';
-import StorageService from '../../../../../services/storage.service';
+import StorageService from 'services/storage.service';
 import UploadFileButton from 'components/ui/buttons/UploadFileButton';
 import UserDataCard from 'components/ui/cards/UserDataCard';
 import {useAppDispatch} from 'store/index';

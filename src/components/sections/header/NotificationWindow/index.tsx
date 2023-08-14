@@ -4,7 +4,7 @@ import Popover from '@mui/material/Popover';
 import NotificationContainer from 'components/ui/containers/NotificationContainer';
 import { mobileSelector } from 'store/selectors';
 import IWindowAnchor from 'types/Window';
-import {useAppSelector} from 'store/index';
+import { useAppSelector } from 'store';
 
 
 const NotificationWindow: FC<IWindowAnchor> = ({ anchor, setAnchor }): JSX.Element => {

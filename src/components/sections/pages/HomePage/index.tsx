@@ -8,7 +8,7 @@ import RightSidebar from 'components/sections/sidebars/RightSidebar';
 import Content from 'components/sections/content';
 import TaskGroupContainer from 'components/ui/containers/TaskGroups/TaskGroupContainer';
 
-import styles from 'components/ui/Layout/styles.module.scss';
+import styles from 'components/layout/AppLayout/styles.module.scss';
 import {HeaderContext} from 'context/HeaderContext';
 
 const HomePage: FC = (): JSX.Element => {

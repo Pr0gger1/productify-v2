@@ -3,7 +3,7 @@ import { auth } from 'firebase.config';
 import { signOut, User } from 'firebase/auth';
 import { AuthService } from 'services/auth.service';
 import { UserService } from 'services/user.service';
-import { IAuthUserData, IUserDataObject } from 'types/User';
+import {IAuthUserData, IRegisterUserData, IUserDataObject} from 'types/User';
 import { IAuthStates } from 'types/slices/SliceStates';
 import { RootState } from 'store';
 import { UpdateUserProfileParams } from 'types/slices/UpdateUserProfileParams';
@@ -22,9 +22,9 @@ export const loginWithGoogle = createAsyncThunk(
 		return await AuthService.loginWithGoogle();
 	}
 );
-export const register = createAsyncThunk<IUserDataObject | null, IAuthUserData>(
+export const register = createAsyncThunk<IUserDataObject | null, IRegisterUserData>(
 	'auth/register',
-	async (data: IAuthUserData) => {
+	async (data: IRegisterUserData) => {
 		return await AuthService.register(
 			data.email, data.password, data.username
 		);

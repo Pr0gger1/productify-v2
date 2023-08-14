@@ -1,4 +1,4 @@
-import React, {Dispatch, FC, SetStateAction, useState} from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { updateTaskAsync } from 'store/reducers/TaskSlice';
 
 import DeleteButton from 'components/ui/buttons/DeleteButton';
@@ -11,10 +11,10 @@ import { LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import { ruRU } from '@mui/x-date-pickers';
 
 import { selectedTaskSelector } from 'store/selectors';
+import { ITask } from 'types/TaskData';
 import dayjs from 'dayjs';
-import styles from '../sections/TaskDatesSection/styles.module.scss';
-import { useAppDispatch, useAppSelector } from 'store/index';
-import {ITask} from 'types/TaskData';
+import { useAppDispatch, useAppSelector } from 'store';
+import styles from 'components/sections/sidebars/RightSidebar/sections/TaskDatesSection/styles.module.scss';
 
 interface ReminderPickerProps {
     setShowReminderPicker: Dispatch<SetStateAction<boolean>>

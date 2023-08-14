@@ -31,7 +31,7 @@ import styles from './styles.module.scss';
 interface TaskProps { taskDataProps: ITask }
 
 const Task: FC<TaskProps> = ({ taskDataProps }): JSX.Element => {
-	const { setMessage, setType, setOpen, setHideDuration } = useContext(SnackbarContext);
+	const { setToast } = useContext(SnackbarContext);
 
 	const [isTaskSelected, setIsTaskSelected] = useState<boolean>(false);
 	const [isFavorite, setIsFavorite] = useState<boolean>(taskDataProps.favorite);
@@ -96,11 +96,12 @@ const Task: FC<TaskProps> = ({ taskDataProps }): JSX.Element => {
 			if (event.key === 'Delete') {
 				dispatch(deleteTaskAsync(taskDataProps.id));
 				dispatch(setRSidebarOpen());
-                
-				setMessage('Задача удалена');
-				setType('success');
-				setHideDuration(2000);
-				setOpen(true);
+
+				setToast({
+					message: 'Задача удалена',
+					type: 'success',
+					hideDuration: 2000
+				});
 			}
 		};
 
@@ -108,7 +109,7 @@ const Task: FC<TaskProps> = ({ taskDataProps }): JSX.Element => {
 			window.addEventListener('keydown', onTaskPressed);
 
 		return () => window.removeEventListener('keydown', onTaskPressed);
-	}, [dispatch, isTaskSelected, setHideDuration, setMessage, setOpen, setType, taskDataProps.id]);
+	}, [dispatch, isTaskSelected, taskDataProps.id]);
 
 
 	return (

@@ -1,6 +1,6 @@
 import React, {ReactNode, useState} from 'react';
 import Header from 'components/sections/header';
-import {HeaderContext} from 'context/HeaderContext';
+import { HeaderContext } from 'context/HeaderContext';
 import styles from './styles.module.scss';
 
 interface AppProviderProps {

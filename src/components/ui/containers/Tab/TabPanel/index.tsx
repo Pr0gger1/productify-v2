@@ -1,6 +1,5 @@
 import React from 'react';
-import {Box} from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 
 function TabPanel(props: any) {
@@ -18,16 +17,14 @@ function TabPanel(props: any) {
 				<Box sx={{
 					p: 3
 				}}>
-					<Typography
-						sx={{
-							display: 'flex',
-							flexDirection: 'column',
-							gap: '0.75rem',
-							justifyContent: 'flex-start'
-						}}
-					>
+					<div style={{
+						display: 'flex',
+						flexDirection: 'column',
+						gap: '0.75rem',
+						justifyContent: 'flex-start'
+					}}>
 						{children}
-					</Typography>
+					</div>
 				</Box>
 			)}
 		</div>

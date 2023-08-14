@@ -13,15 +13,16 @@ interface DeleteTaskButtonProps {
 }
 
 const DeleteTaskButton: FC<DeleteTaskButtonProps> = ({ selectedTask }): JSX.Element => {
-	const { setMessage, setType, setHideDuration, setOpen } = useContext(SnackbarContext);
+	const {setToast } = useContext(SnackbarContext);
 	const dispatch = useAppDispatch();
 
 	const onDeleteTask = (): void => {
 		dispatch(deleteTaskAsync(selectedTask.id));
-		setMessage('Задача удалена');
-		setType('success');
-		setHideDuration(2000);
-		setOpen(true);
+		setToast({
+			message: 'Задача удалена',
+			type: 'success',
+			hideDuration: 2000
+		});
 		dispatch(setRSidebarOpen());
 	};
 

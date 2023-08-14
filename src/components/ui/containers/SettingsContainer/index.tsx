@@ -8,12 +8,12 @@ import PersonOffOutlinedIcon from '@mui/icons-material/PersonOffOutlined';
 import FaceRoundedIcon from '@mui/icons-material/FaceRounded';
 import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 
-import TabPanel from '../../Tab/TabPanel';
+import TabPanel from '../Tab/TabPanel';
 import DeleteUserDialog from 'components/ui/windows/Dialogs/DeleteUserDialog';
 import EditAvatarDialog from 'components/ui/windows/Dialogs/EditAvatarDialog';
 import EditUsernameDialog from 'components/ui/windows/Dialogs/EditUsernameDialog';
 
-import { StyledTab, StyledTabs } from '../../Tab';
+import { StyledTab, StyledTabs } from '../Tab';
 
 import { useAppDispatch } from 'store/index';
 import UserDataCard from 'components/ui/cards/UserDataCard';

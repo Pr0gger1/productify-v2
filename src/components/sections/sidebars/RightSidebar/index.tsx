@@ -4,12 +4,12 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { setRSidebarOpen } from 'store/reducers/SidebarSlice';
 import { setSelectedTask } from 'store/reducers/TaskSlice';
 
-import SidebarCloseButton from 'components/sections/sidebars/RightSidebar/components/sections/SidebarCloseButtonBlock';
-import TaskNameSection from 'components/sections/sidebars/RightSidebar/components/sections/TaskNameSection';
-import TaskCategorySection from 'components/sections/sidebars/RightSidebar/components/sections/TaskCategorySection';
-import TaskNotesSection from 'components/sections/sidebars/RightSidebar/components/sections/TaskNotesSection';
-import TaskDatesSection from 'components/sections/sidebars/RightSidebar/components/sections/TaskDatesSection';
-import TaskDateAndDeleteSection from 'components/sections/sidebars/RightSidebar/components/sections/TaskDateAndDeleteSection';
+import SidebarCloseButton from 'components/sections/sidebars/RightSidebar/sections/SidebarCloseButtonBlock';
+import TaskNameSection from 'components/sections/sidebars/RightSidebar/sections/TaskNameSection';
+import TaskCategorySection from 'components/sections/sidebars/RightSidebar/sections/TaskCategorySection';
+import TaskNotesSection from 'components/sections/sidebars/RightSidebar/sections/TaskNotesSection';
+import TaskDatesSection from 'components/sections/sidebars/RightSidebar/sections/TaskDatesSection';
+import TaskDateAndDeleteSection from 'components/sections/sidebars/RightSidebar/sections/TaskDateAndDeleteSection';
 
 import { ITask, ITaskGroup } from 'types/TaskData';
 import { rightSidebarSelector, selectedTaskGroupSelector, selectedTaskSelector } from 'store/selectors';

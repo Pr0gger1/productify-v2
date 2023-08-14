@@ -5,7 +5,7 @@ import {FormControl, InputLabel, MenuItem, SelectChangeEvent} from '@mui/materia
 import { TaskCategorySelect } from 'components/ui/custom/TaskCategorySelect';
 import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 import {selectedTaskSelector} from 'store/selectors';
-import {useAppDispatch, useAppSelector} from 'store/index';
+import {useAppDispatch, useAppSelector} from 'store';
 import {ITask} from 'types/TaskData';
 
 export const repeatType = {

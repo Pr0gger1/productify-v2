@@ -1,4 +1,4 @@
-import { repeatType } from 'components/sections/sidebars/RightSidebar/components/RepeatComponent';
+import { repeatType } from 'components/sections/sidebars/RightSidebar/RepeatComponent';
 import { DateFormatter } from 'utils/DateFormatter';
 
 import { updateTaskAsync } from 'store/reducers/TaskSlice';
@@ -7,7 +7,7 @@ import { updateNotifications } from 'store/reducers/NotificationSlice';
 import { generateUniqueId } from 'utils/generateUniqueId';
 import { tasksSelector } from 'store/selectors';
 import { ITask } from 'types/TaskData';
-import { RootState, TypedDispatch, useAppDispatch, useAppSelector } from 'store/index';
+import { RootState, TypedDispatch, useAppDispatch, useAppSelector } from 'store';
 import { ITaskNotification } from 'types/Notification';
 
 const reminderObserver = async (tasks: ITask[], dispatch: TypedDispatch<RootState>) => {

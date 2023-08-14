@@ -13,7 +13,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { selectedTaskSelector } from 'store/selectors';
 
 import { CSSTransition } from 'react-transition-group';
-import { useAppDispatch, useAppSelector } from 'store/index';
+import { useAppDispatch, useAppSelector } from 'store';
 import { ISubTask, ITask } from 'types/TaskData';
 import styles from './styles.module.scss';
 

@@ -6,7 +6,7 @@ import { TaskCategorySelect } from 'components/ui/custom/TaskCategorySelect';
 import { baseGroupIds } from 'store/defaultData/baseGroups';
 
 import { selectedTaskSelector } from 'store/selectors';
-import {useAppDispatch, useAppSelector} from 'store/index';
+import {useAppDispatch, useAppSelector} from 'store';
 import {ITask, ITaskGroup, ITaskGroups} from 'types/TaskData';
 
 

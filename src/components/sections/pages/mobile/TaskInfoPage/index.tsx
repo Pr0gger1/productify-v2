@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import {useAppSelector} from 'store/index';
 import {NavigateFunction, useNavigate} from 'react-router-dom';
 
-import TaskNameSection from 'components/sections/sidebars/RightSidebar/components/sections/TaskNameSection';
-import TaskDatesSection from 'components/sections/sidebars/RightSidebar/components/sections/TaskDatesSection';
-import TaskNotesSection from 'components/sections/sidebars/RightSidebar/components/sections/TaskNotesSection';
-import TaskCategorySection from 'components/sections/sidebars/RightSidebar/components/sections/TaskCategorySection';
+import TaskNameSection from 'components/sections/sidebars/RightSidebar/sections/TaskNameSection';
+import TaskDatesSection from 'components/sections/sidebars/RightSidebar/sections/TaskDatesSection';
+import TaskNotesSection from 'components/sections/sidebars/RightSidebar/sections/TaskNotesSection';
+import TaskCategorySection from 'components/sections/sidebars/RightSidebar/sections/TaskCategorySection';
 import BackButton from 'components/ui/buttons/BackButton';
 
 import { selectedTaskSelector, selectedTaskGroupSelector } from 'store/selectors';

@@ -6,9 +6,9 @@ import useToggleIconTheme from 'hooks/useToggleIconTheme';
 import { setTheme } from 'store/reducers/ThemeSlice';
 
 import TaskGroupMenuContainer from 'components/ui/windows/contextMenu/task_page/TaskGroupMenuContainer';
-import HamburgerMenu from 'components/sections/header/components/HamburgerMenu';
-import NotificationWindow from 'components/sections/header/components/NotificationWindow';
-import HeaderSettings from 'components/sections/header/components/SettingsWindow';
+import HamburgerMenu from 'components/sections/header/HamburgerMenu';
+import NotificationWindow from 'components/sections/header/NotificationWindow';
+import HeaderSettings from 'components/sections/header/SettingsWindow';
 import IconButton from 'components/ui/buttons/IconButton';
 import { StyledBadge } from 'components/ui/custom/CustomBadge';
 

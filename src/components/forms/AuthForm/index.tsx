@@ -1,8 +1,7 @@
 import React, {
-	useContext, useEffect, useState,
-	Dispatch, SetStateAction, FC,
-	ChangeEvent, MouseEvent, useMemo
+	useContext, useEffect, useState, FC, MouseEvent
 } from 'react';
+import { useForm } from 'react-hook-form';
 import { useMediaQuery } from 'react-responsive';
 import { useAuthError } from 'hooks/useAuthError';
 import { SnackbarContext } from 'context/SnackbarContext';
@@ -11,32 +10,36 @@ import { login, register as registerHandler } from 'store/reducers/AuthSlice';
 
 import { Link } from 'react-router-dom';
 
-import Button from 'components/ui/buttons/Button';
-import { FormControl, IconButton, InputAdornment, TextField } from '@mui/material';
+// import Button from 'components/ui/buttons/Button';
+import { FormControl, IconButton, InputAdornment, TextField, Button } from '@mui/material';
 import KeyTwoToneIcon from '@mui/icons-material/KeyTwoTone';
 import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone';
 import BadgeTwoToneIcon from '@mui/icons-material/BadgeTwoTone';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { RootState, useAppDispatch, useAppSelector } from 'store/index';
-import { IAuthUserData } from 'types/User';
 import { SerializedError } from '@reduxjs/toolkit';
 import LoginIcon from '@mui/icons-material/Login';
 
 import styles from './styles.module.scss';
 
 interface AuthFormProps {
-    register: boolean,
-    setData: Dispatch<SetStateAction<IAuthUserData>>,
-    data: IAuthUserData
+    register: boolean
 }
 
-const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}): JSX.Element => {
-	const { setMessage, setType, setOpen, setHideDuration } = useContext(SnackbarContext);
-	const emailValidation: boolean = useMemo(() => !/\S+@\S+\.\S+/.test(data.email), [data.email])
-        && data.email.length !== 0;
+const AuthForm: FC<AuthFormProps> = ({ register = false}): JSX.Element => {
+	const { setToast } = useContext(SnackbarContext);
+	const { register: field, reset, handleSubmit, formState: { errors }} = useForm({
+		defaultValues: {
+			email: '',
+			password: '',
+			repeatPassword: '',
+			username: '',
+		},
+		mode: 'onChange'
+	});
 
-	const mobileScreen: boolean = useMediaQuery({maxWidth: 900});
+	const mobileScreen: boolean = useMediaQuery({ maxWidth: 900 });
 	const inputColorStyles: string = mobileScreen ? 'white' : '';
 
 	// redux состояния
@@ -49,9 +52,7 @@ const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}): JSX.El
 	useAuthError(authError);
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
-	useEffect(() => {
-		setHideDuration(3000);
-	}, [setHideDuration]);
+	useEffect(() => reset(), [register]);
 
 	// обработчики
 	const handleClickShowPassword = () => setShowPassword(show => !show);
@@ -59,50 +60,44 @@ const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}): JSX.El
 		event.preventDefault();
 	};
 
+	const onSubmitHandler = async (data: any) => {
+		if (register) {
+			if (data.password === data.repeatPassword) {
+				dispatch(registerHandler(data));
+				setToast({
+					message: 'На вашу электронную почту было отправлено письмо с подтверждением',
+					type: 'info',
+					hideDuration: 5000
+				});
 
-	const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-		setData({...data, [event.target.id]: event.target.value});
-	};
-
-	const onSubmitHandler = async (event: MouseEvent): Promise<void> => {
-		event.preventDefault();
-		if (!data.email || !data.password || (register && !data.repeatPassword)) {
-			setMessage('Остались пустые поля!');
-			setType('error');
-			setOpen(true);
-		}
-		else {
-			if (register) {
-				if (data.password === data.repeatPassword) {
-					dispatch(registerHandler(data));
-					setMessage('На вашу электронную почту было отправлено письмо с подтверждением');
-					setType('info');
-					setHideDuration(5000);
-					setOpen(true);
-				}
-				else {
-					setMessage('Пароли не совпадают');
-					setType('error');
-					setOpen(true);
-				}
 			}
 			else {
-				dispatch(login(data));
+				setToast({
+					message: 'Пароли не совпадают',
+					type: 'error'
+				});
 			}
+		}
+		else {
+			const { email, password } = data;
+			dispatch(login({ email, password }));
 		}
 	};
 
 	return (
-		<form className={styles.auth__form}>
+		<form className={styles.auth__form} onSubmit={handleSubmit(onSubmitHandler)}>
 			<div className={styles.form__fields}>
 				{
 					register &&
                     <FormControl>
                     	<TextField
                     		id="username"
+                    		{...field('username', {
+							 	required: 'Пустое поле'
+                    		})}
+                    		error={!!errors?.username ?? false}
+                    		helperText={errors?.username?.message ?? ''}
                     		label="Ваш ник"
-                    		value={data.username}
-                    		onChange={onChangeHandler}
                     		InputProps={{
                     			style: {
                     				color: inputColorStyles
@@ -121,10 +116,12 @@ const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}): JSX.El
 					<TextField
 						id="email"
 						label="Email"
-						helperText={emailValidation ? 'Некорректный email' : ''}
-						error={emailValidation}
-						value={data.email}
-						onChange={onChangeHandler}
+						helperText={errors?.email?.message ?? ''}
+						error={!!errors?.email ?? false}
+						{...field('email', {
+							required: 'Пустое поле',
+							pattern: { value: /\S+@\S+\.\S+/, message: 'Некорректный email' }
+						})}
 						placeholder="example@example.com"
 						autoComplete="off"
 						InputProps={{
@@ -143,10 +140,19 @@ const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}): JSX.El
 				<FormControl>
 					<TextField
 						type={showPassword ? 'text' : 'password'}
+						id="password"
+						label="Пароль"
+						{...field('password', {
+							required: 'Пустое поле',
+							minLength: {
+								value: 6, message: 'Пароль меньше 6 символов'
+							}
+						})}
+						error={!!(errors?.password ?? false)}
+						helperText={errors?.password?.message ?? ''}
+						placeholder="Минимум 6 символов"
 						InputProps={{
-							style: {
-								color: inputColorStyles
-							},
+							style: { color: inputColorStyles },
 							startAdornment:
                                 <InputAdornment position="start">
                                 	<KeyTwoToneIcon
@@ -166,19 +172,21 @@ const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}): JSX.El
                               	</IconButton>
                               </InputAdornment>
 						}}
-						id="password"
-						label="Пароль"
-						value={data.password}
-						onChange={onChangeHandler}
-						placeholder="Минимум 6 символов"
 					/>
 				</FormControl>
-
 				{
 					register &&
                 <FormControl>
                 	<TextField
                 		type={showPassword ? 'text' : 'password'}
+                		id="repeatPassword"
+                		label="Повторите пароль"
+                		{...field('repeatPassword', {
+                			required: 'Пустое поле'
+                		})}
+                		error={!!errors?.repeatPassword ?? false}
+                		helperText={errors?.repeatPassword?.message ?? ''}
+                		placeholder="Повторите ваш пароль"
                 		InputProps={{
                 			startAdornment:
                                 <InputAdornment position="start">
@@ -198,11 +206,6 @@ const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}): JSX.El
                               	</IconButton>
                               </InputAdornment>
                 		}}
-                		id="repeatPassword"
-                		label="Повторите пароль"
-                		value={data.repeatPassword}
-                		onChange={onChangeHandler}
-                		placeholder="Повторите ваш пароль"
                 	/>
                 </FormControl>
 				}
@@ -210,9 +213,9 @@ const AuthForm: FC<AuthFormProps> = ({ register = false, data, setData}): JSX.El
 
 			<Button
 				type="submit"
-				customClass={styles.login_button}
-				variant="long"
-				onClick={onSubmitHandler}>
+				className={styles.login_button}
+				variant="contained"
+			>
 				{register ? 'Зарегистрироваться' : 'Войти'}
 				<LoginIcon/>
 			</Button>

@@ -19,7 +19,7 @@ const DeleteUserDialog: FC<DialogProps> = ({ open, setOpen }): JSX.Element => {
 	const dispatch = useAppDispatch();
 	const [passwordInput, setPasswordInput] = useState<string>('');
 	const [textFieldError, setTextFieldError] = useState<boolean>(false);
-	const { setMessage, setOpen: setToastOpen, setType } = useContext(SnackbarContext);
+	const { setToast } = useContext(SnackbarContext);
 
 	const authStatus: string | undefined = useAppSelector((state: RootState) => state.authStates.status);
 	const deleteError: SerializedError | null = useAppSelector((state: RootState) => state.authStates.authError);
@@ -45,11 +45,12 @@ const DeleteUserDialog: FC<DialogProps> = ({ open, setOpen }): JSX.Element => {
 	useEffect((): void => {
 		if (deleteError) {
 			const message: string = deleteError.message ?? '';
-			setMessage(message);
-			setType('error');
-			setToastOpen(true);
+			setToast({
+				message,
+				type: 'error'
+			});
 		}
-	}, [deleteError, setMessage, setToastOpen, setType]);
+	}, [deleteError]);
 
 	return (
 		<ThemedDialog

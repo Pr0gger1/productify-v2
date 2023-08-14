@@ -6,7 +6,7 @@ import { selectedTaskSelector } from 'store/selectors';
 
 import styles from './styles.module.scss';
 import {ITask} from 'types/TaskData';
-import {useAppDispatch, useAppSelector} from 'store/index';
+import {useAppDispatch, useAppSelector} from 'store';
 
 const TaskNotesSection: FC = (): JSX.Element => {
 	const dispatch = useAppDispatch();

@@ -41,7 +41,7 @@ const UserDataCard: FC<UserDataCardProps> = ({ userAvatar }): JSX.Element => {
 					/>
 			}
 			{
-				username.length !== 0 && email.length !== 0 ?
+				username.length > 0 && email.length > 0 ?
 					<div className={styles.user__card__info}>
 						<span className={styles.user__card__name}>{username}</span>
 						<span className={styles.user__card__email}>{email}</span>

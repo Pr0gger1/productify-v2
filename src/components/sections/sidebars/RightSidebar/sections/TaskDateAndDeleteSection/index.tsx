@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import { useAppSelector } from 'store/index';
+import { useAppSelector } from 'store';
 import {DateFormatter} from 'utils/DateFormatter';
 import {ITask} from 'types/TaskData';
 

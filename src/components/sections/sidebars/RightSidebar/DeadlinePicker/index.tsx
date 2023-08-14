@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 import { selectedTaskSelector } from 'store/selectors';
 
 import styles from '../sections/TaskDatesSection/styles.module.scss';
-import {useAppDispatch, useAppSelector} from 'store/index';
+import {useAppDispatch, useAppSelector} from 'store';
 import {ITask} from 'types/TaskData';
 
 interface DeadlinePickerProps {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch } from 'store/index';
+import { useAppDispatch } from 'store';
 import { setRSidebarOpen } from 'store/reducers/SidebarSlice';
 import CloseIcon from '@mui/icons-material/Close';
 

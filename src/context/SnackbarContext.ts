@@ -1,36 +1,17 @@
-import { Context, createContext, Dispatch, SetStateAction } from 'react';
-import {AlertColor, SnackbarOrigin} from '@mui/material';
+import { createContext } from 'react';
+import { AlertColor, SnackbarOrigin } from '@mui/material';
 
 export interface ISnackbarContext {
-  open: boolean;
-  hideDuration: number;
-  message: string;
-  type: AlertColor;
-  position: SnackbarOrigin;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-  setHideDuration: Dispatch<SetStateAction<number>>;
-  setMessage: Dispatch<SetStateAction<string>>;
-  setPosition: Dispatch<SetStateAction<SnackbarOrigin>>;
-  setType: Dispatch<SetStateAction<AlertColor>>;
+  setToast: (options: IToastOptions) => void,
 }
 
-export const SnackbarContext: Context<ISnackbarContext> =
-  createContext<ISnackbarContext>({
-  	open: false,
-  	setOpen: (): void => {},
+export interface IToastOptions {
+	position?: SnackbarOrigin;
+	message: string;
+	hideDuration?: number,
+	type?: AlertColor
+}
 
-  	hideDuration: 5000,
-  	setHideDuration: (): void => {},
-
-  	type: 'success',
-  	setType: (): void => {},
-
-  	message: '',
-  	setMessage: (): void => {},
-
-  	position: {
-  		horizontal: 'center',
-  		vertical: 'top',
-  	},
-  	setPosition: (): void => {},
-  });
+export const SnackbarContext= createContext<ISnackbarContext>({
+  	setToast: () => {},
+});

@@ -1,8 +1,8 @@
 import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
-import {TaskGroupService, TaskGroupsWithSelected} from '../../services/taskGroup.service';
+import {TaskGroupService, TaskGroupsWithSelected} from 'services/taskGroup.service';
 
 import { deleteTaskAsync } from './TaskSlice';
-import { initialGroup } from '../defaultData/baseGroups';
+import { initialGroup } from 'store/defaultData/baseGroups';
 import defaultGroups from 'store/defaultData/baseGroups';
 import {RootState} from 'store';
 import {ITask, ITaskGroup} from 'types/TaskData';
