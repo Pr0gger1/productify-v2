@@ -22,11 +22,10 @@ const TaskGroup: FC<TaskGroupProps> = ({ data, onClick }) => {
 	const [tasksCount, setTasksCount] = useState<number>(0);
 
 	const tasks: ITask[] = useAppSelector(tasksSelector);
-	const setCurrentTasks = useGroupTasks(tasks, data);
+	const setCurrentTasks: ITask[] = useGroupTasks(tasks, data);
 
 	useMemo((): void => {
-
-		const count: number = setCurrentTasks().length;
+		const count: number = setCurrentTasks.length;
 		setTasksCount(count);
 	}, [setCurrentTasks]);
 

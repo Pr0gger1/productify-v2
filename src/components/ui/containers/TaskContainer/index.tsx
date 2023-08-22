@@ -11,13 +11,19 @@ import Task from 'components/ui/cards/Task';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { tasksSelector,filterSelector,currentGroupTasksSelector, selectedTaskGroupSelector } from 'store/selectors';
+import {
+	currentGroupTasksSelector,
+	filterSelector,
+	selectedTaskGroupSelector, tasksSelector, userDataSelector
+} from 'store/selectors';
 
 import 'components/ui/animations/Task/TaskAnimation.css';
-import {RootState, useAppDispatch, useAppSelector} from 'store';
-import {ITask, ITaskGroup} from 'types/TaskData';
-import {FilterStates} from 'types/Filter';
+import { useAppDispatch, useAppSelector } from 'store';
+import { ITask, ITaskGroup } from 'types/TaskData';
+import { FilterStates } from 'types/Filter';
 import styles from './styles.module.scss';
+import {TaskService} from 'services/task.service';
+import {useQuery} from '@tanstack/react-query';
 
 const NoTasksMessage: FC = (): JSX.Element => {
 	return (
@@ -31,13 +37,28 @@ const TaskContainer = () => {
 	const dispatch = useAppDispatch();
 
 	const tasks: ITask[] = useAppSelector(tasksSelector);
+	const user = useAppSelector(userDataSelector);
+	// const userId = JSON.parse(localStorage.getItem('userData') ?? '');
+	console.log(user);
+
+	const { data, isLoading } = useQuery(['tasks'], async ()=> {
+		if (user)
+			return await TaskService.getUserTasks(user.uid);
+		return undefined;
+	}
+	);
+	console.log(data);
+
+	// const tasks: ITask[] | undefined | null = data?.taskData;
+
 	const filter: FilterStates = useAppSelector(filterSelector);
 
 	const currentGroupTasks: ITask[] = useAppSelector(currentGroupTasksSelector);
+	console.log(currentGroupTasks);
 	const selectedTaskGroup: ITaskGroup = useAppSelector(selectedTaskGroupSelector);
 
 	// функция, которая фильтрует массив задач в соответствии с выбранной группой
-	const setCurrentTasks: () => ITask[] | undefined = useGroupTasks(tasks, selectedTaskGroup);
+	const setCurrentTasks: ITask[] = useGroupTasks(tasks || [], selectedTaskGroup);
 
 	// Конечный массив с отсортированными задачами
 	const sortedTasks: ITask[] = useFilteredTasks(currentGroupTasks, filter.taskFilter);
@@ -45,59 +66,55 @@ const TaskContainer = () => {
 
 	const isCompletedGroup: boolean = selectedTaskGroup.id === 'completed';
 
-	const taskLoading: boolean = useAppSelector(
-		(state: RootState) => state.taskStates.loading
-	);
+	// const taskLoading: boolean = useAppSelector(
+	// 	(state: RootState) => state.taskStates.loading
+	// );
 
 	useNotification();
 	useEffect((): void => {
-		dispatch(setCurrentGroupTasks(setCurrentTasks()!));
-	}, [dispatch, selectedTaskGroup, setCurrentTasks, tasks]);
+		dispatch(setCurrentGroupTasks(setCurrentTasks));
+	}, [dispatch, selectedTaskGroup, tasks]);
+	
+	if (!isLoading)
+		return (
+			<div className={styles.tasks__container}>
+				{ !isCompletedGroup && <CreateTaskButton /> }
+				{
+					isLoading ? <CircularProgress sx={{ margin: '0 auto' }} />
+						: (
+							<>
+								<CompletedTasksAccordion completedTasks={completedTasks} />
+								{!sortedTasks.length && <NoTasksMessage />}
 
-	return (
-		<div className={styles.tasks__container}>
-			{
-				!isCompletedGroup
-              && <CreateTaskButton />
-			}
-
-			{taskLoading ? <CircularProgress sx={{ margin: '0 auto' }} />
-				: (
-					<>
-						{ !isCompletedGroup && completedTasks.length !== 0 && (
-							<CompletedTasksAccordion
-								completedTasks={completedTasks}
-							/>
+								<TransitionGroup
+									component={'div'}
+									style={{
+										paddingLeft: '0.5rem',
+										display: 'flex',
+										flexDirection: 'column',
+										gap: '1rem',
+									}}
+								>
+									{
+										 sortedTasks
+											.filter((task: ITask) => {
+												return (isCompletedGroup && task.completed) || (!task.completed);
+											})
+											.map((task: ITask, index: number) => (
+												<CSSTransition
+													key={index}
+													timeout={500}
+													classNames="item"
+													mountOnEnter
+												>
+													<Task key={task.id} taskDataProps={task} />
+											 </CSSTransition>
+											))}
+								</TransitionGroup>
+							</>
 						)}
-						{!sortedTasks.length && <NoTasksMessage />}
-						<TransitionGroup
-							style={{
-								paddingLeft: '0.5rem',
-								display: 'flex',
-								flexDirection: 'column',
-								gap: '1rem',
-							}}
-						>
-							{sortedTasks.length > 0 &&
-                  sortedTasks
-                  	.filter((task: ITask) => {
-                  		return (isCompletedGroup && task.completed) || (!task.completed);
-                  	})
-                  	.map((task: ITask, index: number) => (
-                  		<CSSTransition
-                  			key={index}
-                  			timeout={500}
-                  			classNames="item"
-                  			mountOnEnter
-                  		>
-                  			<Task key={task.id} taskDataProps={task} />
-                  		</CSSTransition>
-                  	))}
-						</TransitionGroup>
-					</>
-				)}
-		</div>
-	);
+			</div>
+		);
 };
 
 export default TaskContainer;

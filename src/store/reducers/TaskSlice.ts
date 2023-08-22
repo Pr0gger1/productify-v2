@@ -22,7 +22,7 @@ export const addTaskAsync = createAsyncThunk<ITasksWithUser, ITask>(
 		const userId: string = state.authStates.userData?.uid as string | '';
 
 		const newTasks: ITask[] = TaskService.addTask(tasks, taskData);
-		return {tasks: newTasks, userId};
+		return { tasks: newTasks, userId };
 	}
 );
 

@@ -1,20 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-
 import App from './App';
-
 import { store } from 'store';
 import { Provider as ReduxProvider } from 'react-redux';
-import {ThemeType} from 'types/slices/SliceStates';
+import { ThemeType } from 'types/slices/SliceStates';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import AppLayout from 'components/layout/AppLayout';
+import SnackbarProvider from './providers/SnackbarProvider';
 
 import './styles/index.scss';
-import SnackbarProvider from './providers/SnackbarProvider';
-import AppLayout from 'components/layout/AppLayout';
 
-const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
-);
 document.title = 'Productify ToDo App';
 
 const currentTheme: ThemeType = localStorage.getItem('theme') as ThemeType;
@@ -38,16 +34,24 @@ if ('serviceWorker' in navigator) {
 	});
 }
 
+const queryClient = new QueryClient();
+
+const root = ReactDOM.createRoot(
+    document.getElementById('root') as HTMLElement
+);
+
 root.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<ReduxProvider store={store}>
-				<AppLayout>
-					<SnackbarProvider>
-						<App />
-					</SnackbarProvider>
-				</AppLayout>
-			</ReduxProvider>
-		</BrowserRouter>
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<ReduxProvider store={store}>
+					<AppLayout>
+						<SnackbarProvider>
+							<App />
+						</SnackbarProvider>
+					</AppLayout>
+				</ReduxProvider>
+			</BrowserRouter>
+		</QueryClientProvider>
 	</React.StrictMode>
 );

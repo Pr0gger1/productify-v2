@@ -1,5 +1,5 @@
-// export * from './selectors';
-import {AnyAction, configureStore, ThunkDispatch} from '@reduxjs/toolkit';
+import { AnyAction, configureStore, ThunkDispatch } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import sidebarReducer from './reducers/SidebarSlice';
 import themeReducer from './reducers/ThemeSlice';
@@ -10,7 +10,6 @@ import taskGroupReducer from './reducers/TaskGroupSlice';
 import taskReducer from './reducers/TaskSlice';
 import notificationReducer from './reducers/NotificationSlice';
 import errorReducer from './reducers/ErrorSlice';
-import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 
 export const store = configureStore({
 	reducer: {

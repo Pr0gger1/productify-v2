@@ -1,6 +1,4 @@
-import React, {
-	useContext, useEffect, useState, FC, MouseEvent
-} from 'react';
+import React, { useContext, useEffect, useState, FC, MouseEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMediaQuery } from 'react-responsive';
 import { useAuthError } from 'hooks/useAuthError';
@@ -10,7 +8,6 @@ import { login, register as registerHandler } from 'store/reducers/AuthSlice';
 
 import { Link } from 'react-router-dom';
 
-// import Button from 'components/ui/buttons/Button';
 import { FormControl, IconButton, InputAdornment, TextField, Button } from '@mui/material';
 import KeyTwoToneIcon from '@mui/icons-material/KeyTwoTone';
 import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone';
@@ -44,7 +41,6 @@ const AuthForm: FC<AuthFormProps> = ({ register = false}): JSX.Element => {
 
 	// redux состояния
 	const dispatch = useAppDispatch();
-
 	const authError: SerializedError | null =  useAppSelector(
 		(state: RootState) => state.authStates.authError
 	);

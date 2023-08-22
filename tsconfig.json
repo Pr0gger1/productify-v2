@@ -26,6 +26,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "jsx": "react-jsx"
   },
   "include": [
