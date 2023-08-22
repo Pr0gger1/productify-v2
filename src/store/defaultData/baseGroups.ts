@@ -1,6 +1,6 @@
-import {ITaskGroup} from 'types/TaskData';
+import { ITaskGroup } from 'types/TaskData';
 
-import todayTaskIcon  from 'assets/img/icons/task_list/today_task_icon.svg';
+import todayTaskIcon from 'assets/img/icons/task_list/today_task_icon.svg';
 import planTaskIcon from 'assets/img/icons/task_list/plan_task_icon.svg';
 import favoriteTaskIcon from 'assets/img/icons/task_list/favourite_task_icon.svg';
 import completedTaskIcon from 'assets/img/icons/task_list/completed_task_icon.svg';
@@ -11,7 +11,7 @@ export const baseGroupIds = {
 	plan: 'plan',
 	favorite: 'favorite',
 	completed: 'completed',
-	all: 'all'
+	all: 'all',
 };
 
 export const initialGroup: ITaskGroup = {
@@ -20,7 +20,7 @@ export const initialGroup: ITaskGroup = {
 	counter: 0,
 	id: 'today',
 	pageTitle: '✌️Мой день',
-	webTitle: 'Productify - Мой день'
+	webTitle: 'Productify - Мой день',
 };
 
 const defaultGroups: ITaskGroup[] = [
@@ -30,7 +30,7 @@ const defaultGroups: ITaskGroup[] = [
 		id: 'today',
 		pageTitle: '✌️Мой день',
 		webTitle: 'Productify - Мой день',
-		counter: 0
+		counter: 0,
 	},
 	{
 		title: 'Запланировано',
@@ -38,7 +38,7 @@ const defaultGroups: ITaskGroup[] = [
 		id: 'plan',
 		pageTitle: '🗓️Запланировано',
 		webTitle: 'Productify - Запланировано',
-		counter: 0
+		counter: 0,
 	},
 	{
 		title: 'Избранные',
@@ -46,7 +46,7 @@ const defaultGroups: ITaskGroup[] = [
 		id: 'favorite',
 		counter: 0,
 		pageTitle: '✨Избранное',
-		webTitle: 'Productify - Избранное'
+		webTitle: 'Productify - Избранное',
 	},
 	{
 		title: 'Завершенные',
@@ -62,7 +62,7 @@ const defaultGroups: ITaskGroup[] = [
 		id: 'all',
 		counter: 0,
 		pageTitle: '🎯Все задачи',
-		webTitle: 'Productify - Все задачи'
-	}
+		webTitle: 'Productify - Все задачи',
+	},
 ];
 export default defaultGroups;

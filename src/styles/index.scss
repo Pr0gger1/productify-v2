@@ -1,128 +1,129 @@
-@import "fonts";
+@import 'fonts';
 
 :root {
-  --notificationBgColor: rgb(226, 64, 64);
-  --scrollbarWidth: 0.6rem;
+	--notificationBgColor: rgb(226, 64, 64);
+	--scrollbarWidth: 0.6rem;
 
-  --checkboxColor: #9f9f9f;
+	--checkboxColor: #9f9f9f;
 }
 
-[data-theme="light"] {
-  /* task styles */
-  --starColor: #7f7f7f;
-  --addSubtaskIconColor: #80CBF1;
+[data-theme='light'] {
+	/* task styles */
+	--starColor: #7f7f7f;
+	--addSubtaskIconColor: #80cbf1;
 
-  /* scrollbar background color */
-  --bgColorScrollbarTrack: #868686;
-  --bgColorScrollbarThumb: #b9b9b9;
+	/* scrollbar background color */
+	--bgColorScrollbarTrack: #868686;
+	--bgColorScrollbarThumb: #b9b9b9;
 
-  /* ui background color */
-  //--bgColorSecond: #dfdfdf;
-  --bgColorSecond: #7b8eda;
-  --bgColorFirst: #fff;
-  --bgColorInput: #e5e5e5;
-  --bgButtonColor: #7b8eda;
-  --bgButtonColorHover: #718eff;
-  --borderColor: #868686;
-  --fontColor: #000;
+	/* ui background color */
+	//--bgColorSecond: #dfdfdf;
+	--bgColorSecond: #7b8eda;
+	--bgColorFirst: #fff;
+	--bgColorInput: #e5e5e5;
+	--bgButtonColor: #7b8eda;
+	--bgButtonColorHover: #718eff;
+	--borderColor: #868686;
+	--fontColor: #000;
 
-  /* input styles */
-  --searchProps: #ebebeb url("~assets/img/icons/search_dark.svg");
+	/* input styles */
+	--searchProps: #ebebeb url('~assets/img/icons/search_dark.svg');
 
-  /* sidebar styles */
-  --bgColorThird: #f2f2f2;
-  --borderBottomSidebar: 1px solid #868686;
+	/* sidebar styles */
+	--bgColorThird: #f2f2f2;
+	--borderBottomSidebar: 1px solid #868686;
 }
 
-[data-theme="dark"] {
-  /* task styles */
-  --starColor: #c7c7c7;
-  --addSubtaskIconColor: #3C6B94;
+[data-theme='dark'] {
+	/* task styles */
+	--starColor: #c7c7c7;
+	--addSubtaskIconColor: #3c6b94;
 
-  /* scrollbar background color */
-  --bgColorScrollbarTrack: #5f5f5f;
-  --bgColorScrollbarThumb: #191919;
+	/* scrollbar background color */
+	--bgColorScrollbarTrack: #5f5f5f;
+	--bgColorScrollbarThumb: #191919;
 
-  /* ui background color*/
-  --bgColorSecond: #232323;
-  --bgColorFirst: #2a2a2a;
-  --bgColorInput: #444;
-  --bgButtonColor: #373737;
-  --bgButtonColorHover: #404040;
-  --borderColor: #5f5f5f;
-  --fontColor: #fff;
+	/* ui background color*/
+	--bgColorSecond: #232323;
+	--bgColorFirst: #2a2a2a;
+	--bgColorInput: #444;
+	--bgButtonColor: #373737;
+	--bgButtonColorHover: #404040;
+	--borderColor: #5f5f5f;
+	--fontColor: #fff;
 
-  /* input styles */
-  --searchProps: #444 url("~assets/img/icons/search_light.svg");
+	/* input styles */
+	--searchProps: #444 url('~assets/img/icons/search_light.svg');
 
-  /* sidebar styles */
-  --bgColorThird: #333333;
-  --borderBottomSidebar: 1px solid #444;
+	/* sidebar styles */
+	--bgColorThird: #333333;
+	--borderBottomSidebar: 1px solid #444;
 }
 
 #root {
-  height: 100%;
+	height: 100%;
 }
 
 * {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 
-  font-family: "Montserrat", sans-serif;
-  font-size: 1rem;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1rem;
 
-  -webkit-transition: background-color .5s ease-in-out;
-  -moz-transition: background-color .5s ease-in-out;
-  transition: background-color .5s ease-in-out;
+	-webkit-transition: background-color 0.5s ease-in-out;
+	-moz-transition: background-color 0.5s ease-in-out;
+	transition: background-color 0.5s ease-in-out;
 }
 
-body, html {
-  height: 100%;
+body,
+html {
+	height: 100%;
 }
 
 main {
-  color: var(--fontColor);
-  background-color: var(--bgColorFirst);
+	color: var(--fontColor);
+	background-color: var(--bgColorFirst);
 }
 
 a {
-  color: #6977f3;
+	color: #6977f3;
 }
 
 input::placeholder {
-  color: var(--fontColor);
+	color: var(--fontColor);
 }
 
 *::-webkit-scrollbar {
-  width: var(--scrollbarWidth);
+	width: var(--scrollbarWidth);
 }
 
 *::-webkit-scrollbar-track {
-  background: var(--bgColorScrollbarTrack);
-  border-radius: 1rem;
+	background: var(--bgColorScrollbarTrack);
+	border-radius: 1rem;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--bgColorScrollbarThumb);
-  border-radius: 1rem;
+	background-color: var(--bgColorScrollbarThumb);
+	border-radius: 1rem;
 }
 
 /* firefox scrollbar styles */
 * {
-  scrollbar-width: var(--scrollbarWidth);
-  scrollbar-color: var(--bgColorScrollbarThumb) var(--bgColorScrollbarTrack);
+	scrollbar-width: var(--scrollbarWidth);
+	scrollbar-color: var(--bgColorScrollbarThumb) var(--bgColorScrollbarTrack);
 }
 
 button {
-  cursor: pointer;
-  overflow: hidden;
-  word-wrap: break-word;
+	cursor: pointer;
+	overflow: hidden;
+	word-wrap: break-word;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
+input[type='date']::-webkit-calendar-picker-indicator {
+	filter: invert(1);
 }
 
-input[type="file"] {
-  display: none;
+input[type='file'] {
+	display: none;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import {NavigateFunction, useNavigate} from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
-import {useAppDispatch, useAppSelector} from 'store/index';
+import { useAppDispatch, useAppSelector } from 'store';
 import { taskGroupsSelector } from 'store/selectors';
 import { setSelectedGroup } from 'store/reducers/TaskGroupSlice';
 
@@ -10,7 +10,7 @@ import BaseGroupContainer from '../BaseGroupContainer';
 import CustomGroupContainer from '../CustomGroupContainer';
 
 import styles from './styles.module.scss';
-import {ITaskGroup, ITaskGroups} from 'types/TaskData';
+import { ITaskGroup, ITaskGroups } from 'types/TaskData';
 
 const TaskGroupContainer = () => {
 	const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ const TaskGroupContainer = () => {
 					taskGroups={taskGroups.custom}
 					onClick={onClickGroupHandler}
 				/>
-				<CreateListButton/>
+				<CreateListButton />
 			</div>
 		</div>
 	);

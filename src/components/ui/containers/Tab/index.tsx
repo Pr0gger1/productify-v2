@@ -1,10 +1,12 @@
-import {Tab, Tabs, styled} from '@mui/material';
+import { Tab, Tabs, styled } from '@mui/material';
 import React from 'react';
 
-export const StyledTabs = styled((props) => (
+export const StyledTabs = styled(props => (
 	<Tabs
 		{...props}
-		TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
+		TabIndicatorProps={{
+			children: <span className="MuiTabs-indicatorSpan" />,
+		}}
 	/>
 ))({
 	'& .MuiTabs-indicator': {
@@ -19,7 +21,7 @@ export const StyledTabs = styled((props) => (
 	},
 });
 
-export const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
+export const StyledTab = styled(props => <Tab disableRipple {...props} />)(
 	({ theme }) => ({
 		textTransform: 'none',
 		fontWeight: theme.typography.fontWeightRegular,
@@ -33,7 +35,7 @@ export const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
 			backgroundColor: 'rgba(100, 95, 228, 0.32)',
 		},
 		'&.MuiSvgIcon-root': {
-			color: 'red'
-		}
+			color: 'red',
+		},
 	}),
 );

@@ -1,12 +1,11 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { setSearchFilter } from 'store/reducers/FilterSlice';
 
 import styles from './styles.module.scss';
-import {leftSidebarSelector} from 'store/selectors';
-import {useAppDispatch, useAppSelector} from 'store/index';
+import { leftSidebarSelector } from 'store/selectors';
+import { useAppDispatch, useAppSelector } from 'store';
 
-
-const SearchInput= ({ ...props }) => {
+const SearchInput = ({ ...props }) => {
 	const dispatch = useAppDispatch();
 	const isLSidebarOpened = useAppSelector(leftSidebarSelector);
 
@@ -14,12 +13,14 @@ const SearchInput= ({ ...props }) => {
 
 	const onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
 		setSearchText(event.target.value);
-		dispatch(setSearchFilter({searchFilter: event.target.value}));
+		dispatch(setSearchFilter({ searchFilter: event.target.value }));
 	};
 
-	const searchStyles = !isLSidebarOpened ? {
-		cursor: 'pointer'
-	} : {};
+	const searchStyles = !isLSidebarOpened
+		? {
+				cursor: 'pointer',
+		  }
+		: {};
 
 	return (
 		<input

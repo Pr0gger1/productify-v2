@@ -2,15 +2,17 @@ import React, { FC, useContext, useEffect } from 'react';
 import { loginWithGoogle } from 'store/reducers/AuthSlice';
 
 import AuthForm from 'components/forms/AuthForm';
-import {useAppDispatch } from 'store/index';
+import { useAppDispatch } from 'store';
 
 import google_icon from 'assets/img/icons/google.svg';
-import logo  from 'assets/img/logo/logo_vector_white.svg';
+import logo from 'assets/img/logo/logo_vector_white.svg';
 
 import { HeaderContext } from 'context/HeaderContext';
 import styles from './styles.module.scss';
 
-interface AuthPageProps { register?: boolean }
+interface AuthPageProps {
+	register?: boolean;
+}
 
 const AuthPage: FC<AuthPageProps> = ({ register = false }): JSX.Element => {
 	const { setShowHeader } = useContext(HeaderContext);
@@ -35,16 +37,16 @@ const AuthPage: FC<AuthPageProps> = ({ register = false }): JSX.Element => {
 					type="button"
 					onClick={() => dispatch(loginWithGoogle())}
 				>
-					<img src={google_icon} alt="google authorization"/>
+					<img src={google_icon} alt="google authorization" />
 					<span className={styles.google_auth__text}>
-                        Авторизоваться через Google
+						Авторизоваться через Google
 					</span>
 				</button>
 			</div>
 
 			<div className={styles.introduce__block}>
 				<div className={styles.logo}>
-					<img src={logo} alt="Productify"/>
+					<img src={logo} alt="Productify" />
 				</div>
 				<div className={styles.introduce__slogan}>
 					<p>Начните планировать свой день уже сегодня</p>

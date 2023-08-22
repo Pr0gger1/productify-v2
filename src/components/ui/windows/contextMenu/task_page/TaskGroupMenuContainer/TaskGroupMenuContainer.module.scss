@@ -1,39 +1,38 @@
 .context__container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 1rem;
 
-    position: relative;
-
+	position: relative;
 }
 
 .menu__item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
-    justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
+	justify-content: space-between;
 
-    cursor: pointer;
+	cursor: pointer;
 
-    padding: 0.5rem;
-    border-radius: 0.25rem;
+	padding: 0.5rem;
+	border-radius: 0.25rem;
 
-    &:hover {
-        background-color: var(--bgButtonColorHover);
-    }
+	&:hover {
+		background-color: var(--bgButtonColorHover);
+	}
 
-    span {
-        display: flex;
-        justify-content: flex-end;
-    }
+	span {
+		display: flex;
+		justify-content: flex-end;
+	}
 
-    .select__container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-grow: 1;
-        gap: 0.25rem;
-    }
+	.select__container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-grow: 1;
+		gap: 0.25rem;
+	}
 }

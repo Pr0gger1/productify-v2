@@ -1,9 +1,12 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import Popover from '@mui/material/Popover';
 import SettingsContainer from 'components/ui/containers/SettingsContainer';
 import IWindowAnchor from 'types/Window';
 
-const HeaderSettings: FC<IWindowAnchor> = ({ anchor, setAnchor }): JSX.Element => {
+const HeaderSettings: FC<IWindowAnchor> = ({
+	anchor,
+	setAnchor,
+}): JSX.Element => {
 	const settingsHandleClose = (): void => {
 		setAnchor(null);
 	};
@@ -23,10 +26,9 @@ const HeaderSettings: FC<IWindowAnchor> = ({ anchor, setAnchor }): JSX.Element =
 			PaperProps={{
 				style: {
 					backgroundColor: 'var(--bgColorFirst)',
-					backdropFilter: 'blur(5px)'
-				}
+					backdropFilter: 'blur(5px)',
+				},
 			}}
-            
 			open={Boolean(anchor)}
 			anchorEl={anchor}
 			onClose={settingsHandleClose}
@@ -39,7 +41,7 @@ const HeaderSettings: FC<IWindowAnchor> = ({ anchor, setAnchor }): JSX.Element =
 				horizontal: 'center',
 			}}
 		>
-			<SettingsContainer/>
+			<SettingsContainer />
 		</Popover>
 	);
 };

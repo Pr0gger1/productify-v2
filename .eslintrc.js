@@ -1,56 +1,41 @@
 module.exports = {
-	'env': {
-		'browser': true,
-		'es2021': true,
-		'node': true
+	env: {
+		browser: true,
+		es2021: true,
+		node: true,
 	},
-	'extends': [
+	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
-		'plugin:react/recommended'
+		'plugin:react/recommended',
 	],
-	'overrides': [
+	overrides: [
 		{
-			'env': {
-				'node': true
+			env: {
+				node: true,
 			},
-			'files': [
-				'.eslintrc.{js,cjs}'
-			],
-			'parserOptions': {
-				'sourceType': 'script'
-			}
-		}
+			files: ['.eslintrc.{js,cjs}'],
+			parserOptions: {
+				sourceType: 'script',
+			},
+		},
 	],
-	'parser': '@typescript-eslint/parser',
-	'parserOptions': {
-		'ecmaVersion': 'latest',
-		'sourceType': 'module'
+	parser: '@typescript-eslint/parser',
+	parserOptions: {
+		ecmaVersion: 'latest',
+		sourceType: 'module',
 	},
-	'plugins': [
-		'@typescript-eslint',
-		'react'
-	],
-	'rules': {
+	plugins: ['@typescript-eslint', 'react'],
+	rules: {
 		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/no-var-requires': 'off',
 		'no-extra-semi': 'off',
-		'indent': [
-			'error', 'tab'
-		],
+		'indent': 'off',
+		'keyword-spacing': 'error',
 		'no-tabs': 0,
-		'linebreak-style': [
-			'error',
-			'windows'
-		],
-		'quotes': [
-			'error',
-			'single'
-		],
-		'semi': [
-			'error',
-			'always'
-		],
-		'no-mixed-spaces-and-tabs' : 0
-	}
+		'linebreak-style': 0,
+		'quotes': ['error', 'single'],
+		'semi': ['error', 'always'],
+		'no-mixed-spaces-and-tabs': 0,
+	},
 };

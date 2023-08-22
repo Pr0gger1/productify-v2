@@ -7,7 +7,7 @@ import { sendRequestWithDelay } from 'utils/requests';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
-import { LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { ruRU } from '@mui/x-date-pickers';
 
 import { selectedTaskSelector } from 'store/selectors';
@@ -17,13 +17,15 @@ import { useAppDispatch, useAppSelector } from 'store';
 import styles from 'components/sections/sidebars/RightSidebar/sections/TaskDatesSection/styles.module.scss';
 
 interface ReminderPickerProps {
-    setShowReminderPicker: Dispatch<SetStateAction<boolean>>
+	setShowReminderPicker: Dispatch<SetStateAction<boolean>>;
 }
 
 const ReminderPicker: FC<ReminderPickerProps> = ({ setShowReminderPicker }) => {
 	const dispatch = useAppDispatch();
 	const selectedTask: ITask | null = useAppSelector(selectedTaskSelector);
-	const [reminderDate, setReminderDate] = useState<number | null>(selectedTask ? selectedTask?.reminder : null);
+	const [reminderDate, setReminderDate] = useState<number | null>(
+		selectedTask ? selectedTask?.reminder : null,
+	);
 
 	const onReminderChange = async (value: dayjs.Dayjs | null): Promise<void> => {
 		if (value && selectedTask) {
@@ -32,7 +34,7 @@ const ReminderPicker: FC<ReminderPickerProps> = ({ setShowReminderPicker }) => {
 			const taskData: ITask = {
 				...selectedTask,
 				reminder: value.toDate().getTime(),
-				isRemindNotified: false
+				isRemindNotified: false,
 			};
 
 			await sendRequestWithDelay((): void => {
@@ -45,7 +47,7 @@ const ReminderPicker: FC<ReminderPickerProps> = ({ setShowReminderPicker }) => {
 		if (selectedTask) {
 			const taskData: ITask = {
 				...selectedTask,
-				reminder: null
+				reminder: null,
 			};
 
 			delete taskData.isRemindNotified;
@@ -59,31 +61,32 @@ const ReminderPicker: FC<ReminderPickerProps> = ({ setShowReminderPicker }) => {
 		<div className={styles.date__container}>
 			<LocalizationProvider
 				dateAdapter={AdapterDayjs}
-				localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}
+				localeText={
+					ruRU.components.MuiLocalizationProvider.defaultProps.localeText
+				}
 			>
 				<MobileDateTimePicker
 					label={'Напоминание'}
 					value={dayjs(reminderDate)}
-					onChange={async (val: dayjs.Dayjs | null) => await onReminderChange(val)}
-					sx = {{
+					onChange={async (val: dayjs.Dayjs | null) =>
+						await onReminderChange(val)
+					}
+					sx={{
 						label: {
-							color: 'var(--fontColor)'
+							color: 'var(--fontColor)',
 						},
 						'.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
 							color: 'var(--fontColor)',
 						},
 						'.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root': {
-							border: '1px solid var(--borderColor)'
-						}
+							border: '1px solid var(--borderColor)',
+						},
 					}}
 					ampm={false}
 				/>
 			</LocalizationProvider>
 
-			<DeleteButton
-				sx={{ padding: 2 }}
-				onClick={deleteReminderHandler}
-			/>
+			<DeleteButton sx={{ padding: 2 }} onClick={deleteReminderHandler} />
 		</div>
 	);
 };

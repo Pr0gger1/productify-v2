@@ -1,27 +1,37 @@
-import React, {Dispatch, FC, SetStateAction, useEffect, useState} from 'react';
+import React, {
+	Dispatch,
+	FC,
+	SetStateAction,
+	useEffect,
+	useState,
+} from 'react';
 import { ThemedDialog } from '../ThemedDialog';
 import {
-	Button, DialogActions,
-	DialogContent, DialogContentText,
-	DialogTitle
+	Button,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
 } from '@mui/material';
 
 import { userDataSelector } from 'store/selectors';
 import { ThemedTextField } from 'components/ui/custom/CustomInputs';
 import { updateUserProfile } from 'store/reducers/AuthSlice';
-import { useAppDispatch, useAppSelector } from 'store/index';
+import { useAppDispatch, useAppSelector } from 'store';
 import { User } from 'firebase/auth';
 
 interface EditUsernameDialogProps {
-    open: boolean,
-    setOpen: Dispatch<SetStateAction<boolean>>
+	open: boolean;
+	setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const EditUsernameDialog: FC<EditUsernameDialogProps> = ({ open, setOpen }) => {
 	const dispatch = useAppDispatch();
 	const currentUser: User | null = useAppSelector(userDataSelector);
 
-	const [newUsername, setNewUsername] = useState<string>(currentUser?.displayName ?? '');
+	const [newUsername, setNewUsername] = useState<string>(
+		currentUser?.displayName ?? '',
+	);
 	const [textFieldError, setTextFieldError] = useState<boolean>(false);
 
 	const onCloseDialogClick = (): void => {
@@ -30,27 +40,19 @@ const EditUsernameDialog: FC<EditUsernameDialogProps> = ({ open, setOpen }) => {
 	};
 
 	const onChangeUsernameSubmit = () => {
-		dispatch(updateUserProfile({username: newUsername}));
+		dispatch(updateUserProfile({ username: newUsername }));
 		setOpen(false);
 	};
 
 	useEffect(() => {
-		if (textFieldError && newUsername.length)
-			setTextFieldError(false);
+		if (textFieldError && newUsername.length) setTextFieldError(false);
 	}, [textFieldError, newUsername]);
 
 	return (
-		<ThemedDialog
-			open={open}
-			onClose={onCloseDialogClick}
-		>
-			<DialogTitle>
-                Изменение имени пользователя
-			</DialogTitle>
+		<ThemedDialog open={open} onClose={onCloseDialogClick}>
+			<DialogTitle>Изменение имени пользователя</DialogTitle>
 			<DialogContent>
-				<DialogContentText>
-                    Введите новое имя пользователя
-				</DialogContentText>
+				<DialogContentText>Введите новое имя пользователя</DialogContentText>
 
 				<ThemedTextField
 					value={newUsername}
@@ -63,18 +65,11 @@ const EditUsernameDialog: FC<EditUsernameDialogProps> = ({ open, setOpen }) => {
 				/>
 			</DialogContent>
 			<DialogActions>
-				<Button
-					variant="text"
-					onClick={onCloseDialogClick}
-				>
-                    Отмена
+				<Button variant="text" onClick={onCloseDialogClick}>
+					Отмена
 				</Button>
-				<Button
-					variant="text"
-					color="error"
-					onClick={onChangeUsernameSubmit}
-				>
-                    Подтвердить
+				<Button variant="text" color="error" onClick={onChangeUsernameSubmit}>
+					Подтвердить
 				</Button>
 			</DialogActions>
 		</ThemedDialog>

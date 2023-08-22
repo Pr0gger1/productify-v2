@@ -1,17 +1,17 @@
 import React, { FC } from 'react';
-import {useAppDispatch, useAppSelector} from 'store/index';
+import { useAppDispatch, useAppSelector } from 'store';
 import { deleteNotification } from 'store/reducers/NotificationSlice';
 
 import { updateTaskAsync } from 'store/reducers/TaskSlice';
 import Button from '@mui/material/Button';
 import { tasksSelector } from 'store/selectors';
-import {ITaskNotification} from 'types/Notification';
-import {ITask} from 'types/TaskData';
+import { ITaskNotification } from 'types/Notification';
+import { ITask } from 'types/TaskData';
 
 import styles from './styles.module.scss';
 
 interface NotificationProps {
-    data: ITaskNotification
+	data: ITaskNotification;
 }
 
 const Notification: FC<NotificationProps> = ({ data }) => {
@@ -21,9 +21,14 @@ const Notification: FC<NotificationProps> = ({ data }) => {
 	const onDoneClick = (): void => {
 		dispatch(deleteNotification(data.id));
 
-		const notifiedTask: ITask | undefined = tasks.find((task: ITask) => task.id === data.taskId);
+		const notifiedTask: ITask | undefined = tasks.find(
+			(task: ITask) => task.id === data.taskId,
+		);
 		if (notifiedTask) {
-			const taskData: ITask = {...notifiedTask, completed: !notifiedTask.completed};
+			const taskData: ITask = {
+				...notifiedTask,
+				completed: !notifiedTask.completed,
+			};
 			dispatch(updateTaskAsync(taskData));
 		}
 	};
@@ -35,18 +40,15 @@ const Notification: FC<NotificationProps> = ({ data }) => {
 	const borderLeft: string = data.type === 'reminder' ? '#3354FF' : '#f9266c';
 
 	return (
-		<div className={styles.notification}
+		<div
+			className={styles.notification}
 			style={{
-				borderLeft: `2px solid ${borderLeft}`
+				borderLeft: `2px solid ${borderLeft}`,
 			}}
 		>
-			<h5>
-				{data.taskName}
-			</h5>
+			<h5>{data.taskName}</h5>
 
-			<p>
-				{data.message}
-			</p>
+			<p>{data.message}</p>
 
 			<div className={styles.notification__buttons}>
 				<Button
@@ -55,7 +57,7 @@ const Notification: FC<NotificationProps> = ({ data }) => {
 					className={styles.button__done}
 					onClick={onDoneClick}
 				>
-                    Выполнить
+					Выполнить
 				</Button>
 
 				<Button
@@ -64,7 +66,7 @@ const Notification: FC<NotificationProps> = ({ data }) => {
 					className={styles.button__read}
 					onClick={onReadClick}
 				>
-                    Прочитано
+					Прочитано
 				</Button>
 			</div>
 		</div>

@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from 'store/index';
+import { useAppDispatch, useAppSelector } from 'store';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { setRSidebarOpen } from 'store/reducers/SidebarSlice';
 import { setSelectedTask } from 'store/reducers/TaskSlice';
@@ -12,7 +12,11 @@ import TaskDatesSection from 'components/sections/sidebars/RightSidebar/sections
 import TaskDateAndDeleteSection from 'components/sections/sidebars/RightSidebar/sections/TaskDateAndDeleteSection';
 
 import { ITask, ITaskGroup } from 'types/TaskData';
-import { rightSidebarSelector, selectedTaskGroupSelector, selectedTaskSelector } from 'store/selectors';
+import {
+	rightSidebarSelector,
+	selectedTaskGroupSelector,
+	selectedTaskSelector,
+} from 'store/selectors';
 
 import 'components/ui/animations/Button/CreateListBtnAnimation.css';
 import styles from './styles.module.scss';
@@ -22,7 +26,9 @@ const RightSidebar: FC = (): JSX.Element => {
 	const navigate: NavigateFunction = useNavigate();
 
 	const isRSidebarOpened: boolean = useAppSelector(rightSidebarSelector);
-	const selectedTaskGroup: ITaskGroup = useAppSelector(selectedTaskGroupSelector);
+	const selectedTaskGroup: ITaskGroup = useAppSelector(
+		selectedTaskGroupSelector,
+	);
 	const selectedTask: ITask | null = useAppSelector(selectedTaskSelector);
 
 	useEffect(() => {
@@ -37,18 +43,18 @@ const RightSidebar: FC = (): JSX.Element => {
 			dispatch(setRSidebarOpen());
 	}, [selectedTask, isRSidebarOpened, dispatch]);
 
-
 	return (
-		<aside className={styles.sidebar__right}
+		<aside
+			className={styles.sidebar__right}
 			data-rsidebar-active={isRSidebarOpened}
 		>
 			<div className={styles.sidebar_container}>
-				<SidebarCloseButton/>
-				<TaskNameSection/>
-				<TaskCategorySection/>
-				<TaskDatesSection/>
-				<TaskNotesSection/>
-				<TaskDateAndDeleteSection/>
+				<SidebarCloseButton />
+				<TaskNameSection />
+				<TaskCategorySection />
+				<TaskDatesSection />
+				<TaskNotesSection />
+				<TaskDateAndDeleteSection />
 			</div>
 		</aside>
 	);

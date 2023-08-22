@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import {ITask} from 'types/TaskData';
-import {TaskFilterType} from 'types/Filter';
+import { ITask } from 'types/TaskData';
+import { TaskFilterType } from 'types/Filter';
 
 function sortTasks(a: any, b: any, desc = true) {
 	if (!desc) {
@@ -17,23 +17,17 @@ function sortTasks(a: any, b: any, desc = true) {
 const useFilteredTasks = (groupTasks: ITask[], filter: TaskFilterType) => {
 	return useMemo(() => {
 		if (filter.type === 'alphabet')
-			return [...groupTasks].sort(
-				(a: ITask, b: ITask) => sortTasks(
-					a.taskName, b.taskName, filter.desc
-				)
+			return [...groupTasks].sort((a: ITask, b: ITask) =>
+				sortTasks(a.taskName, b.taskName, filter.desc),
 			);
 		else if (filter.type === 'created_at')
-			return [...groupTasks].sort(
-				(a: ITask, b: ITask) => sortTasks(
-					a.createdAt, b.createdAt, filter.desc
-				)
+			return [...groupTasks].sort((a: ITask, b: ITask) =>
+				sortTasks(a.createdAt, b.createdAt, filter.desc),
 			);
-		else return [...groupTasks].sort(
-			(a: ITask, b: ITask) => sortTasks(
-				a.favorite, b.favorite, filter.desc
-			)
-		);
-
+		else
+			return [...groupTasks].sort((a: ITask, b: ITask) =>
+				sortTasks(a.favorite, b.favorite, filter.desc),
+			);
 	}, [groupTasks, filter]);
 };
 

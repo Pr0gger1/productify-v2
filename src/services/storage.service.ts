@@ -1,6 +1,6 @@
 import { storage, auth } from 'firebase.config';
 import { ref, uploadBytes } from 'firebase/storage';
-import {User} from 'firebase/auth';
+import { User } from 'firebase/auth';
 
 export default class StorageService {
 	static async uploadAvatar(avatar: Blob): Promise<void> {

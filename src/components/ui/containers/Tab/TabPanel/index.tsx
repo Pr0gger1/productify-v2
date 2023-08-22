@@ -14,15 +14,19 @@ function TabPanel(props: any) {
 			{...other}
 		>
 			{value === index && (
-				<Box sx={{
-					p: 3
-				}}>
-					<div style={{
-						display: 'flex',
-						flexDirection: 'column',
-						gap: '0.75rem',
-						justifyContent: 'flex-start'
-					}}>
+				<Box
+					sx={{
+						p: 3,
+					}}
+				>
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+							gap: '0.75rem',
+							justifyContent: 'flex-start',
+						}}
+					>
 						{children}
 					</div>
 				</Box>

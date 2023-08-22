@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import { useAppSelector } from 'store';
 import { selectedTaskGroupSelector } from 'store/selectors';
 import Task from 'components/ui/cards/Task';
@@ -11,37 +11,34 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Accordion from '@mui/material/Accordion';
 
 interface AccordionProps {
-    completedTasks: ITask[];
+	completedTasks: ITask[];
 }
 
 const CompletedTasksAccordion: FC<AccordionProps> = ({ completedTasks }) => {
-	const selectedTaskGroup: ITaskGroup = useAppSelector(selectedTaskGroupSelector);
+	const selectedTaskGroup: ITaskGroup = useAppSelector(
+		selectedTaskGroupSelector,
+	);
 
 	if (completedTasks.length > 0 && selectedTaskGroup.id !== 'completed')
 		return (
-			<Accordion sx={{
-				backgroundColor: 'var(--bgColorFirst)',
-				color: 'var(--fontColor)',
-			}}>
+			<Accordion
+				sx={{
+					backgroundColor: 'var(--bgColorFirst)',
+					color: 'var(--fontColor)',
+				}}
+			>
 				<AccordionSummary
-					expandIcon={<ExpandMoreIcon sx={{color: 'var(--fontColor)'}}/>}
+					expandIcon={<ExpandMoreIcon sx={{ color: 'var(--fontColor)' }} />}
 					aria-controls="panel1a-content"
 					id="panel1a-header"
 				>
-					<Typography>
-                    Завершенные
-					</Typography>
+					<Typography>Завершенные</Typography>
 				</AccordionSummary>
-				{
-					completedTasks.map((task: ITask) =>
-						<AccordionDetails key={task.id}>
-							<Task
-								key={task.id}
-								taskDataProps={task}
-							/>
-						</AccordionDetails>
-					)
-				}
+				{completedTasks.map((task: ITask) => (
+					<AccordionDetails key={task.id}>
+						<Task key={task.id} taskDataProps={task} />
+					</AccordionDetails>
+				))}
 			</Accordion>
 		);
 

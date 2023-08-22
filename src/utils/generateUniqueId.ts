@@ -1,6 +1,10 @@
-
-export const generateUniqueId = (name: string, length: number, split=false) => {
-	const symbols: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+export const generateUniqueId = (
+	name: string,
+	length: number,
+	split = false,
+) => {
+	const symbols: string =
+		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	let id: string = `${name}`;
 	if (split) id = `${name}_`;
 

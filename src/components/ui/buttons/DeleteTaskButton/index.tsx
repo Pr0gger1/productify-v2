@@ -1,19 +1,21 @@
-import React, {FC, useContext} from 'react';
+import React, { FC, useContext } from 'react';
 import { deleteTaskAsync } from 'store/reducers/TaskSlice';
 
 import { Tooltip } from '@mui/material';
 import DeleteSweepTwoToneIcon from '@mui/icons-material/DeleteSweepTwoTone';
-import {SnackbarContext} from 'context/SnackbarContext';
-import {ITask} from 'types/TaskData';
-import {useAppDispatch} from 'store/index';
-import {setRSidebarOpen} from 'store/reducers/SidebarSlice';
+import { SnackbarContext } from 'context/SnackbarContext';
+import { ITask } from 'types/TaskData';
+import { useAppDispatch } from 'store';
+import { setRSidebarOpen } from 'store/reducers/SidebarSlice';
 
 interface DeleteTaskButtonProps {
-    selectedTask: ITask
+	selectedTask: ITask;
 }
 
-const DeleteTaskButton: FC<DeleteTaskButtonProps> = ({ selectedTask }): JSX.Element => {
-	const {setToast } = useContext(SnackbarContext);
+const DeleteTaskButton: FC<DeleteTaskButtonProps> = ({
+	selectedTask,
+}): JSX.Element => {
+	const { setToast } = useContext(SnackbarContext);
 	const dispatch = useAppDispatch();
 
 	const onDeleteTask = (): void => {
@@ -21,7 +23,7 @@ const DeleteTaskButton: FC<DeleteTaskButtonProps> = ({ selectedTask }): JSX.Elem
 		setToast({
 			message: 'Задача удалена',
 			type: 'success',
-			hideDuration: 2000
+			hideDuration: 2000,
 		});
 		dispatch(setRSidebarOpen());
 	};
@@ -36,7 +38,7 @@ const DeleteTaskButton: FC<DeleteTaskButtonProps> = ({ selectedTask }): JSX.Elem
 					backgroundColor: 'var(--bgColorFirst)',
 					borderRadius: '0.5rem',
 					padding: 1,
-					cursor: 'pointer'
+					cursor: 'pointer',
 				}}
 			/>
 		</Tooltip>

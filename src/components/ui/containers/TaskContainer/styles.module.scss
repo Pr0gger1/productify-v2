@@ -1,20 +1,20 @@
 .tasks__container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem !important;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem !important;
 
-    padding-top: 2rem;
+	padding-top: 2rem;
 }
 
 .no_tasks__message {
-    font-size: 2rem;
-    opacity: 0.6;
-    align-self: center;
+	font-size: 2rem;
+	opacity: 0.6;
+	align-self: center;
 
-    @media (max-width: 1180px) {
-        text-align: center;
-    }
-    @media (max-width: 400px) {
-        font-size: 1.5rem;
-    }
+	@media (max-width: 1180px) {
+		text-align: center;
+	}
+	@media (max-width: 400px) {
+		font-size: 1.5rem;
+	}
 }

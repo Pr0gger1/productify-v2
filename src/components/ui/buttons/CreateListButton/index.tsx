@@ -1,10 +1,15 @@
 import React, {
-	useState, useEffect, useRef, FC,
-	KeyboardEvent, ChangeEvent,
-	CSSProperties, MutableRefObject
+	useState,
+	useEffect,
+	useRef,
+	FC,
+	KeyboardEvent,
+	ChangeEvent,
+	CSSProperties,
+	MutableRefObject,
 } from 'react';
 
-import { useAppDispatch, useAppSelector } from 'store/index';
+import { useAppDispatch, useAppSelector } from 'store';
 import { leftSidebarSelector, mobileSelector } from 'store/selectors';
 import { setLSidebarOpen } from 'store/reducers/SidebarSlice';
 import { createCustomTaskGroup } from 'store/reducers/TaskGroupSlice';
@@ -31,13 +36,12 @@ const CreateListButton: FC = (): JSX.Element => {
 	const isLSidebarOpened: boolean = useAppSelector(leftSidebarSelector);
 	const isMobile: boolean = useAppSelector(mobileSelector);
 
-	const adaptiveCreateListCaption: CSSProperties = !isLSidebarOpened &&
-    !isMobile ? { display: 'none' } : {};
+	const adaptiveCreateListCaption: CSSProperties =
+		!isLSidebarOpened && !isMobile ? { display: 'none' } : {};
 
-	const adaptiveBtn: CSSProperties = !isLSidebarOpened &&
-    !isMobile ? { padding: '0.25rem' } : {};
+	const adaptiveBtn: CSSProperties =
+		!isLSidebarOpened && !isMobile ? { padding: '0.25rem' } : {};
 
-    
 	useEffect((): void => {
 		if (!isLSidebarOpened) setShowInput(false);
 	}, [isLSidebarOpened, showInput]);
@@ -49,13 +53,11 @@ const CreateListButton: FC = (): JSX.Element => {
 	};
 
 	const onInputEnterPressed = (event: KeyboardEvent): void => {
-		if (event.key === 'Enter' && inputValue.length)
-			handleInputSubmit();
+		if (event.key === 'Enter' && inputValue.length) handleInputSubmit();
 	};
 
 	const onClickCloseInput = (): void => {
-		if (inputValue.length)
-			handleInputSubmit();
+		if (inputValue.length) handleInputSubmit();
 		else setShowInput(false);
 	};
 
@@ -69,30 +71,29 @@ const CreateListButton: FC = (): JSX.Element => {
 	};
 
 	return (
-		<div className={styles.create__list}
-			style={showInput ? {backgroundColor: 'transparent'} : {}}
+		<div
+			className={styles.create__list}
+			style={showInput ? { backgroundColor: 'transparent' } : {}}
 		>
-			{showButton &&
-            <Button
-            	className={styles.create__list_input_btn}
-            	onClick={onCreateListBtnClick}
-            	sx={{
-            		...adaptiveBtn,
-            		minWidth: '0',
-            		color: 'var(--fontColor)',
-            		textTransform: 'math-auto',
-            		backgroundColor: 'var(--bgColorSecond)',
-            		'&:hover': {
-            			backgroundColor: 'var(--bgColorSecond)'
-            		}
-            	}}
-            >
-            	<AddBoxIcon/>
-            	<span style={adaptiveCreateListCaption}>
-					Создать список
-            	</span>
-            </Button>
-			}
+			{showButton && (
+				<Button
+					className={styles.create__list_input_btn}
+					onClick={onCreateListBtnClick}
+					sx={{
+						...adaptiveBtn,
+						minWidth: '0',
+						color: 'var(--fontColor)',
+						textTransform: 'math-auto',
+						backgroundColor: 'var(--bgColorSecond)',
+						'&:hover': {
+							backgroundColor: 'var(--bgColorSecond)',
+						},
+					}}
+				>
+					<AddBoxIcon />
+					<span style={adaptiveCreateListCaption}>Создать список</span>
+				</Button>
+			)}
 
 			<CSSTransition
 				in={showInput}
@@ -106,7 +107,7 @@ const CreateListButton: FC = (): JSX.Element => {
 				<>
 					<ThemedTextField
 						ref={nodeRef}
-						sx={{width: '100%'}}
+						sx={{ width: '100%' }}
 						id="standard-basic"
 						label="Введите название списка"
 						variant="standard"
@@ -117,7 +118,7 @@ const CreateListButton: FC = (): JSX.Element => {
 					/>
 
 					<ConfirmationButton
-						sx={{padding: 1}}
+						sx={{ padding: 1 }}
 						variant={inputValue.length ? 'ok' : 'cancel'}
 						onClick={onClickCloseInput}
 					/>

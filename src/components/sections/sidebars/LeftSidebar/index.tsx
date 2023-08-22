@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from 'store/index';
+import { useAppDispatch, useAppSelector } from 'store';
 import { setLSidebarOpen } from 'store/reducers/SidebarSlice';
 import { leftSidebarSelector } from 'store/selectors';
 
@@ -18,15 +18,13 @@ const LeftSidebar = () => {
 	};
 
 	return (
-		<aside className={styles.sidebar__left}
+		<aside
+			className={styles.sidebar__left}
 			data-lsidebar-active={isLSidebarOpened}
 		>
-			<UserDataCard/>
-			<SearchInput
-				onClick={searchClickHandler}
-				placeholder="Поиск..."
-			/>
-			<TaskGroupContainer/>
+			<UserDataCard />
+			<SearchInput onClick={searchClickHandler} placeholder="Поиск..." />
+			<TaskGroupContainer />
 		</aside>
 	);
 };

@@ -1,18 +1,19 @@
 .checkbox_input__container {
-    display: flex;
-    background-color: var(--bgColorFirst);
-    border-radius: 0.3125rem;
+	display: flex;
+	background-color: var(--bgColorFirst);
+	border-radius: 0.3125rem;
 
-    .checkbox__input {
-        background-color: var(--bgColorFirst);
-        color: var(--fontColor);
-    
-        border: none;
-        border-radius: 0.25rem;
-        padding: 0.6rem;
+	.checkbox__input {
+		background-color: var(--bgColorFirst);
+		color: var(--fontColor);
 
-        &:focus, &:hover {
-            border: none;
-        }
-    }
+		border: none;
+		border-radius: 0.25rem;
+		padding: 0.6rem;
+
+		&:focus,
+		&:hover {
+			border: none;
+		}
+	}
 }

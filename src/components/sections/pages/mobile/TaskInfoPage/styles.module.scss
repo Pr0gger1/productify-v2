@@ -1,10 +1,10 @@
-@import "components/layout/AppLayout/styles.module";
-@import "components/sections/content/styles.module";
+@import 'components/layout/AppLayout/styles.module';
+@import 'components/sections/content/styles.module';
 
 .content {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background-color: var(--bgColorThird);
-  height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	background-color: var(--bgColorThird);
+	height: 100%;
 }

@@ -1,36 +1,35 @@
 .create__list {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-end;
-    border-radius: 0.25rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-end;
+	border-radius: 0.25rem;
 
-    //background-color: var(--bgColorSecond);
+	//background-color: var(--bgColorSecond);
 
-    @media (max-width: 1180px) {
-        margin-bottom: 1rem;
-        width: 100%;
-    }
+	@media (max-width: 1180px) {
+		margin-bottom: 1rem;
+		width: 100%;
+	}
 
-    &_input_btn {
-        border: 1px solid transparent;
-        color: #ffffff;
+	&_input_btn {
+		border: 1px solid transparent;
+		color: #ffffff;
 
-        padding: 0.625rem;
+		padding: 0.625rem;
 
-        width: 100%;
-        max-width: 100%;
+		width: 100%;
+		max-width: 100%;
 
-        background: none;
-        letter-spacing: 0.2em;
+		background: none;
+		letter-spacing: 0.2em;
 
-        //color: var(--fontColor);
-        max-height: 40px;
-        position: relative;
+		//color: var(--fontColor);
+		max-height: 40px;
+		position: relative;
 
-        span {
-            padding-left: 1.5rem;
-        }
-
-    }
+		span {
+			padding-left: 1.5rem;
+		}
+	}
 }

@@ -1,21 +1,25 @@
 .input-enter {
-    opacity: 0;
-    transform: translateY(100%);
+	opacity: 0;
+	transform: translateY(100%);
 }
 
 .input-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 300ms, transform 300ms;
+	opacity: 1;
+	transform: translateY(0);
+	transition:
+		opacity 300ms,
+		transform 300ms;
 }
 
 .input-exit {
-    opacity: 1;
-    transform: translateY(0);
+	opacity: 1;
+	transform: translateY(0);
 }
 
 .input-exit-active {
-    opacity: 0;
-    transform: translateY(100%);
-    transition: opacity 300ms, transform 300ms;
+	opacity: 0;
+	transform: translateY(100%);
+	transition:
+		opacity 300ms,
+		transform 300ms;
 }

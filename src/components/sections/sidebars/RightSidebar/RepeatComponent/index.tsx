@@ -1,32 +1,37 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { updateTaskAsync } from 'store/reducers/TaskSlice';
 
-import {FormControl, InputLabel, MenuItem, SelectChangeEvent} from '@mui/material';
+import {
+	FormControl,
+	InputLabel,
+	MenuItem,
+	SelectChangeEvent,
+} from '@mui/material';
 import { TaskCategorySelect } from 'components/ui/custom/TaskCategorySelect';
 import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
-import {selectedTaskSelector} from 'store/selectors';
-import {useAppDispatch, useAppSelector} from 'store';
-import {ITask} from 'types/TaskData';
+import { selectedTaskSelector } from 'store/selectors';
+import { useAppDispatch, useAppSelector } from 'store';
+import { ITask } from 'types/TaskData';
 
 export const repeatType = {
 	everyDay: 'daily',
 	everyWeek: 'weekly',
-	everyMonth: 'monthly'
+	everyMonth: 'monthly',
 };
 
 const repeatItems = [
 	{
 		title: 'Каждый день',
-		value: repeatType.everyDay
+		value: repeatType.everyDay,
 	},
 	{
 		title: 'Каждую неделю',
-		value: repeatType.everyWeek
+		value: repeatType.everyWeek,
 	},
 	{
 		title: 'Каждый месяц',
-		value: repeatType.everyMonth
-	}
+		value: repeatType.everyMonth,
+	},
 ];
 
 const RepeatComponent: FC = (): JSX.Element => {
@@ -42,53 +47,52 @@ const RepeatComponent: FC = (): JSX.Element => {
 		setRepeat(value);
 		if (selectedTask)
 			switch (value) {
-			case repeatType.everyDay:
-				{
-					const taskData: ITask = {
-						...selectedTask,
-						repeat: value,
-						deadline: new Date(date.setDate(date.getDate() + 1)).getTime()
-					};
-					dispatch(updateTaskAsync(taskData));
-				}
-				break;
-			case repeatType.everyWeek:
-				{
-					const taskData: ITask =  {
-						...selectedTask,
-						repeat: value,
-						deadline: new Date(date.setDate(date.getDate() + 7)).getTime()
-					};
-					dispatch(updateTaskAsync(taskData));
-				}
-				break;
-			case repeatType.everyMonth:
-				{
-					const taskData: ITask = {
-						...selectedTask,
-						repeat: value,
-						deadline: new Date(date.setMonth(date.getMonth() + 1)).getTime()
-					};
-					dispatch(updateTaskAsync(taskData));
-				}
-				break;
-			default:
-				break;
+				case repeatType.everyDay:
+					{
+						const taskData: ITask = {
+							...selectedTask,
+							repeat: value,
+							deadline: new Date(date.setDate(date.getDate() + 1)).getTime(),
+						};
+						dispatch(updateTaskAsync(taskData));
+					}
+					break;
+				case repeatType.everyWeek:
+					{
+						const taskData: ITask = {
+							...selectedTask,
+							repeat: value,
+							deadline: new Date(date.setDate(date.getDate() + 7)).getTime(),
+						};
+						dispatch(updateTaskAsync(taskData));
+					}
+					break;
+				case repeatType.everyMonth:
+					{
+						const taskData: ITask = {
+							...selectedTask,
+							repeat: value,
+							deadline: new Date(date.setMonth(date.getMonth() + 1)).getTime(),
+						};
+						dispatch(updateTaskAsync(taskData));
+					}
+					break;
+				default:
+					break;
 			}
 	};
 
 	useEffect((): void => {
-		if (selectedTask && !selectedTask.repeat)
-			setRepeat('');
+		if (selectedTask && !selectedTask.repeat) setRepeat('');
 	}, [selectedTask]);
 
 	return (
 		<FormControl fullWidth>
 			<InputLabel
 				id="repeat_select__label"
-				style={{color: 'var(--fontColor)'}}
+				style={{ color: 'var(--fontColor)' }}
 			>
-                Повтор
+				Повтор
 			</InputLabel>
 			<TaskCategorySelect
 				value={selectedTask?.repeat ?? repeat}
@@ -100,20 +104,16 @@ const RepeatComponent: FC = (): JSX.Element => {
 						sx: {
 							backgroundColor: 'var(--bgColorFirst)',
 							color: 'var(--fontColor)',
-						}
-					}
+						},
+					},
 				}}
 			>
 				<MenuItem value="">Выберите период</MenuItem>
-				{
-					repeatItems.map(item =>
-						<MenuItem key={item.value}
-							value={item.value}
-						>
-							{item.title}
-						</MenuItem>
-					)
-				}
+				{repeatItems.map(item => (
+					<MenuItem key={item.value} value={item.value}>
+						{item.title}
+					</MenuItem>
+				))}
 			</TaskCategorySelect>
 		</FormControl>
 	);

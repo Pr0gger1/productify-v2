@@ -4,19 +4,14 @@ import UploadRoundedIcon from '@mui/icons-material/UploadRounded';
 import styles from './styles.module.scss';
 
 interface UploadFileButtonProps {
-    children: ReactNode | JSX.Element,
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void,
-    fileFilter: string,
-    style?: CSSProperties
+	children: ReactNode | JSX.Element;
+	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+	fileFilter: string;
+	style?: CSSProperties;
 }
 
 const UploadFileButton = (props: UploadFileButtonProps): JSX.Element => {
-	const {
-		children,
-		onChange,
-		fileFilter,
-		style
-	} = props;
+	const { children, onChange, fileFilter, style } = props;
 
 	return (
 		<label
@@ -30,7 +25,7 @@ const UploadFileButton = (props: UploadFileButtonProps): JSX.Element => {
 				onChange={onChange}
 				accept={fileFilter}
 			/>
-			<UploadRoundedIcon/>
+			<UploadRoundedIcon />
 			{children}
 		</label>
 	);

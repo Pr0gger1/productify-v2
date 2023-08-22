@@ -1,11 +1,11 @@
 .notification__container {
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
 
-    .no_notifications {
-        opacity: 0.8;
-    }
+	.no_notifications {
+		opacity: 0.8;
+	}
 }

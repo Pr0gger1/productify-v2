@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {FilterStates, TaskFilterType} from 'types/Filter';
+import { FilterStates, TaskFilterType } from 'types/Filter';
 
 function getLocalStorageTaskFilter(): TaskFilterType {
 	const filterData: string | null = localStorage.getItem('taskFilter');
 	const initialTaskFilter: TaskFilterType = {
 		type: 'alphabet',
-		desc: true
+		desc: true,
 	};
 	if (filterData) return JSON.parse(filterData);
 	else return initialTaskFilter;
@@ -13,7 +13,7 @@ function getLocalStorageTaskFilter(): TaskFilterType {
 
 const initialState: FilterStates = {
 	searchFilter: '',
-	taskFilter: getLocalStorageTaskFilter()
+	taskFilter: getLocalStorageTaskFilter(),
 };
 
 const filterSlice = createSlice({
@@ -27,8 +27,8 @@ const filterSlice = createSlice({
 		setTaskFilter(state, action) {
 			state.taskFilter = action.payload;
 			localStorage.setItem('taskFilter', JSON.stringify(action.payload));
-		}
-	}
+		},
+	},
 });
 
 export const { setSearchFilter, setTaskFilter } = filterSlice.actions;

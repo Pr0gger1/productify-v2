@@ -1,6 +1,6 @@
 interface DeleteSubTaskParams {
-    taskId: string,
-    subTaskId: string
+	taskId: string;
+	subTaskId: string;
 }
 
 export type { DeleteSubTaskParams };

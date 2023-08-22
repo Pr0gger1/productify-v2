@@ -1,6 +1,10 @@
-import React, {FC, useEffect} from 'react';
+import React, { FC, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { mobileSelector, filterSelector, selectedTaskGroupSelector } from 'store/selectors';
+import {
+	mobileSelector,
+	filterSelector,
+	selectedTaskGroupSelector,
+} from 'store/selectors';
 
 import TaskContainer from 'components/ui/containers/TaskContainer';
 import ContentTopPanel from './ContentTopPanel';
@@ -11,9 +15,11 @@ import { useAppSelector } from 'store';
 import styles from './styles.module.scss';
 
 const Content: FC = (): JSX.Element => {
-	const mobileScreen: boolean =  useMediaQuery({ maxWidth: 768 });
+	const mobileScreen: boolean = useMediaQuery({ maxWidth: 768 });
 	const isMobile: boolean = useAppSelector(mobileSelector) || mobileScreen;
-	const selectedGroup: ITaskGroup | null = useAppSelector(selectedTaskGroupSelector);
+	const selectedGroup: ITaskGroup | null = useAppSelector(
+		selectedTaskGroupSelector,
+	);
 	const searchFilter: string = useAppSelector(filterSelector).searchFilter;
 
 	useEffect((): void => {
@@ -21,18 +27,15 @@ const Content: FC = (): JSX.Element => {
 	}, [selectedGroup]);
 
 	return (
-		<div className={styles.content}
-			style={!isMobile ? {width: '100vw'} : {}}
-		>
-			{
-				searchFilter.length
-					? <FilteredContent/>
-					:
-					<>
-						<ContentTopPanel/>
-						<TaskContainer/>
-					</>
-			}
+		<div className={styles.content} style={!isMobile ? { width: '100vw' } : {}}>
+			{searchFilter.length ? (
+				<FilteredContent />
+			) : (
+				<>
+					<ContentTopPanel />
+					<TaskContainer />
+				</>
+			)}
 		</div>
 	);
 };

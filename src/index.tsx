@@ -22,10 +22,12 @@ if ('serviceWorker' in navigator) {
 			navigator.serviceWorker.register('/service-worker.js').then(() => {
 				console.log('service-worker.js loaded');
 			});
-			navigator.serviceWorker.register('/firebase-messaging-sw.js')
+			navigator.serviceWorker
+				.register('/firebase-messaging-sw.js')
 				.then((registration: ServiceWorkerRegistration) => {
 					console.log('Registration successful, scope is:', registration.scope);
-				}).catch((err) => {
+				})
+				.catch(err => {
 					console.log('Service worker registration failed, error:', err);
 				});
 		} catch (error) {
@@ -37,7 +39,7 @@ if ('serviceWorker' in navigator) {
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
+	document.getElementById('root') as HTMLElement,
 );
 
 root.render(
@@ -53,5 +55,5 @@ root.render(
 				</ReduxProvider>
 			</BrowserRouter>
 		</QueryClientProvider>
-	</React.StrictMode>
+	</React.StrictMode>,
 );

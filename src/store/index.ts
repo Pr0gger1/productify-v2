@@ -27,14 +27,15 @@ export const store = configureStore({
 		notificationState: notificationReducer,
 		errorState: errorReducer,
 	},
-	middleware: getDefaultMiddleware => getDefaultMiddleware({
-		serializableCheck: false,
-		immutableCheck: false
-	})
+	middleware: getDefaultMiddleware =>
+		getDefaultMiddleware({
+			serializableCheck: false,
+			immutableCheck: false,
+		}),
 });
 
-export type RootState = ReturnType<typeof store.getState>
-export type TypedDispatch<T> = ThunkDispatch<T, never, AnyAction>
+export type RootState = ReturnType<typeof store.getState>;
+export type TypedDispatch<T> = ThunkDispatch<T, never, AnyAction>;
 
 export const useAppDispatch = () => useDispatch<TypedDispatch<RootState>>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

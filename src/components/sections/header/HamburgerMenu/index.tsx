@@ -1,9 +1,9 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { setLSidebarOpen } from 'store/reducers/SidebarSlice';
 
 import styles from './styles.module.scss';
-import {useAppDispatch} from 'store/index';
+import { useAppDispatch } from 'store';
 
 const HamburgerMenu: FC = (): JSX.Element => {
 	const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ const HamburgerMenu: FC = (): JSX.Element => {
 			<MenuIcon
 				onClick={() => dispatch(setLSidebarOpen())}
 				sx={{
-					fontSize: 30
+					fontSize: 30,
 				}}
 			/>
 		</div>

@@ -1,14 +1,16 @@
-import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
-import {TaskGroupService, TaskGroupsWithSelected} from 'services/taskGroup.service';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import {
+	TaskGroupService,
+	TaskGroupsWithSelected,
+} from 'services/taskGroup.service';
 
 import { deleteTaskAsync } from './TaskSlice';
 import { initialGroup } from 'store/defaultData/baseGroups';
 import defaultGroups from 'store/defaultData/baseGroups';
-import {RootState} from 'store';
-import {ITask, ITaskGroup} from 'types/TaskData';
-import {DocumentData} from 'firebase/firestore';
-import {ITaskGroupStates} from 'types/slices/SliceStates';
-
+import { RootState } from 'store';
+import { ITask, ITaskGroup } from 'types/TaskData';
+import { DocumentData } from 'firebase/firestore';
+import { ITaskGroupStates } from 'types/slices/SliceStates';
 
 export const createCustomTaskGroup = createAsyncThunk<ITaskGroup[], string>(
 	'taskGroup/add',
@@ -18,12 +20,13 @@ export const createCustomTaskGroup = createAsyncThunk<ITaskGroup[], string>(
 
 		const userId = state.authStates.userData?.uid;
 		const newGroups: ITaskGroup[] = TaskGroupService.createCustomGroup(
-			customGroups, groupName
+			customGroups,
+			groupName,
 		);
 
 		await TaskGroupService.updateTaskGroups(newGroups, userId!);
 		return newGroups;
-	}
+	},
 );
 
 export const getCustomTaskGroups = createAsyncThunk<DocumentData, string>(
@@ -31,8 +34,10 @@ export const getCustomTaskGroups = createAsyncThunk<DocumentData, string>(
 	async (userId: string) => {
 		return TaskGroupService.getTaskGroups(userId)
 			.then(res => res)
-			.catch(error => { throw error; });
-	}
+			.catch(error => {
+				throw error;
+			});
+	},
 );
 export const deleteCustomTaskGroupAsync = createAsyncThunk(
 	'taskGroup/delete',
@@ -42,20 +47,17 @@ export const deleteCustomTaskGroupAsync = createAsyncThunk(
 
 		const { tasks } = state.taskStates;
 
-		const { custom: taskGroups }  = state.taskGroupStates.allTaskGroups;
+		const { custom: taskGroups } = state.taskGroupStates.allTaskGroups;
 
-		const newTaskGroups = TaskGroupService
-			.deleteTaskGroup(taskGroups, groupId);
+		const newTaskGroups = TaskGroupService.deleteTaskGroup(taskGroups, groupId);
 
-		await TaskGroupService
-			.updateTaskGroups(newTaskGroups.taskGroups, userId!);
+		await TaskGroupService.updateTaskGroups(newTaskGroups.taskGroups, userId!);
 
 		tasks.forEach((task: ITask) => {
-			if (task.groupId === groupId)
-				dispatch(deleteTaskAsync(task.id));
+			if (task.groupId === groupId) dispatch(deleteTaskAsync(task.id));
 		});
 		return newTaskGroups;
-	}
+	},
 );
 
 export const renameCustomTaskGroupAsync = createAsyncThunk(
@@ -65,17 +67,17 @@ export const renameCustomTaskGroupAsync = createAsyncThunk(
 		const userId: string | undefined = state.authStates.userData?.uid;
 		const { custom: taskGroups } = state.taskGroupStates.allTaskGroups;
 
-		const newTaskGroups: TaskGroupsWithSelected = TaskGroupService
-			.editTaskGroup(taskGroups, groupData);
+		const newTaskGroups: TaskGroupsWithSelected =
+			TaskGroupService.editTaskGroup(taskGroups, groupData);
 
-		await TaskGroupService
-			.updateTaskGroups(newTaskGroups.taskGroups, userId!);
+		await TaskGroupService.updateTaskGroups(newTaskGroups.taskGroups, userId!);
 		return newTaskGroups;
-	}
+	},
 );
 
 function getSelectedTaskGroup(): ITaskGroup {
-	const selectedTaskGroup: string | null = localStorage.getItem('selectedTaskGroup');
+	const selectedTaskGroup: string | null =
+		localStorage.getItem('selectedTaskGroup');
 
 	return selectedTaskGroup ? JSON.parse(selectedTaskGroup) : initialGroup;
 }
@@ -84,9 +86,9 @@ const initialState: ITaskGroupStates = {
 	selectedTaskGroup: getSelectedTaskGroup(),
 	allTaskGroups: {
 		base: defaultGroups,
-		custom: []
+		custom: [],
 	},
-	loading: false
+	loading: false,
 };
 
 const taskGroupSlice = createSlice({
@@ -96,14 +98,17 @@ const taskGroupSlice = createSlice({
 		setSelectedGroup(state, action: PayloadAction<ITaskGroup>) {
 			state.selectedTaskGroup = action.payload;
 			localStorage.setItem('selectedTaskGroup', JSON.stringify(action.payload));
-		}
+		},
 	},
 
 	extraReducers: builder => {
 		builder
-			.addCase(createCustomTaskGroup.fulfilled, (state, action: PayloadAction<ITaskGroup[]>) => {
-				state.allTaskGroups.custom = action.payload;
-			})
+			.addCase(
+				createCustomTaskGroup.fulfilled,
+				(state, action: PayloadAction<ITaskGroup[]>) => {
+					state.allTaskGroups.custom = action.payload;
+				},
+			)
 
 			.addCase(createCustomTaskGroup.rejected, (state, action) => {
 				console.log(action);
@@ -124,13 +129,15 @@ const taskGroupSlice = createSlice({
 				console.log(action);
 			})
 
-			.addCase(deleteCustomTaskGroupAsync.fulfilled, (state, action: PayloadAction<TaskGroupsWithSelected>) => {
-				state.allTaskGroups.custom = action.payload.taskGroups;
-				if (action.payload.selectedTaskGroup)
-					state.selectedTaskGroup = action.payload.selectedTaskGroup;
-				// else state.selectedTaskGroup = null;
-
-			})
+			.addCase(
+				deleteCustomTaskGroupAsync.fulfilled,
+				(state, action: PayloadAction<TaskGroupsWithSelected>) => {
+					state.allTaskGroups.custom = action.payload.taskGroups;
+					if (action.payload.selectedTaskGroup)
+						state.selectedTaskGroup = action.payload.selectedTaskGroup;
+					// else state.selectedTaskGroup = null;
+				},
+			)
 
 			.addCase(deleteCustomTaskGroupAsync.rejected, (state, action) => {
 				console.log(action);
@@ -145,7 +152,7 @@ const taskGroupSlice = createSlice({
 			.addCase(renameCustomTaskGroupAsync.rejected, (state, action) => {
 				console.log(action);
 			});
-	}
+	},
 });
 
 export const { setSelectedGroup } = taskGroupSlice.actions;

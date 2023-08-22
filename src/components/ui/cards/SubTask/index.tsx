@@ -1,27 +1,30 @@
-import React, {ChangeEvent, FC, useState} from 'react';
-import { deleteSubTaskAsync, updateSubTaskAsync } from 'store/reducers/TaskSlice';
+import React, { ChangeEvent, FC, useState } from 'react';
+import {
+	deleteSubTaskAsync,
+	updateSubTaskAsync,
+} from 'store/reducers/TaskSlice';
 
 import CheckboxInputField from 'components/ui/input/CheckboxInputField';
 import DeleteButton from 'components/ui/buttons/DeleteButton';
 
 import { selectedTaskSelector } from 'store/selectors';
-import {useAppDispatch, useAppSelector} from 'store/index';
+import { useAppDispatch, useAppSelector } from 'store';
 
 import styles from './styles.module.scss';
-import {ISubTask, ITask} from 'types/TaskData';
+import { ISubTask, ITask } from 'types/TaskData';
 
 interface subTaskProps {
-    subTaskData: ISubTask
+	subTaskData: ISubTask;
 }
 
 const SubTask: FC<subTaskProps> = ({ subTaskData }): JSX.Element => {
 	const dispatch = useAppDispatch();
 
 	const [subTaskName, setSubTaskName] = useState<string>(
-		subTaskData.taskName || ''
+		subTaskData.taskName || '',
 	);
 	const [subTaskCompleted, setSubTaskCompleted] = useState<boolean>(
-		subTaskData.completed
+		subTaskData.completed,
 	);
 
 	const selectedTask: ITask | null = useAppSelector(selectedTaskSelector);
@@ -29,41 +32,48 @@ const SubTask: FC<subTaskProps> = ({ subTaskData }): JSX.Element => {
 	const onTaskNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
 		const newSubTaskData: ISubTask = {
 			...subTaskData,
-			taskName: event.target.value
+			taskName: event.target.value,
 		};
 
 		setSubTaskName(event.target.value);
 
 		if (subTaskName.length && selectedTask)
-			dispatch(updateSubTaskAsync({
-				taskId: selectedTask.id,
-				subTaskId: newSubTaskData.id,
-				subTaskData: newSubTaskData
-			}));
+			dispatch(
+				updateSubTaskAsync({
+					taskId: selectedTask.id,
+					subTaskId: newSubTaskData.id,
+					subTaskData: newSubTaskData,
+				}),
+			);
 	};
 
 	const onCheckboxChange = (): void => {
 		const completed: boolean = !subTaskData.completed;
 		const newSubTaskData: ISubTask = {
-			...subTaskData, completed
+			...subTaskData,
+			completed,
 		};
 
 		setSubTaskCompleted(completed);
 
 		if (selectedTask)
-			dispatch(updateSubTaskAsync({
-				taskId: selectedTask.id,
-				subTaskId: subTaskData.id,
-				subTaskData: newSubTaskData
-			}));
+			dispatch(
+				updateSubTaskAsync({
+					taskId: selectedTask.id,
+					subTaskId: subTaskData.id,
+					subTaskData: newSubTaskData,
+				}),
+			);
 	};
 
 	const deleteSubTaskHandler = (): void => {
 		if (selectedTask)
-			dispatch(deleteSubTaskAsync({
-				taskId: selectedTask.id,
-				subTaskId: subTaskData.id
-			}));
+			dispatch(
+				deleteSubTaskAsync({
+					taskId: selectedTask.id,
+					subTaskId: subTaskData.id,
+				}),
+			);
 	};
 
 	return (
@@ -74,13 +84,10 @@ const SubTask: FC<subTaskProps> = ({ subTaskData }): JSX.Element => {
 				onChangeCheckbox={onCheckboxChange}
 				checked={subTaskCompleted || subTaskData.completed}
 				inputStyle={{
-					textDecoration: subTaskData.completed
-						? 'line-through' : 'none'
+					textDecoration: subTaskData.completed ? 'line-through' : 'none',
 				}}
 			/>
-			<DeleteButton
-				onClick={deleteSubTaskHandler}
-			/>
+			<DeleteButton onClick={deleteSubTaskHandler} />
 		</div>
 	);
 };

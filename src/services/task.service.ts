@@ -1,16 +1,22 @@
-import {db} from 'firebase.config';
-import {doc, DocumentData, getDoc, setDoc, updateDoc} from 'firebase/firestore';
-import {ISubTask, ITask, IUserTaskData} from 'types/TaskData';
+import { db } from 'firebase.config';
+import {
+	doc,
+	DocumentData,
+	getDoc,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore';
+import { ISubTask, ITask, IUserTaskData } from 'types/TaskData';
 
 export interface TasksWithSelected {
-    tasks: ITask[],
-    selectedTask: ITask | null
+	tasks: ITask[];
+	selectedTask: ITask | null;
 }
 
 export class TaskService {
 	static async updateUserTasks(tasks: ITask[], userId: string): Promise<void> {
 		await updateDoc(doc(db, 'tasks', userId), {
-			taskData: tasks
+			taskData: tasks,
 		});
 	}
 
@@ -23,47 +29,49 @@ export class TaskService {
 			const data: DocumentData = docSnap.data();
 			userTasks = {
 				taskData: data?.taskData,
-				taskGroups: data?.taskGroups
+				taskGroups: data?.taskGroups,
 			};
 			return userTasks;
-		}
-		else {
+		} else {
 			await setDoc(doc(db, 'tasks', userId), {
 				taskData: [],
-				taskGroups: []
+				taskGroups: [],
 			});
-			return {taskData: null, taskGroups: null};
+			return { taskData: null, taskGroups: null };
 		}
 	}
 
 	static addTask(tasks: ITask[], taskData: ITask): ITask[] {
-		const newTask: ITask = {...taskData};
+		const newTask: ITask = { ...taskData };
 
 		const newTasks: ITask[] = [...tasks];
 		newTasks.push(newTask);
-        
+
 		return newTasks;
 	}
 
 	static deleteTask(tasks: ITask[], taskId: string): ITask[] {
-		if (tasks.length)
-			return tasks.filter((task: ITask) => task.id !== taskId);
+		if (tasks.length) return tasks.filter((task: ITask) => task.id !== taskId);
 		return tasks;
 	}
 
-	static deleteSubTask(tasks: ITask[], taskId: string, subTaskId: string): TasksWithSelected {
+	static deleteSubTask(
+		tasks: ITask[],
+		taskId: string,
+		subTaskId: string,
+	): TasksWithSelected {
 		const newTasks: ITask[] = [...tasks];
 		const taskIndex: number = newTasks.findIndex(
-			(task: ITask) => task.id === taskId
+			(task: ITask) => task.id === taskId,
 		);
 
 		const filteredTasks: ISubTask[] = newTasks[taskIndex].subTasks.filter(
-			(task: ISubTask) => task.id !== subTaskId
+			(task: ISubTask) => task.id !== subTaskId,
 		);
 
 		newTasks[taskIndex] = {
 			...newTasks[taskIndex],
-			subTasks: filteredTasks
+			subTasks: filteredTasks,
 		};
 
 		return { tasks: newTasks, selectedTask: newTasks[taskIndex] };
@@ -73,7 +81,7 @@ export class TaskService {
 		const newTasks: ITask[] = [...tasks];
 
 		const taskIndex: number = newTasks.findIndex(
-			(task: ITask) => task.id === taskData.id
+			(task: ITask) => task.id === taskData.id,
 		);
 
 		if (taskIndex !== -1) {
@@ -83,25 +91,35 @@ export class TaskService {
 		return { tasks: newTasks, selectedTask: taskData };
 	}
 
-	static updateSubTask(tasks: ITask[], taskId: string, subTaskId: string, subTaskData: ISubTask): TasksWithSelected {
+	static updateSubTask(
+		tasks: ITask[],
+		taskId: string,
+		subTaskId: string,
+		subTaskData: ISubTask,
+	): TasksWithSelected {
 		const newTasks: ITask[] = [...tasks];
 
-		const parentTaskIndex: number = newTasks
-			.findIndex((task: ITask) => task.id === taskId);
+		const parentTaskIndex: number = newTasks.findIndex(
+			(task: ITask) => task.id === taskId,
+		);
 
-		const subTaskIndex: number = newTasks[parentTaskIndex].subTasks
-			.findIndex((subTask: ISubTask) => subTask.id === subTaskId);
+		const subTaskIndex: number = newTasks[parentTaskIndex].subTasks.findIndex(
+			(subTask: ISubTask) => subTask.id === subTaskId,
+		);
 
 		// обходим readonly ограничение для subTasks
 		const newSub: ISubTask[] = [...newTasks[parentTaskIndex].subTasks];
-		newSub[subTaskIndex] = {...subTaskData};
+		newSub[subTaskIndex] = { ...subTaskData };
 
-		const newCurrentTask: ITask = { ...newTasks[parentTaskIndex], subTasks: newSub };
+		const newCurrentTask: ITask = {
+			...newTasks[parentTaskIndex],
+			subTasks: newSub,
+		};
 		newTasks[parentTaskIndex] = { ...newCurrentTask };
 
 		return {
 			tasks: newTasks,
-			selectedTask: newTasks[parentTaskIndex]
+			selectedTask: newTasks[parentTaskIndex],
 		};
 	}
 }

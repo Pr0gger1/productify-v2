@@ -1,200 +1,208 @@
 .container {
-    display: grid;
-    grid-template-columns: 60% 40%;
-    height: 100vh;
+	display: grid;
+	grid-template-columns: 60% 40%;
+	height: 100vh;
 
-    background-color: #ededed;
+	background-color: #ededed;
 
-    @media (max-width: 900px) {
-        height: 100vh;
-        grid-template-columns: none;
-        grid-template-rows: 1fr 5fr;
+	@media (max-width: 900px) {
+		height: 100vh;
+		grid-template-columns: none;
+		grid-template-rows: 1fr 5fr;
 
-        background-image: linear-gradient(180deg, rgba(228, 165, 3, 0.6) 0%, rgba(235, 113, 88, 0.6) 100%),
-            url("~assets/img/background/login_page_stock_mobile.jpg");
+		background-image: linear-gradient(
+				180deg,
+				rgba(228, 165, 3, 0.6) 0%,
+				rgba(235, 113, 88, 0.6) 100%
+			),
+			url('~assets/img/background/login_page_stock_mobile.jpg');
 
-        background-size: cover;
-        background-repeat: no-repeat;
+		background-size: cover;
+		background-repeat: no-repeat;
 
-        label {
-            display: none !important;
-        }
-    }
+		label {
+			display: none !important;
+		}
+	}
 
-    h1 {
-        font-size: 1.5rem;
-    }
+	h1 {
+		font-size: 1.5rem;
+	}
 
-    .login__form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
+	.login__form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
 
-        padding: 1rem 0;
+		padding: 1rem 0;
 
-        @media (max-width: 900px) {
-            grid-row: 2;
-        }
+		@media (max-width: 900px) {
+			grid-row: 2;
+		}
 
-        form {
-            width: 60%;
-            padding: 1.5rem;
-            background-color: white;
-            border-radius: 30px;
+		form {
+			width: 60%;
+			padding: 1.5rem;
+			background-color: white;
+			border-radius: 30px;
 
-            @media (max-width: 1000px) {
-                width: 80%;
-            }
+			@media (max-width: 1000px) {
+				width: 80%;
+			}
 
-            @media (max-width: 900px) {
-                background-color: transparent;
-                padding: 1rem 1rem;
-                backdrop-filter: blur(2rem);
-                -webkit-backdrop-filter: blur(2rem);
+			@media (max-width: 900px) {
+				background-color: transparent;
+				padding: 1rem 1rem;
+				backdrop-filter: blur(2rem);
+				-webkit-backdrop-filter: blur(2rem);
 
-                & span:not(a) {
-                    color: white;
-                }
-            }
-        }
-    }
+				& span:not(a) {
+					color: white;
+				}
+			}
+		}
+	}
 
-    .introduce__block {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+	.introduce__block {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
 
-        background-image:  linear-gradient(180deg, rgba(228, 165, 3, 0.6) 0%, rgba(235, 113, 88, 0.6) 100%),
-        url("~assets/img/background/login_page_stock_img.jpg");
-        background-size: cover;
-        border-radius: 30px 0 0 30px;
-        height: 100%;
+		background-image: linear-gradient(
+				180deg,
+				rgba(228, 165, 3, 0.6) 0%,
+				rgba(235, 113, 88, 0.6) 100%
+			),
+			url('~assets/img/background/login_page_stock_img.jpg');
+		background-size: cover;
+		border-radius: 30px 0 0 30px;
+		height: 100%;
 
-        @media (max-width: 900px) {
-            grid-row: 1;
-            border-radius: 0;
-            background-image: none;
-        }
-    }
+		@media (max-width: 900px) {
+			grid-row: 1;
+			border-radius: 0;
+			background-image: none;
+		}
+	}
 
-    .introduce__slogan {
-        color: white;
-        font-weight: 200;
-        font-size: 3rem;
-        text-align: center;
+	.introduce__slogan {
+		color: white;
+		font-weight: 200;
+		font-size: 3rem;
+		text-align: center;
 
-        padding: 0 2rem;
-        box-sizing: border-box;
+		padding: 0 2rem;
+		box-sizing: border-box;
 
-        @media (max-width: 1000px) {
-            font-size: 2.5rem;
-        }
+		@media (max-width: 1000px) {
+			font-size: 2.5rem;
+		}
 
-        @media (max-width: 900px) {
-            display: none;
-        }
+		@media (max-width: 900px) {
+			display: none;
+		}
 
-        p {
-            font-size: 2rem;
-            margin-top: 1rem;
-            margin-bottom: 0;
-        }
-    }
+		p {
+			font-size: 2rem;
+			margin-top: 1rem;
+			margin-bottom: 0;
+		}
+	}
 
-    .logo {
-        display: flex;
-        justify-content: center;
+	.logo {
+		display: flex;
+		justify-content: center;
 
-        img {
-            width: 70%;
+		img {
+			width: 70%;
 
-            @media (max-width: 900px) {
-                width: 90%;
-            }
-        }
-    }
+			@media (max-width: 900px) {
+				width: 90%;
+			}
+		}
+	}
 
-    .auth__header {
-        @media (max-width: 900px) {
-            text-decoration: underline;
-            color: white;
-        }
-    }
+	.auth__header {
+		@media (max-width: 900px) {
+			text-decoration: underline;
+			color: white;
+		}
+	}
 
-    .google_auth__button {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
+	.google_auth__button {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
 
-        background-color: white;
-        border-radius: 1rem;
-        border: none;
+		background-color: white;
+		border-radius: 1rem;
+		border: none;
 
-        width: 4rem;
-        height: 4rem;
+		width: 4rem;
+		height: 4rem;
 
-        padding: 0.625rem;
+		padding: 0.625rem;
 
-        transition: width .5s ease-in;
+		transition: width 0.5s ease-in;
 
-        &:hover {
-            width: 20rem;
-            border-radius: 1rem;
-            justify-content: flex-start;
-            transition: width .5s ease-out;
+		&:hover {
+			width: 20rem;
+			border-radius: 1rem;
+			justify-content: flex-start;
+			transition: width 0.5s ease-out;
 
-            &::after {
-                min-width: 12rem;
-                position: relative;
-                left: 20%;
+			&::after {
+				min-width: 12rem;
+				position: relative;
+				left: 20%;
 
-                font-weight: 600;
-                content: "Войти через Google";
-            }
-        }
+				font-weight: 600;
+				content: 'Войти через Google';
+			}
+		}
 
-        @media (max-width: 900px) {
-            border-radius: 0.625rem;
-            padding: 0.625rem 1.25rem;
-            backdrop-filter: blur(1rem);
-            -webkit-backdrop-filter: blur(1rem);
+		@media (max-width: 900px) {
+			border-radius: 0.625rem;
+			padding: 0.625rem 1.25rem;
+			backdrop-filter: blur(1rem);
+			-webkit-backdrop-filter: blur(1rem);
 
-            border: 1px solid rgba(0, 0, 0, 0.3);
-            background-color: transparent;
-            width: 70%;
+			border: 1px solid rgba(0, 0, 0, 0.3);
+			background-color: transparent;
+			width: 70%;
 
-            justify-content: center;
+			justify-content: center;
 
-            &:hover {
-                width: 70%;
+			&:hover {
+				width: 70%;
 
-                &::after {
-                    display: none;
-                }
-            }
-        }
+				&::after {
+					display: none;
+				}
+			}
+		}
 
-        img {
-            width: 3rem;
-            height: 3rem;
-            vertical-align: middle;
+		img {
+			width: 3rem;
+			height: 3rem;
+			vertical-align: middle;
 
-            @media (max-width: 900px) {
-                width: 2rem;
-                height: 2rem;
-            }
-        }
+			@media (max-width: 900px) {
+				width: 2rem;
+				height: 2rem;
+			}
+		}
 
-        .google_auth__text {
-            color: white;
-            font-weight: bold;
-            margin-left: 1rem;
-            display: none;
+		.google_auth__text {
+			color: white;
+			font-weight: bold;
+			margin-left: 1rem;
+			display: none;
 
-            @media (max-width: 900px) {
-                display: inline-block !important;
-            }
-        }
-    }
+			@media (max-width: 900px) {
+				display: inline-block !important;
+			}
+		}
+	}
 }

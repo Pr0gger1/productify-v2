@@ -1,5 +1,5 @@
-import React, {FC, useContext, useEffect} from 'react';
-import {useAppSelector} from 'store/index';
+import React, { FC, useContext, useEffect } from 'react';
+import { useAppSelector } from 'store';
 import { useMediaQuery } from 'react-responsive';
 import { mobileSelector } from 'store/selectors';
 
@@ -9,7 +9,7 @@ import Content from 'components/sections/content';
 import TaskGroupContainer from 'components/ui/containers/TaskGroups/TaskGroupContainer';
 
 import styles from 'components/layout/AppLayout/styles.module.scss';
-import {HeaderContext} from 'context/HeaderContext';
+import { HeaderContext } from 'context/HeaderContext';
 
 const HomePage: FC = (): JSX.Element => {
 	const { setShowHeader } = useContext(HeaderContext);
@@ -19,14 +19,14 @@ const HomePage: FC = (): JSX.Element => {
 	useEffect(() => {
 		setShowHeader(true);
 	}, []);
-	
-	if (isMobile) return <TaskGroupContainer/>;
+
+	if (isMobile) return <TaskGroupContainer />;
 
 	return (
 		<div className={styles.content__wrapper}>
-			<LeftSidebar/>
-			<Content/>
-			<RightSidebar/>
+			<LeftSidebar />
+			<Content />
+			<RightSidebar />
 		</div>
 	);
 };

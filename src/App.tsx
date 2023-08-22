@@ -21,7 +21,7 @@ const getUserFromLocalStorage = (): User | null => {
 function App(): JSX.Element {
 	const dispatch = useAppDispatch();
 	const userData: User | null =
-    useAppSelector(userDataSelector) || getUserFromLocalStorage();
+		useAppSelector(userDataSelector) || getUserFromLocalStorage();
 
 	const currentTheme: ThemeType = useAppSelector(themeSelector);
 	const isAuth: boolean = !!userData;
@@ -30,6 +30,7 @@ function App(): JSX.Element {
 		if (r === null) console.log('No registration token');
 		else console.log('Messaging token was received');
 	});
+
 	onMessageListener().then((payload: MessagePayload): void => {
 		if (payload?.notification) {
 			console.log(payload);
@@ -59,7 +60,7 @@ function App(): JSX.Element {
 
 		// изменение цвета адресной строки для мобильных устройств
 		const meta: Element | null = document.querySelector(
-			'meta[name=\'theme-color\']',
+			'meta[name="theme-color"]',
 		);
 
 		let themeColor: string = '#dfdfdf';

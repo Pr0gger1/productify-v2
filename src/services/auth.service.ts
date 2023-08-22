@@ -1,16 +1,21 @@
 import { auth, db } from '../firebase.config';
-import { signInWithEmailAndPassword,
+import {
+	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
-	signInWithPopup, GoogleAuthProvider,
-	sendEmailVerification, getAuth,
+	signInWithPopup,
+	GoogleAuthProvider,
+	sendEmailVerification,
+	getAuth,
 	reauthenticateWithCredential,
-	EmailAuthProvider, User, Auth, UserCredential
+	EmailAuthProvider,
+	User,
+	Auth,
+	UserCredential,
 } from 'firebase/auth';
 
 import { doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore';
 import { UserService } from './user.service';
-import {IUserDataObject} from 'types/User';
-
+import { IUserDataObject } from 'types/User';
 
 export class AuthService {
 	static async createUserCollection(userId: string): Promise<void> {
@@ -18,7 +23,7 @@ export class AuthService {
 		if (!userTasks.exists())
 			await setDoc(doc(db, 'tasks', userId), {
 				taskData: [],
-				taskGroups: []
+				taskGroups: [],
 			});
 	}
 	static async login(email: string, password: string): Promise<User | null> {
@@ -26,10 +31,16 @@ export class AuthService {
 			.then((creds: UserCredential): User | null => {
 				return creds.user ?? null;
 			})
-			.catch(error => { throw error; });
+			.catch(error => {
+				throw error;
+			});
 	}
 
-	static async register(email: string, password: string, username: string): Promise<IUserDataObject | null> {
+	static async register(
+		email: string,
+		password: string,
+		username: string,
+	): Promise<IUserDataObject | null> {
 		return createUserWithEmailAndPassword(auth, email, password)
 			.then(async (creds: UserCredential) => {
 				if (creds.user) {
@@ -42,12 +53,14 @@ export class AuthService {
 
 					await AuthService.createUserCollection(userId);
 
-					const user: IUserDataObject = {userData: creds.user};
+					const user: IUserDataObject = { userData: creds.user };
 					return user;
 				}
 				return null;
 			})
-			.catch(error => { throw error; });
+			.catch(error => {
+				throw error;
+			});
 	}
 
 	static async loginWithGoogle(): Promise<User | null> {
@@ -63,7 +76,9 @@ export class AuthService {
 				// const credential = GoogleAuthProvider.credentialFromResult(result);
 				// const token = credential.accessToken;
 			})
-			.catch(error => { throw error; });
+			.catch(error => {
+				throw error;
+			});
 	}
 
 	static async deleteUser(password: string) {
@@ -80,18 +95,17 @@ export class AuthService {
 
 				await Promise.all([
 					await deleteDoc(doc(db, 'tasks', user.uid)),
-					user.delete()
+					user.delete(),
 				]);
 
-				const userData: IUserDataObject = {userData: null};
+				const userData: IUserDataObject = { userData: null };
 
 				return userData;
-			}
-			catch (error) {
-				const userData: IUserDataObject = {userData: null};
+			} catch (error) {
+				const userData: IUserDataObject = { userData: null };
 				return userData;
 			}
 		}
-		return {userData: null};
+		return { userData: null };
 	}
 }

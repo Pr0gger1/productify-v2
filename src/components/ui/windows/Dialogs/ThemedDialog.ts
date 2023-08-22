@@ -2,15 +2,15 @@ import { Dialog, styled } from '@mui/material';
 
 export const ThemedDialog = styled(Dialog)(() => ({
 	'& .MuiDialog-container': {
-		backdropFilter: 'blur(0.5rem)'
+		backdropFilter: 'blur(0.5rem)',
 	},
 	'& .MuiDialogContent-root': {
-		overflowX: 'hidden'
+		overflowX: 'hidden',
 	},
 	'& .MuiPaper-root': {
 		backgroundColor: 'var(--bgColorFirst)',
 	},
 	'& *:not(button)': {
-		color: 'var(--fontColor)'
-	}
+		color: 'var(--fontColor)',
+	},
 }));

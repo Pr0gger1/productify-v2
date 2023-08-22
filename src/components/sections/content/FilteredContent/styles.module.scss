@@ -1,14 +1,14 @@
-@import "components/ui/containers/TaskContainer/styles.module";
+@import 'components/ui/containers/TaskContainer/styles.module';
 
 .tasks__container {
-  background-color: var(--bgColorFirst);
-  padding: 1rem;
-  min-height: 100vh;
-  overflow-y: auto;
+	background-color: var(--bgColorFirst);
+	padding: 1rem;
+	min-height: 100vh;
+	overflow-y: auto;
 
-  .search__container {
-    display: flex;
-    position: fixed;
-    width: 90%;
-  }
+	.search__container {
+		display: flex;
+		position: fixed;
+		width: 90%;
+	}
 }

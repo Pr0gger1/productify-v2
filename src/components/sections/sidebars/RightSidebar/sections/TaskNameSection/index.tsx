@@ -21,7 +21,9 @@ export const TaskNameSection: FC = (): JSX.Element => {
 	const dispatch = useAppDispatch();
 	const selectedTask: ITask | null = useAppSelector(selectedTaskSelector);
 
-	const [taskName, setTaskName] = useState<string>(selectedTask?.taskName || '');
+	const [taskName, setTaskName] = useState<string>(
+		selectedTask?.taskName || '',
+	);
 
 	const [subTaskNameInput, setSubTaskNameInput] = useState<string>('');
 
@@ -33,17 +35,20 @@ export const TaskNameSection: FC = (): JSX.Element => {
 		if (selectedTask) {
 			const taskData: ITask = {
 				...selectedTask,
-				taskName: event.target.value
+				taskName: event.target.value,
 			};
 			dispatch(updateTaskAsync(taskData));
 		}
 	};
 
-	const onTaskCompletedChange = (event: ChangeEvent<HTMLInputElement>): void => {
+	const onTaskCompletedChange = (
+		event: ChangeEvent<HTMLInputElement>,
+	): void => {
 		const completed: boolean = event.currentTarget.checked;
 		if (selectedTask) {
 			const taskData: ITask = {
-				...selectedTask, completed
+				...selectedTask,
+				completed,
 			};
 
 			dispatch(updateTaskAsync(taskData));
@@ -54,7 +59,7 @@ export const TaskNameSection: FC = (): JSX.Element => {
 		if (selectedTask) {
 			const taskData: ITask = {
 				...selectedTask,
-				favorite: !selectedTask.favorite
+				favorite: !selectedTask.favorite,
 			};
 
 			dispatch(updateTaskAsync(taskData));
@@ -66,26 +71,23 @@ export const TaskNameSection: FC = (): JSX.Element => {
 			id: generateUniqueId('task', 12, true),
 			taskName: subTaskNameInput,
 			completed: false,
-			createdAt: new Date().getTime()
+			createdAt: new Date().getTime(),
 		};
 
 		if (selectedTask) {
 			const taskData: ITask = {
 				...selectedTask,
-				subTasks: selectedTask.subTasks.concat(subTaskData)
+				subTasks: selectedTask.subTasks.concat(subTaskData),
 			};
 
 			dispatch(updateTaskAsync(taskData));
-
 		}
 		setShowInput(false);
 		setSubTaskNameInput('');
-
 	};
 
 	const onSubTaskInputEnterPressed = (event: KeyboardEvent): void => {
-		if (event.key === 'Enter' && subTaskNameInput.length)
-			saveSubTaskHandler();
+		if (event.key === 'Enter' && subTaskNameInput.length) saveSubTaskHandler();
 	};
 
 	const onSubTaskNameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +99,7 @@ export const TaskNameSection: FC = (): JSX.Element => {
 			<div className={styles.main_taskName__container}>
 				<CheckboxInputField
 					inputStyle={{
-						textDecoration: selectedTask?.completed ? 'line-through' : 'none'
+						textDecoration: selectedTask?.completed ? 'line-through' : 'none',
 					}}
 					inputValue={taskName || selectedTask?.taskName || ''}
 					onChangeInput={onTaskNameChange}
@@ -110,26 +112,23 @@ export const TaskNameSection: FC = (): JSX.Element => {
 					sx={{
 						backgroundColor: 'var(--bgColorFirst)',
 						borderRadius: '0.5rem',
-						padding: 1
+						padding: 1,
 					}}
 				/>
 			</div>
 
-			<SubTaskContainer/>
+			<SubTaskContainer />
 
 			<div className={styles.add_subtask__btn}>
 				{showButton && (
-					<Button onClick={() => setShowInput(true)}
-					>
+					<Button onClick={() => setShowInput(true)}>
 						<AddIcon
-							sx = {{
+							sx={{
 								fontSize: 32,
-								color: 'var(--addSubtaskIconColor)'
+								color: 'var(--addSubtaskIconColor)',
 							}}
 						/>
-						<span>
-                            Добавить подзадачу
-						</span>
+						<span>Добавить подзадачу</span>
 					</Button>
 				)}
 
@@ -148,20 +147,19 @@ export const TaskNameSection: FC = (): JSX.Element => {
 							onChangeInput={onSubTaskNameChange}
 							onInputKeyDown={onSubTaskInputEnterPressed}
 						/>
-						{
-							subTaskNameInput.length ?
-								<ConfirmationButton
-									backgroundColor="var(--bgColorFirst)"
-									variant="ok"
-									onClick={saveSubTaskHandler}
-								/>
-								:
-								<ConfirmationButton
-									backgroundColor="var(--bgColorFirst)"
-									variant="cancel"
-									onClick={() => setShowInput(false)}
-								/>
-						}
+						{subTaskNameInput.length ? (
+							<ConfirmationButton
+								backgroundColor="var(--bgColorFirst)"
+								variant="ok"
+								onClick={saveSubTaskHandler}
+							/>
+						) : (
+							<ConfirmationButton
+								backgroundColor="var(--bgColorFirst)"
+								variant="cancel"
+								onClick={() => setShowInput(false)}
+							/>
+						)}
 					</>
 				</CSSTransition>
 			</div>

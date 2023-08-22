@@ -3,55 +3,52 @@ import { auth } from 'firebase.config';
 import { signOut, User } from 'firebase/auth';
 import { AuthService } from 'services/auth.service';
 import { UserService } from 'services/user.service';
-import {IAuthUserData, IRegisterUserData, IUserDataObject} from 'types/User';
+import { IAuthUserData, IRegisterUserData, IUserDataObject } from 'types/User';
 import { IAuthStates } from 'types/slices/SliceStates';
 import { RootState } from 'store';
 import { UpdateUserProfileParams } from 'types/slices/UpdateUserProfileParams';
-
 
 export const login = createAsyncThunk(
 	'auth/login',
 	async (data: IAuthUserData) => {
 		return await AuthService.login(data.email, data.password);
-	}
+	},
 );
 
 export const loginWithGoogle = createAsyncThunk(
 	'auth/loginWithGoogle',
 	async () => {
 		return await AuthService.loginWithGoogle();
-	}
+	},
 );
-export const register = createAsyncThunk<IUserDataObject | null, IRegisterUserData>(
-	'auth/register',
-	async (data: IRegisterUserData) => {
-		return await AuthService.register(
-			data.email, data.password, data.username
-		);
-	}
-);
+export const register = createAsyncThunk<
+	IUserDataObject | null,
+	IRegisterUserData
+>('auth/register', async (data: IRegisterUserData) => {
+	return await AuthService.register(data.email, data.password, data.username);
+});
 
 export const deleteUser = createAsyncThunk(
 	'auth/delete',
 	async (password: string): Promise<IUserDataObject | undefined> => {
-		const response =  await AuthService.deleteUser(password);
+		const response = await AuthService.deleteUser(password);
 		signOut(auth).then((): void => {
 			localStorage.removeItem('userData');
 			window.location.pathname = '/login';
 		});
 		return response;
-	}
+	},
 );
 
 export const updateUserProfile = createAsyncThunk(
 	'user/update',
-	async (params: UpdateUserProfileParams, {getState}) => {
+	async (params: UpdateUserProfileParams, { getState }) => {
 		const state = getState() as RootState;
 		const user: User | null = state.authStates.userData;
 		if (user && params.avatar)
 			return await UserService.updateUser(user, params.username, params.avatar);
 		return null;
-	}
+	},
 );
 
 function getLocalStorageData(): User | null {
@@ -62,7 +59,7 @@ function getLocalStorageData(): User | null {
 const initialState: IAuthStates = {
 	userData: getLocalStorageData(),
 	authError: null,
-	status: undefined
+	status: undefined,
 };
 
 const authSlice = createSlice({
@@ -77,13 +74,10 @@ const authSlice = createSlice({
 				emailVerified: state.userData.emailVerified,
 				isAnonymous: state.userData.isAnonymous,
 				photoURL: state.userData.photoURL,
-				uid: state.userData.uid
+				uid: state.userData.uid,
 			};
-			
-			localStorage.setItem(
-				'userData',
-				JSON.stringify(userData)
-			);
+
+			localStorage.setItem('userData', JSON.stringify(userData));
 		},
 
 		logoutHandler(state) {
@@ -91,13 +85,16 @@ const authSlice = createSlice({
 				.then(() => {
 					state.userData = null;
 				})
-				.catch(error => {state.authError = error; return null;});
+				.catch(error => {
+					state.authError = error;
+					return null;
+				});
 
 			localStorage.removeItem('userData');
 			window.location.pathname = '/login';
-		}
+		},
 	},
-	extraReducers: (builder) => {
+	extraReducers: builder => {
 		builder
 			.addCase(login.pending, state => {
 				state.status = 'loading';
@@ -118,12 +115,15 @@ const authSlice = createSlice({
 				state.status = 'loading';
 			})
 
-			.addCase(register.fulfilled, (state, action: PayloadAction<IUserDataObject | null>) => {
-				state.status = 'success';
-				if (action.payload?.userData)
-					state.userData = action.payload.userData;
-				else state.userData = null;
-			})
+			.addCase(
+				register.fulfilled,
+				(state, action: PayloadAction<IUserDataObject | null>) => {
+					state.status = 'success';
+					if (action.payload?.userData)
+						state.userData = action.payload.userData;
+					else state.userData = null;
+				},
+			)
 			.addCase(register.rejected, (state, action) => {
 				state.status = 'failed';
 				state.authError = action.error;
@@ -152,7 +152,6 @@ const authSlice = createSlice({
 				if (action.payload && action.payload.userData) {
 					state.userData = action.payload.userData;
 					state.status = 'success';
-
 				}
 			})
 
@@ -162,17 +161,20 @@ const authSlice = createSlice({
 				state.status = 'failed';
 			})
 
-			.addCase(updateUserProfile.fulfilled, (state, action: PayloadAction<User | null>) => {
-				console.log(action);
-				localStorage.setItem('userData', JSON.stringify(action.payload));
-				state.userData = action.payload;
-				window.location.reload();
-			})
+			.addCase(
+				updateUserProfile.fulfilled,
+				(state, action: PayloadAction<User | null>) => {
+					console.log(action);
+					localStorage.setItem('userData', JSON.stringify(action.payload));
+					state.userData = action.payload;
+					window.location.reload();
+				},
+			)
 
 			.addCase(updateUserProfile.rejected, (state, action) => {
 				console.log(action);
 			});
-	}
+	},
 });
 
 export const { setUser, logoutHandler } = authSlice.actions;

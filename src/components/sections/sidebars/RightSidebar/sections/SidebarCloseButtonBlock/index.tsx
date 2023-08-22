@@ -9,9 +9,7 @@ const SidebarCloseButton = (): JSX.Element => {
 	const dispatch = useAppDispatch();
 	return (
 		<div className={styles.sidebar_close__btn}>
-			<CloseIcon
-				onClick={() => dispatch(setRSidebarOpen())}
-			/>
+			<CloseIcon onClick={() => dispatch(setRSidebarOpen())} />
 		</div>
 	);
 };

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 import Popover from '@mui/material/Popover';
 import NotificationContainer from 'components/ui/containers/NotificationContainer';
@@ -6,8 +6,10 @@ import { mobileSelector } from 'store/selectors';
 import IWindowAnchor from 'types/Window';
 import { useAppSelector } from 'store';
 
-
-const NotificationWindow: FC<IWindowAnchor> = ({ anchor, setAnchor }): JSX.Element => {
+const NotificationWindow: FC<IWindowAnchor> = ({
+	anchor,
+	setAnchor,
+}): JSX.Element => {
 	const isMobile: boolean = useAppSelector(mobileSelector);
 
 	const handleClose = (): void => {
@@ -30,8 +32,8 @@ const NotificationWindow: FC<IWindowAnchor> = ({ anchor, setAnchor }): JSX.Eleme
 			}}
 			PaperProps={{
 				style: {
-					backdropFilter: 'blur(5px)'
-				}
+					backdropFilter: 'blur(5px)',
+				},
 			}}
 			open={Boolean(anchor)}
 			anchorEl={anchor}
@@ -45,7 +47,7 @@ const NotificationWindow: FC<IWindowAnchor> = ({ anchor, setAnchor }): JSX.Eleme
 				horizontal: 'center',
 			}}
 		>
-			<NotificationContainer/>
+			<NotificationContainer />
 		</Popover>
 	);
 };

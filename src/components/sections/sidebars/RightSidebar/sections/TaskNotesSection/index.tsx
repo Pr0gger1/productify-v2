@@ -1,12 +1,12 @@
-import React, {ChangeEvent, FC, FormEvent} from 'react';
+import React, { ChangeEvent, FC, FormEvent } from 'react';
 import { updateTaskAsync } from 'store/reducers/TaskSlice';
 
 import TextArea from 'components/ui/input/TextArea';
 import { selectedTaskSelector } from 'store/selectors';
 
 import styles from './styles.module.scss';
-import {ITask} from 'types/TaskData';
-import {useAppDispatch, useAppSelector} from 'store';
+import { ITask } from 'types/TaskData';
+import { useAppDispatch, useAppSelector } from 'store';
 
 const TaskNotesSection: FC = (): JSX.Element => {
 	const dispatch = useAppDispatch();
@@ -16,7 +16,7 @@ const TaskNotesSection: FC = (): JSX.Element => {
 		if (selectedTask) {
 			const taskData: ITask = {
 				...selectedTask,
-				notes: event.target.value
+				notes: event.target.value,
 			};
 
 			dispatch(updateTaskAsync(taskData));
@@ -25,7 +25,9 @@ const TaskNotesSection: FC = (): JSX.Element => {
 
 	const textAreaAdjust = (event: FormEvent<HTMLTextAreaElement>): void => {
 		event.currentTarget.style.height = 'auto';
-		event.currentTarget.style.height = `${event.currentTarget.scrollHeight + 2}px`;
+		event.currentTarget.style.height = `${
+			event.currentTarget.scrollHeight + 2
+		}px`;
 	};
 
 	return (

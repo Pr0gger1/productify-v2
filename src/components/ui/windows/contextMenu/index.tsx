@@ -1,16 +1,20 @@
-import React, {Dispatch, FC, ReactNode, SetStateAction} from 'react';
+import React, { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 
 import { Popover } from '@mui/material';
 import { mobileSelector } from 'store/selectors';
-import {useAppSelector} from 'store/index';
+import { useAppSelector } from 'store';
 
 interface ContextMenuProps {
-    children: ReactNode | JSX.Element,
-    anchorEl: HTMLElement | null,
-    setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>
+	children: ReactNode | JSX.Element;
+	anchorEl: HTMLElement | null;
+	setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>;
 }
 
-const ContextMenu: FC<ContextMenuProps> = ({children, anchorEl, setAnchorEl}) => {
+const ContextMenu: FC<ContextMenuProps> = ({
+	children,
+	anchorEl,
+	setAnchorEl,
+}) => {
 	const isMobile: boolean = useAppSelector(mobileSelector);
 
 	const closeMenuHandler = () => {
@@ -21,7 +25,6 @@ const ContextMenu: FC<ContextMenuProps> = ({children, anchorEl, setAnchorEl}) =>
 		<Popover
 			sx={{
 				'& .MuiPaper-root': {
-                    
 					color: 'var(--fontColor)',
 					borderRadius: '0.25rem',
 					padding: '0.5rem',
@@ -33,15 +36,14 @@ const ContextMenu: FC<ContextMenuProps> = ({children, anchorEl, setAnchorEl}) =>
 				},
 				'& img': {
 					width: '1.3rem',
-					height: '1.3rem'
-				}
+					height: '1.3rem',
+				},
 			}}
 			PaperProps={{
 				style: {
 					backgroundColor: 'var(--bgColorSecond)',
-				}
+				},
 			}}
-            
 			open={Boolean(anchorEl)}
 			anchorEl={anchorEl}
 			onClose={closeMenuHandler}

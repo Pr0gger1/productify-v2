@@ -8,7 +8,7 @@ import { TextField } from '@mui/material';
 
 import { baseGroupIds } from 'store/defaultData/baseGroups';
 import { ITask, ITaskGroup } from 'types/TaskData';
-import { useAppDispatch, useAppSelector } from 'store/index';
+import { useAppDispatch, useAppSelector } from 'store';
 
 import { generateUniqueId } from 'utils/generateUniqueId';
 import { userDataSelector, selectedTaskGroupSelector } from 'store/selectors';
@@ -24,7 +24,9 @@ const CreateTaskButton = () => {
 	const [showButton, setShowButton] = useState<boolean>(true);
 	const [taskName, setTaskName] = useState<string>('');
 
-	const selectedTaskGroup: ITaskGroup = useAppSelector(selectedTaskGroupSelector);
+	const selectedTaskGroup: ITaskGroup = useAppSelector(
+		selectedTaskGroupSelector,
+	);
 	const userData: User | null = useAppSelector(userDataSelector);
 
 	const addTaskHandler = (): void => {
@@ -42,7 +44,7 @@ const CreateTaskButton = () => {
 				category: selectedTaskGroup.title,
 				deadline: null,
 				reminder: null,
-				repeat: null
+				repeat: null,
 			};
 
 			if (selectedTaskGroup.id === baseGroupIds.favorite)
@@ -54,11 +56,10 @@ const CreateTaskButton = () => {
 	};
 
 	const onInputKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
-		const currentValue: string = event.currentTarget.getElementsByTagName('input')[0].value;
-		if (event.key === 'Enter' && currentValue.length)
-			addTaskHandler();
-		else if (event.key === 'Escape')
-			setShowInput(false);
+		const currentValue: string =
+			event.currentTarget.getElementsByTagName('input')[0].value;
+		if (event.key === 'Enter' && currentValue.length) addTaskHandler();
+		else if (event.key === 'Escape') setShowInput(false);
 	};
 
 	const onInputTaskChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -77,7 +78,7 @@ const CreateTaskButton = () => {
 					className={styles.create_task__btn}
 					onClick={() => setShowInput(true)}
 				>
-                    Добавить задачу
+					Добавить задачу
 				</Button>
 			</CSSTransition>
 
@@ -90,18 +91,14 @@ const CreateTaskButton = () => {
 				unmountOnExit
 			>
 				<div className={styles.add_task_input__container}>
-					{
-						taskName.length ?
-							<ConfirmationButton
-								variant="ok"
-								onClick={addTaskHandler}
-							/>
-							:
-							<ConfirmationButton
-								variant="cancel"
-								onClick={() => setShowInput(false)}
-							/>
-					}
+					{taskName.length ? (
+						<ConfirmationButton variant="ok" onClick={addTaskHandler} />
+					) : (
+						<ConfirmationButton
+							variant="cancel"
+							onClick={() => setShowInput(false)}
+						/>
+					)}
 					<TextField
 						className={styles.add_task__btn}
 						value={taskName}
@@ -111,8 +108,8 @@ const CreateTaskButton = () => {
 							width: '100%',
 							border: '1px solid transparent',
 							'& .MuiInputBase-input': {
-								color: 'var(--fontColor)'
-							}
+								color: 'var(--fontColor)',
+							},
 						}}
 					/>
 					{/*<InputField*/}

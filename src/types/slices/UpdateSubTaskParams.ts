@@ -1,9 +1,9 @@
-import {ISubTask} from '../TaskData';
+import { ISubTask } from '../TaskData';
 
 interface UpdateSubTaskParams {
-    taskId: string,
-    subTaskId: string,
-    subTaskData: ISubTask
+	taskId: string;
+	subTaskId: string;
+	subTaskData: ISubTask;
 }
 
-export type {UpdateSubTaskParams};
+export type { UpdateSubTaskParams };

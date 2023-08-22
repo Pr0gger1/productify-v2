@@ -1,38 +1,38 @@
 %date__btn {
-  background-size: 1.75rem 1.75rem;
-  background-repeat: no-repeat;
-  background-position: 2.5% 50%;
-  background-color: var(--bgColorFirst);
+	background-size: 1.75rem 1.75rem;
+	background-repeat: no-repeat;
+	background-position: 2.5% 50%;
+	background-color: var(--bgColorFirst);
 
-  padding: 1rem 1rem 1rem 3.5rem;
+	padding: 1rem 1rem 1rem 3.5rem;
 
-  border-radius: 0.25rem;
-  overflow: visible;
-  cursor: pointer;
+	border-radius: 0.25rem;
+	overflow: visible;
+	cursor: pointer;
 }
 
 .date_and_repeat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
 
-  .deadline__btn {
-    background-image: url("../../../../../../assets/img/icons/deadline.svg");
-    @extend %date__btn;
-  }
+	.deadline__btn {
+		background-image: url('../../../../../../assets/img/icons/deadline.svg');
+		@extend %date__btn;
+	}
 
-  .reminder__btn {
-    background-image: url("../../../../../../assets/img/icons/reminder_icon.svg");
-    @extend %date__btn;
-  }
+	.reminder__btn {
+		background-image: url('../../../../../../assets/img/icons/reminder_icon.svg');
+		@extend %date__btn;
+	}
 
-  .date__container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+	.date__container {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 
-    div {
-      flex-grow: 1;
-    }
-  }
+		div {
+			flex-grow: 1;
+		}
+	}
 }

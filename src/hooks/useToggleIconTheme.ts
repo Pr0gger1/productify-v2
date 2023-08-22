@@ -7,8 +7,7 @@ const useToggleIconTheme = (lightIcon: string, darkIcon: string) => {
 	const currentTheme: ThemeType = useAppSelector(themeSelector);
 
 	return useMemo((): string => {
-		if (currentTheme === 'light')
-			return lightIcon;
+		if (currentTheme === 'light') return lightIcon;
 		else return darkIcon;
 	}, [darkIcon, lightIcon, currentTheme]);
 };

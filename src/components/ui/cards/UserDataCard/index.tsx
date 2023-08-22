@@ -1,14 +1,14 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { userDataSelector } from 'store/selectors';
 import { Avatar } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 
 import styles from './styles.module.scss';
-import {User} from 'firebase/auth';
-import {useAppSelector} from 'store';
+import { User } from 'firebase/auth';
+import { useAppSelector } from 'store';
 
 interface UserDataCardProps {
-    userAvatar?: string
+	userAvatar?: string;
 }
 
 const UserDataCard: FC<UserDataCardProps> = ({ userAvatar }): JSX.Element => {
@@ -26,32 +26,26 @@ const UserDataCard: FC<UserDataCardProps> = ({ userAvatar }): JSX.Element => {
 
 	return (
 		<section className={styles.user__card}>
-			{
-				userData ?
-					<Avatar
-						sx={{width: 40, height: 40}}
-						alt="avatar"
-						src={userAvatar || (userData?.photoURL ?? '')}
-					/>
-					:
-					<Skeleton
-						variant="circular"
-						width={40}
-						height={40}
-					/>
-			}
-			{
-				username.length > 0 && email.length > 0 ?
-					<div className={styles.user__card__info}>
-						<span className={styles.user__card__name}>{username}</span>
-						<span className={styles.user__card__email}>{email}</span>
-					</div>
-					:
-					<div className={styles.loading}>
-						<Skeleton animation="wave" width={200}/>
-						<Skeleton animation="wave" width={150}/>
-					</div>
-			}
+			{userData ? (
+				<Avatar
+					sx={{ width: 40, height: 40 }}
+					alt="avatar"
+					src={userAvatar || (userData?.photoURL ?? '')}
+				/>
+			) : (
+				<Skeleton variant="circular" width={40} height={40} />
+			)}
+			{username.length > 0 && email.length > 0 ? (
+				<div className={styles.user__card__info}>
+					<span className={styles.user__card__name}>{username}</span>
+					<span className={styles.user__card__email}>{email}</span>
+				</div>
+			) : (
+				<div className={styles.loading}>
+					<Skeleton animation="wave" width={200} />
+					<Skeleton animation="wave" width={150} />
+				</div>
+			)}
 		</section>
 	);
 };

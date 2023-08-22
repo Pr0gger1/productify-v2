@@ -1,22 +1,22 @@
-import React, {Dispatch, FC, SetStateAction} from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import { updateTaskAsync } from 'store/reducers/TaskSlice';
 
 import DeleteButton from 'components/ui/buttons/DeleteButton';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
-import { LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { ruRU } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
 import { selectedTaskSelector } from 'store/selectors';
 
 import styles from '../sections/TaskDatesSection/styles.module.scss';
-import {useAppDispatch, useAppSelector} from 'store';
-import {ITask} from 'types/TaskData';
+import { useAppDispatch, useAppSelector } from 'store';
+import { ITask } from 'types/TaskData';
 
 interface DeadlinePickerProps {
-    setShowDeadlinePicker: Dispatch<SetStateAction<boolean>>
+	setShowDeadlinePicker: Dispatch<SetStateAction<boolean>>;
 }
 
 const DeadlinePicker: FC<DeadlinePickerProps> = ({ setShowDeadlinePicker }) => {
@@ -28,11 +28,10 @@ const DeadlinePicker: FC<DeadlinePickerProps> = ({ setShowDeadlinePicker }) => {
 			const taskData = {
 				...selectedTask,
 				deadline: value.toDate().getTime(),
-				isDeadlineNotified: false
+				isDeadlineNotified: false,
 			};
 
-			if (selectedTask.repeat)
-				taskData.repeat = null;
+			if (selectedTask.repeat) taskData.repeat = null;
 
 			dispatch(updateTaskAsync(taskData));
 		}
@@ -42,48 +41,49 @@ const DeadlinePicker: FC<DeadlinePickerProps> = ({ setShowDeadlinePicker }) => {
 		if (selectedTask) {
 			const taskData: ITask = {
 				...selectedTask,
-				deadline: null
+				deadline: null,
 			};
 
 			delete taskData.isDeadlineNotified;
 
-			if (selectedTask.repeat)
-				taskData.repeat = null;
+			if (selectedTask.repeat) taskData.repeat = null;
 
 			dispatch(updateTaskAsync(taskData));
 			setShowDeadlinePicker(false);
 		}
 	};
 
-
 	return (
 		<div className={styles.date__container}>
 			<LocalizationProvider
 				dateAdapter={AdapterDayjs}
-				localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}
+				localeText={
+					ruRU.components.MuiLocalizationProvider.defaultProps.localeText
+				}
 			>
 				<MobileDateTimePicker
 					label={'Дата выполнения'}
 					value={dayjs(selectedTask?.deadline ?? new Date())}
-					onChange={async (val: dayjs.Dayjs | null) => await onDeadlineChange(val)}
-					sx = {{
+					onChange={async (val: dayjs.Dayjs | null) =>
+						await onDeadlineChange(val)
+					}
+					sx={{
 						label: {
-							color: 'var(--fontColor)'
+							color: 'var(--fontColor)',
 						},
 						'.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
 							color: 'var(--fontColor)',
 						},
 						'.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root': {
-							border: '1px solid var(--borderColor)'
-						}
+							border: '1px solid var(--borderColor)',
+						},
 					}}
 					ampm={false}
-                    
 				/>
 			</LocalizationProvider>
 			<DeleteButton
 				sx={{
-					padding: 2
+					padding: 2,
 				}}
 				onClick={deleteDeadlineHandler}
 			/>
