@@ -5,7 +5,7 @@ import {
 	updateDoc,
 	DocumentData,
 } from 'firebase/firestore';
-import { db } from 'firebase.config';
+import { db } from '../firebase.config';
 
 import { generateUniqueId } from 'utils/generateUniqueId';
 import { initialGroup } from 'store/defaultData/baseGroups';

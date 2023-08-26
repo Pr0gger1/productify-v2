@@ -1,5 +1,5 @@
 @mixin srcFont($url) {
-	src: local('Montserrat'), url('~assets/fonts/' + $url);
+	src: local('Montserrat'), url('/src/assets/fonts/' + $url);
 }
 
 @font-face {

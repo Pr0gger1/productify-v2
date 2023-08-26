@@ -1,6 +1,6 @@
 // Set this to true for production
-var doCache = true;
-var CACHE_NAME = 'productify-cache';
+let doCache = true;
+let CACHE_NAME = 'productify-cache';
 
 // Delete old caches that are not our current one!
 // eslint-disable-next-line no-restricted-globals

@@ -1,11 +1,11 @@
-@import 'styles/index';
+@import 'src/styles/index';
 
 .create_task__btn {
 	background-size: 1.5rem 1.5rem !important;
 	background-color: var(--bgButtonColor);
 	background-repeat: no-repeat;
 	background-position: 6% 50%;
-	background-image: url('~assets/img/icons/add_task_btn.svg');
+	background-image: url('/src/assets/img/icons/add_task_btn.svg');
 
 	max-width: 15rem;
 	min-width: 10rem;

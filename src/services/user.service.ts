@@ -1,5 +1,5 @@
 import { updateProfile } from 'firebase/auth';
-import { auth, storage } from 'firebase.config';
+import { auth, storage } from '../firebase.config';
 
 import { getDownloadURL, ref } from 'firebase/storage';
 import { User } from 'firebase/auth';

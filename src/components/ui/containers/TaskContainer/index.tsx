@@ -41,20 +41,18 @@ const TaskContainer = () => {
 	const tasks: ITask[] = useAppSelector(tasksSelector);
 	const user = useAppSelector(userDataSelector);
 	// const userId = JSON.parse(localStorage.getItem('userData') ?? '');
-	console.log(user);
 
-	const { data, isLoading } = useQuery(['tasks'], async () => {
+	const {  isLoading } = useQuery(['tasks'], async () => {
 		if (user) return await TaskService.getUserTasks(user.uid);
 		return undefined;
 	});
-	console.log(data);
+	// console.log(data);
 
 	// const tasks: ITask[] | undefined | null = data?.taskData;
 
 	const filter: FilterStates = useAppSelector(filterSelector);
 
 	const currentGroupTasks: ITask[] = useAppSelector(currentGroupTasksSelector);
-	console.log(currentGroupTasks);
 	const selectedTaskGroup: ITaskGroup = useAppSelector(
 		selectedTaskGroupSelector,
 	);
