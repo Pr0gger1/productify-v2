@@ -111,9 +111,9 @@ const TaskGroupMenuList: FC = (): JSX.Element => {
 					<Tooltip title={taskFilter.desc ? 'По возрастанию' : 'По убыванию'}>
 						<span onClick={toggleFilterModeHandler}>
 							{taskFilter.desc ? (
-								<img src={filterModeIconUp} alt="по возрастанию" />
+								<img src={filterModeIconUp} alt="по возрастанию" loading="lazy" />
 							) : (
-								<img src={filterModeIconDown} alt="по убыванию" />
+								<img src={filterModeIconDown} alt="по убыванию" loading="lazy" />
 							)}
 						</span>
 					</Tooltip>
@@ -151,6 +151,7 @@ const TaskGroupMenuList: FC = (): JSX.Element => {
 							src={editIcon}
 							alt="Переименовать список"
 							onClick={onEditGroupTitleClick}
+							loading="lazy"
 						/>
 						{showEditInput ? (
 							<>

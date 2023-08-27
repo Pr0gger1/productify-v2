@@ -14,16 +14,11 @@ const appId: string | undefined = import.meta.env.VITE_APP_ID_FIREBASE;
 const apiKey: string | undefined = import.meta.env.VITE_API_KEY_FIREBASE;
 const vapidKey: string | undefined = import.meta.env.VITE_VAPID_KEY;
 const projectId: string | undefined = import.meta.env.VITE_PROJECT_ID_FIREBASE;
-const authDomain: string | undefined =
-	import.meta.env.VITE_AUTH_DOMAIN_FIREBASE;
-const databaseURL: string | undefined =
-	import.meta.env.VITE_DATABASE_URL_FIREBASE;
-const storageBucket: string | undefined =
-	import.meta.env.VITE_STORAGE_BUCKET_FIREBASE;
-const measurementId: string | undefined =
-	import.meta.env.VITE_MEASUREMENT_ID_FIREBASE;
-const messagingSenderId: string | undefined =
-	import.meta.env.VITE_MESSAGING_SENDER_ID_FIREBASE;
+const authDomain: string | undefined = import.meta.env.VITE_AUTH_DOMAIN_FIREBASE;
+const databaseURL: string | undefined = import.meta.env.VITE_DATABASE_URL_FIREBASE;
+const storageBucket: string | undefined = import.meta.env.VITE_STORAGE_BUCKET_FIREBASE;
+const measurementId: string | undefined = import.meta.env.VITE_MEASUREMENT_ID_FIREBASE;
+const messagingSenderId: string | undefined = import.meta.env.VITE_MESSAGING_SENDER_ID_FIREBASE;
 
 export const firebaseConfig = {
 	apiKey,

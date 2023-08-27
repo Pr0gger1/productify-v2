@@ -9,9 +9,6 @@ src/stories/*
 # file environment
 **/.env
 
-# firebase service worker
-/public/firebase-messaging-sw.js
-
 #production bundle
 **/dist
 **/build

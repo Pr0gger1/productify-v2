@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { auth } from 'src/firebase.config';
+import { auth } from '@/firebase.config';
 import { signOut, User } from 'firebase/auth';
 import { AuthService } from 'services/auth.service';
 import { UserService } from 'services/user.service';
