@@ -1,6 +1,9 @@
 /node_modules/
 /.idea
 /.code
+/build
+/dist
 
 .eslintrc.cjs
+vite.config.ts
 tsconfig.json

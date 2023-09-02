@@ -15,7 +15,6 @@ import { ITaskGroup, ITaskGroups } from 'types/TaskData';
 const TaskGroupContainer = () => {
 	const dispatch = useAppDispatch();
 	const navigate: NavigateFunction = useNavigate();
-
 	const taskGroups: ITaskGroups = useAppSelector(taskGroupsSelector);
 
 	const onClickGroupHandler = (group: ITaskGroup): void => {

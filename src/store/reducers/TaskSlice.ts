@@ -231,7 +231,6 @@ const taskSlice = createSlice({
 
 					TaskService.updateUserTasks(state.tasks, action.payload.userId).catch(
 						error => {
-							console.log(error);
 							state.tasks = oldTaskState;
 							state.selectedTask = oldSelectedTaskState;
 						},
@@ -253,7 +252,6 @@ const taskSlice = createSlice({
 					if (action.payload.taskData) {
 						state.tasks = action.payload.taskData;
 						state.loading = false;
-						// console.log(action);
 					}
 				},
 			)
@@ -261,7 +259,6 @@ const taskSlice = createSlice({
 			.addCase(getUserTasks.rejected, (state, action): void => {
 				state.fetchError = action.error;
 				state.loading = false;
-				// console.log(action)
 			});
 	},
 });

@@ -89,6 +89,7 @@ const initialState: ITaskGroupStates = {
 		custom: [],
 	},
 	loading: false,
+	error: null,
 };
 
 const taskGroupSlice = createSlice({
@@ -144,13 +145,12 @@ const taskGroupSlice = createSlice({
 			})
 
 			.addCase(renameCustomTaskGroupAsync.fulfilled, (state, action) => {
-				console.log(action);
 				state.allTaskGroups.custom = action.payload.taskGroups;
 				state.selectedTaskGroup = action.payload.selectedTaskGroup;
 			})
 
 			.addCase(renameCustomTaskGroupAsync.rejected, (state, action) => {
-				console.log(action);
+				state.error = `Произошла ошибка при переименовании группы: ${action.error}`;
 			});
 	},
 });

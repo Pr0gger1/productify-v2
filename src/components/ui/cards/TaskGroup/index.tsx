@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useAppSelector } from 'store';
 import useGroupTasks from 'hooks/useGroupTasks';
 
@@ -24,7 +24,7 @@ const TaskGroup: FC<TaskGroupProps> = ({ data, onClick }) => {
 	const tasks: ITask[] = useAppSelector(tasksSelector);
 	const setCurrentTasks: ITask[] = useGroupTasks(tasks, data);
 
-	useMemo((): void => {
+	useEffect((): void => {
 		const count: number = setCurrentTasks.length;
 		setTasksCount(count);
 	}, [setCurrentTasks]);

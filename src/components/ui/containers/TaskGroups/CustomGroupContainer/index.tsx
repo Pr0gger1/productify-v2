@@ -5,14 +5,14 @@ import Skeleton from '@mui/material/Skeleton';
 import TaskGroup from 'components/ui/cards/TaskGroup';
 
 import { RootState, useAppSelector } from 'store';
+import { ITaskGroup } from 'types/TaskData';
 import {
 	mobileSelector,
 	leftSidebarSelector,
 	selectedTaskGroupSelector,
 } from 'store/selectors';
 
-import styles from '../TaskGroupContainer/styles.module.scss';
-import { ITaskGroup } from 'types/TaskData';
+import styles from 'components/ui/containers/TaskGroups/TaskGroupContainer/styles.module.scss';
 
 interface CustomGroupsProps {
 	taskGroups: ITaskGroup[];

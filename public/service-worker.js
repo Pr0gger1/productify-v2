@@ -30,8 +30,7 @@ self.addEventListener('install', function (event) {
 				// This is because webpack hashes it
 				fetch('asset-manifest.json')
 					.then(response => {
-						if (response.ok)
-							return response.json();
+						if (response.ok) return response.json();
 					})
 					.then(assets => {
 						// Open a cache and cache our files

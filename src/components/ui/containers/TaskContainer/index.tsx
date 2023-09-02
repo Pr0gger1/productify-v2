@@ -16,16 +16,13 @@ import {
 	filterSelector,
 	selectedTaskGroupSelector,
 	tasksSelector,
-	userDataSelector,
 } from 'store/selectors';
 
 import 'components/ui/animations/Task/TaskAnimation.css';
-import { useAppDispatch, useAppSelector } from 'store';
+import { RootState, useAppDispatch, useAppSelector } from 'store';
 import { ITask, ITaskGroup } from 'types/TaskData';
 import { FilterStates } from 'types/Filter';
 import styles from './styles.module.scss';
-import { TaskService } from 'services/task.service';
-import { useQuery } from '@tanstack/react-query';
 
 const NoTasksMessage: FC = (): JSX.Element => {
 	return (
@@ -39,17 +36,6 @@ const TaskContainer = () => {
 	const dispatch = useAppDispatch();
 
 	const tasks: ITask[] = useAppSelector(tasksSelector);
-	const user = useAppSelector(userDataSelector);
-	// const userId = JSON.parse(localStorage.getItem('userData') ?? '');
-
-	const {  isLoading } = useQuery(['tasks'], async () => {
-		if (user) return await TaskService.getUserTasks(user.uid);
-		return undefined;
-	});
-	// console.log(data);
-
-	// const tasks: ITask[] | undefined | null = data?.taskData;
-
 	const filter: FilterStates = useAppSelector(filterSelector);
 
 	const currentGroupTasks: ITask[] = useAppSelector(currentGroupTasksSelector);
@@ -73,21 +59,20 @@ const TaskContainer = () => {
 	);
 
 	const isCompletedGroup: boolean = selectedTaskGroup.id === 'completed';
-
-	// const taskLoading: boolean = useAppSelector(
-	// 	(state: RootState) => state.taskStates.loading
-	// );
+	const taskLoading: boolean = useAppSelector(
+		(state: RootState) => state.taskStates.loading,
+	);
 
 	useNotification();
 	useEffect((): void => {
 		dispatch(setCurrentGroupTasks(setCurrentTasks));
 	}, [dispatch, selectedTaskGroup, tasks]);
 
-	if (!isLoading)
+	if (!taskLoading)
 		return (
 			<div className={styles.tasks__container}>
 				{!isCompletedGroup && <CreateTaskButton />}
-				{isLoading ? (
+				{taskLoading ? (
 					<CircularProgress sx={{ margin: '0 auto' }} />
 				) : (
 					<>

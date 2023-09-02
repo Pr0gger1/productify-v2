@@ -12,6 +12,7 @@ import { MessagePayload } from 'firebase/messaging';
 import { useAppDispatch, useAppSelector } from 'store';
 import { IBrowserNotification } from 'types/Notification';
 import { ThemeType } from 'types/slices/SliceStates';
+import { Logger } from '@/utils/Logger';
 
 const getUserFromLocalStorage = (): User | null => {
 	const user: string | null = localStorage.getItem('userData');
@@ -33,7 +34,7 @@ function App(): JSX.Element {
 
 	onMessageListener().then((payload: MessagePayload): void => {
 		if (payload?.notification) {
-			console.log(payload);
+			Logger.log(payload);
 			const options: IBrowserNotification = {
 				title: payload.notification?.title,
 				body: payload.notification?.body,

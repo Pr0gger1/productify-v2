@@ -19,6 +19,7 @@ interface ITaskGroupStates {
 	selectedTaskGroup: ITaskGroup;
 	allTaskGroups: ITaskGroups;
 	loading: boolean;
+	error: null | string;
 }
 
 interface ISidebarStates {

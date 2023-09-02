@@ -22,8 +22,6 @@ export class UserService {
 			newData.photoURL = await getDownloadURL(storageRef);
 		}
 
-		console.log(newData);
-		console.log(auth.currentUser);
 
 		if (Object.keys(newData).length)
 			return updateProfile(userInstance, { ...newData })

@@ -8,6 +8,8 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:react/recommended',
+		'plugin:storybook/recommended',
+		'prettier'
 	],
 	overrides: [
 		{
@@ -27,11 +29,15 @@ module.exports = {
 	},
 	plugins: [
 		'@typescript-eslint',
+		'eslint-plugin-storybook',
 		'react',
+		'prettier'
 	],
 	rules: {
 		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/no-var-requires': 'off',
+		'@typescript-eslint/no-unused-vars': 'warn',
+		'react/no-unescaped-entities': 'warn',
 		'no-extra-semi': 'off',
 		'indent': 'off',
 		'keyword-spacing': 'error',
