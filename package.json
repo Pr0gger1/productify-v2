@@ -10,7 +10,6 @@
 		"preview": "vite preview",
 		"predeploy": "npm run build:prod",
 		"deploy": "firebase deploy",
-		"precommit": "lint-staged",
 		"prettier": "npx prettier . --write",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build"
@@ -86,6 +85,11 @@
 		"typescript-plugin-css-modules": "^5.0.1",
 		"vite": "^4.4.9",
 		"vite-plugin-html": "^3.2.0"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
 	},
 	"lint-staged": {
 		"*.{ts, tsx}": [
