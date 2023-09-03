@@ -1,4 +1,4 @@
-import React, { Component, Dispatch, ReactNode, useState } from 'react';
+import React, { Component, ReactNode } from 'react';
 import Header from 'components/sections/header';
 import { HeaderContext } from 'context/HeaderContext';
 import styles from './styles.module.scss';
