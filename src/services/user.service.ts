@@ -22,7 +22,6 @@ export class UserService {
 			newData.photoURL = await getDownloadURL(storageRef);
 		}
 
-
 		if (Object.keys(newData).length)
 			return updateProfile(userInstance, { ...newData })
 				.then(() => {

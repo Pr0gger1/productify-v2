@@ -11,6 +11,7 @@
 		"predeploy": "npm run build:prod",
 		"deploy": "firebase deploy",
 		"prettier": "npx prettier . --write",
+		"precommit": "npx lint-staged",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build"
 	},
@@ -92,7 +93,7 @@
 		}
 	},
 	"lint-staged": {
-		"*.{ts, tsx}": [
+		"*.{js,jsx}": [
 			"prettier --write",
 			"git add"
 		]

@@ -32,7 +32,7 @@ class AppLayout extends Component<AppProviderProps, AppProviderState> {
 		console.log(error);
 		this.setState({
 			isRenderError: true,
-			errorMessage: errorInfo.componentStack.toString()
+			errorMessage: errorInfo.componentStack.toString(),
 		});
 	}
 
@@ -45,15 +45,14 @@ class AppLayout extends Component<AppProviderProps, AppProviderState> {
 				value={{ showHeader, setShowHeader: this.setShowHeader }}
 			>
 				<main className={styles.main__container}>
-					{
-						!isRenderError ?
-							<>
+					{!isRenderError ? (
+						<>
 							{showHeader && <Header />}
 							{children}
-							</>
-						:
+						</>
+					) : (
 						<ErrorPage />
-					}
+					)}
 				</main>
 			</HeaderContext.Provider>
 		);

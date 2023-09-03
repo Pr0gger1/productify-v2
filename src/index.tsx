@@ -55,21 +55,20 @@ if ('serviceWorker' in navigator) {
 	});
 }
 
-
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement,
 );
 
 root.render(
 	<React.StrictMode>
-			<BrowserRouter>
-				<ReduxProvider store={store}>
-					<AppLayout>
-						<SnackbarProvider>
-							<App />
-						</SnackbarProvider>
-					</AppLayout>
-				</ReduxProvider>
-			</BrowserRouter>
+		<BrowserRouter>
+			<ReduxProvider store={store}>
+				<AppLayout>
+					<SnackbarProvider>
+						<App />
+					</SnackbarProvider>
+				</AppLayout>
+			</ReduxProvider>
+		</BrowserRouter>
 	</React.StrictMode>,
 );
