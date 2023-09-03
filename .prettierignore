@@ -4,6 +4,6 @@
 /build
 /dist
 
-.eslintrc.cjs
+.eslintrc.json
 vite.config.ts
 tsconfig.json
